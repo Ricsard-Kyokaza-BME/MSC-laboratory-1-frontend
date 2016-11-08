@@ -1,0 +1,10 @@
+{
+  "generator-ng-fullstack": {
+    "username": "ricsard",
+    "appName": "AgileTool",
+    "stack": "client",
+    "server": "",
+    "client": "ng2",
+    "secure": false
+  }
+}
