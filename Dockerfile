@@ -14,12 +14,10 @@ RUN \
      && sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs.move/ ./lib/utils/rename.js && \
     npm install gulp-cli && \
     npm install typescript && \
-    npm install typings && \
     npm install babel && \
     npm install mocha && \
     npm install istanbul && \
     npm install && \
-    typings install
 
 # The command to run our app when the container is run
 CMD ["npm", "run-script", "start"]
