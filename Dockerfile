@@ -1,5 +1,5 @@
 # This image will be based on the official nodejs docker image
-FROM node:argon
+FROM node:boron
 
 # Set in what directory commands will run
 WORKDIR /home/app
