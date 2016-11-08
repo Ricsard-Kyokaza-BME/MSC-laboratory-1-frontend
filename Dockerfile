@@ -17,7 +17,7 @@ RUN \
     npm install babel && \
     npm install mocha && \
     npm install istanbul && \
-    npm install && \
+    npm install
 
 # The command to run our app when the container is run
 CMD ["npm", "run-script", "start"]
