@@ -1,6 +1,6 @@
 {
     "quiet": true,
-    "port": 3000,
+    "port": 8113,
     "secure": false,
     "pathIndex": "client/dev",
     "only": "client/dev/**/*",
