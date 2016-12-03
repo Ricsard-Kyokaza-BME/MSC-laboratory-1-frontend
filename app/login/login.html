@@ -1,0 +1,26 @@
+<div>
+  <form class="todo-form"
+        action="/api/login"
+        method="post">
+
+    <h1 class="todo-title">Login</h1>
+
+    <input type="text"
+           name="username"
+           [(ngModel)]="loginObject.username"
+           [class.todo-error]="!loginObject.username.length"
+           placeholder="Username"
+           required
+           autofocus />
+
+    <input type="password"
+           name="password"
+           [(ngModel)]="loginObject.password"
+           [class.todo-error]="!loginObject.password.length"
+           placeholder="Password"
+           required />
+
+    <button type="submit">Login</button>
+  </form>
+  <button (click)="secure()">Login</button>
+</div>

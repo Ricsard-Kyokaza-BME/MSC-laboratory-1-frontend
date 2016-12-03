@@ -1,0 +1,18 @@
+<div class="dashboard-main">
+  <div class='dashboard-container' [dragula]='"another-bag"' [dragulaModel]='items'>
+    <div *ngFor='let text of items' [innerHtml]='text.name'
+         style="padding: 15px; border: 1px solid #EEEEEE"></div>
+  </div>
+  <div class='dashboard-container' [dragula]='"another-bag"' [dragulaModel]='items2'>
+    <div *ngFor='let text of items2' [innerHtml]='text.name'
+         style="padding: 15px; border: 1px solid #EEEEEE"></div>
+  </div>
+  <div class='dashboard-container' [dragula]='"another-bag"' [dragulaModel]='items'>
+    <div *ngFor='let text of items' [innerHtml]='text.name'
+         style="padding: 15px; border: 1px solid #EEEEEE"></div>
+  </div>
+  <div class='dashboard-container' [dragula]='"another-bag"' [dragulaModel]='items2'>
+    <div *ngFor='let text of items2' [innerHtml]='text.name'
+         style="padding: 15px; border: 1px solid #EEEEEE"></div>
+  </div>
+</div>
