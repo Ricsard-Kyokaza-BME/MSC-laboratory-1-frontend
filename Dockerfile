@@ -13,7 +13,7 @@ RUN \
      && npm install fs-extra \
      && sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs.move/ ./lib/utils/rename.js && \
     npm install -g gulp-cli && \
-    npm install -g typescript && \
+    npm install -g typescript@2.0.0 && \
     npm install -g tsc && \
     npm install -g babel && \
     npm install
