@@ -12,6 +12,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {ButtonModule} from "primeng/components/button/button";
 import {PanelModule} from "primeng/components/panel/panel";
+import {DndModule} from "ng2-dnd";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     MaterialModule.forRoot(),
     InputTextModule,
     ButtonModule,
-    PanelModule
+    PanelModule,
+    DndModule.forRoot()
   ],
   declarations: [
     AppComponent,

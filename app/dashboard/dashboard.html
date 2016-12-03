@@ -1,18 +1,106 @@
-<div class="dashboard-main">
-  <div class='dashboard-container' [dragula]='"another-bag"' [dragulaModel]='items'>
-    <div *ngFor='let text of items' [innerHtml]='text.name'
-         style="padding: 15px; border: 1px solid #EEEEEE"></div>
+<!--<div class="dashboard-main card-panel">-->
+  <!--<div class="dashboard-container">-->
+    <!--<span>Backlog Items</span>-->
+    <!--<ul class="collection" [dragula]='"another-bag"' [dragulaModel]='items'>-->
+      <!--<li class="collection-item dashboard-container-item" *ngFor='let text of items' [innerHtml]='text.name'-->
+          <!--style="padding: 15px; border: 1px solid #EEEEEE"></li>-->
+    <!--</ul>-->
+  <!--</div>-->
+
+  <!--<div class="dashboard-container">-->
+    <!--<span>Todo</span>-->
+    <!--<ul class="collection" [dragula]='"another-bag"' [dragulaModel]='items2'>-->
+      <!--<li class="collection-item dashboard-container-item" *ngFor='let text of items2' [innerHtml]='text.name'-->
+          <!--style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #E84B30"></li>-->
+    <!--</ul>-->
+  <!--</div>-->
+
+  <!--<div class="dashboard-container">-->
+    <!--<span>In Progress</span>-->
+    <!--<ul class="collection" [dragula]='"another-bag"' [dragulaModel]='items'>-->
+      <!--<li class="collection-item dashboard-container-item" *ngFor='let text of items' [innerHtml]='text.name'-->
+          <!--style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #FFD432"></li>-->
+    <!--</ul>-->
+  <!--</div>-->
+
+  <!--<div class="dashboard-container">-->
+    <!--<span>Done</span>-->
+    <!--<ul class="collection" [dragula]='"another-bag"' [dragulaModel]='items2'>-->
+      <!--<li class="collection-item dashboard-container-item" *ngFor='let text of items2' [innerHtml]='text.name'-->
+          <!--style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #AECE38"></li>-->
+    <!--</ul>-->
+  <!--</div>-->
+<!--</div>-->
+
+<div class="dashboard-main card-panel">
+  <div class="dashboard-container">
+    <span>Backlog Items</span>
+    <ul class="collection">
+      <li class="collection-item dashboard-container-item"
+          *ngFor="let product of availableProducts"
+          dnd-draggable [dragEnabled]="product" [dragData]="product"
+          (onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']"
+          style="padding: 15px; border: 1px solid #EEEEEE">{{product.name}}</li>
+    </ul>
   </div>
-  <div class='dashboard-container' [dragula]='"another-bag"' [dragulaModel]='items2'>
-    <div *ngFor='let text of items2' [innerHtml]='text.name'
-         style="padding: 15px; border: 1px solid #EEEEEE"></div>
+
+  <div class="dashboard-container">
+    <span>Todo</span>
+    <ul class="collection" dnd-droppable (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']">
+      <li class="collection-item dashboard-container-item"
+          *ngFor='let product of shoppingBasket'
+          style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #E84B30">{{product.name}}</li>
+    </ul>
   </div>
-  <div class='dashboard-container' [dragula]='"another-bag"' [dragulaModel]='items'>
-    <div *ngFor='let text of items' [innerHtml]='text.name'
-         style="padding: 15px; border: 1px solid #EEEEEE"></div>
-  </div>
-  <div class='dashboard-container' [dragula]='"another-bag"' [dragulaModel]='items2'>
-    <div *ngFor='let text of items2' [innerHtml]='text.name'
-         style="padding: 15px; border: 1px solid #EEEEEE"></div>
-  </div>
+
+  <!--<div class="dashboard-container">-->
+    <!--<span>In Progress</span>-->
+    <!--<ul class="collection" [dragula]='"another-bag"' [dragulaModel]='items'>-->
+      <!--<li class="collection-item dashboard-container-item" *ngFor='let text of items' [innerHtml]='text.name'-->
+          <!--style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #FFD432"></li>-->
+    <!--</ul>-->
+  <!--</div>-->
+
+  <!--<div class="dashboard-container">-->
+    <!--<span>Done</span>-->
+    <!--<ul class="collection" [dragula]='"another-bag"' [dragulaModel]='items2'>-->
+      <!--<li class="collection-item dashboard-container-item" *ngFor='let text of items2' [innerHtml]='text.name'-->
+          <!--style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #AECE38"></li>-->
+    <!--</ul>-->
+  <!--</div>-->
 </div>
+
+
+<!--<div class="row">-->
+  <!--<div class="col-sm-3">-->
+    <!--<div class="panel panel-success">-->
+      <!--<div class="panel-heading">Available products</div>-->
+      <!--<ul class="collection">-->
+        <!--<li *ngFor="let product of availableProducts" class="collection-item dashboard-container-item"-->
+             <!--dnd-draggable [dragEnabled]="product" [dragData]="product"-->
+             <!--(onDragSuccess)="orderedProduct($event)" [dropZones]="['demo1']">-->
+          <!--<div class="panel-body">-->
+            <!--<div [hidden]="product.quantity===0">{{product.name}} - \${{product.cost}}-->
+              <!--<br>(available: {{product.quantity}})</div>-->
+            <!--<div [hidden]="product.quantity>0"><del>{{product.name}}</del>-->
+              <!--<br>(NOT available)</div>-->
+          <!--</div>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="col-sm-3">-->
+    <!--<div dnd-droppable (onDropSuccess)="addToBasket($event)" [dropZones]="['demo1']"-->
+         <!--class="panel panel-info">-->
+      <!--<div class="panel-heading">Shopping Basket<br>(to pay: \${{totalCost()}})</div>-->
+      <!--<div class="panel-body">-->
+        <!--<div *ngFor="let product of shoppingBasket" class="panel panel-default">-->
+          <!--<div class="panel-body">-->
+            <!--{{product.name}}<br>(ordered: {{product.quantity}}-->
+            <!--<br>cost: \${{product.cost * product.quantity}})-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->

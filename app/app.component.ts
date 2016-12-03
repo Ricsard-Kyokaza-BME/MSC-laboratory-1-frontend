@@ -3,10 +3,15 @@ import {SessionService} from "./auth/session.service";
 
 @Component({
     selector: 'my-app',
-    template: `<h1 class="title">Angular Router</h1>
-    <nav>
-      <a *ngIf="isSignedIn == false" href="/" routerLinkActive="active">Login</a>
-      <a *ngIf="isSignedIn == true" href="/logout" routerLinkActive="active">Logout</a>
+    template: `
+    <nav class="blue-grey">
+      <div class="nav-wrapper">
+      <span>Agile Tool</span>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li *ngIf="isSignedIn == false"><a href="/" routerLinkActive="active">Login</a></li>
+          <li *ngIf="isSignedIn == true"><a href="/logout" routerLinkActive="active">Logout</a></li>
+        </ul>
+      </div>
     </nav>
     <router-outlet></router-outlet>`
 })

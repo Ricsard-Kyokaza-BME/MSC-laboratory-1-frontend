@@ -32,6 +32,7 @@
       'rxjs':                      'npm:rxjs',
       'dragula': 'npm:dragula',
       'ng2-dragula': 'npm:ng2-dragula',
+      'ng2-dnd': 'npm:ng2-dnd',
       'contra': 'npm:contra',
       'atoa': 'npm:atoa',
       'ticky': 'npm:ticky',
@@ -53,6 +54,7 @@
         map: '/app/node_modules/ng2-dragula/ng2-dragula.js',
         defaultExtension: 'js'
       },
+      'ng2-dnd':  { main: 'index.js',  defaultExtension: 'js' },
       'dragula': { main: 'dragula.js', defaultExtension: 'js' },
       'contra': { main: 'contra.js', defaultExtension: 'js' },
       'atoa': { main: 'atoa.js', defaultExtension: 'js' },
