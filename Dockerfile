@@ -12,10 +12,10 @@ RUN \
     cd $(npm root -g)/npm \
      && npm install fs-extra \
      && sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs.move/ ./lib/utils/rename.js && \
-    npm install gulp-cli && \
-    npm install typescript && \
-    npm install tsc && \
-    npm install babel && \
+    npm install -g gulp-cli && \
+    npm install -g typescript && \
+    npm install -g tsc && \
+    npm install -g babel && \
     npm install
 
 # The command to run our app when the container is run
