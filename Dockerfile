@@ -18,4 +18,4 @@ RUN \
     npm install
 
 # The command to run our app when the container is run
-CMD npm start
+CMD ["npm", "run-script", "start"]
