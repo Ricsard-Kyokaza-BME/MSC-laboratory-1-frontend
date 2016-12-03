@@ -15,6 +15,7 @@ RUN \
     npm install -g gulp-cli && \
     npm install -g typescript@2.0.10 && \
     npm install -g babel && \
+    npm install && \
     npm install
 
 # The command to run our app when the container is run
