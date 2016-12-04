@@ -156,6 +156,10 @@ body, input[text], button {
   text-align: center;
 }
 
+.dashboard-container > ul {
+  min-height: 50px;
+}
+
 .dashboard-container-item {
   background-color: #FFF;
   text-align: left;
