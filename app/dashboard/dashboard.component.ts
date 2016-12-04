@@ -11,6 +11,16 @@ export class DashboardComponent {
   todoItems: Array<BacklogItem> = [];
   inProgressItems: Array<BacklogItem> = [];
   doneItems: Array<BacklogItem> = [];
+  orderSwitches: {backlogSwitch: boolean, todoSwitch: boolean,
+    inProgressSwitch: boolean, doneSwitch: boolean} = {
+    backlogSwitch: false, todoSwitch: false,
+    inProgressSwitch: false, doneSwitch: false
+  };
+  orderSwitchesDisabled: {backlogSwitch: boolean, todoSwitch: boolean,
+    inProgressSwitch: boolean, doneSwitch: boolean} = {
+    backlogSwitch: true, todoSwitch: false,
+    inProgressSwitch: false, doneSwitch: false
+  };
 
   constructor() {
     //TEST DATA

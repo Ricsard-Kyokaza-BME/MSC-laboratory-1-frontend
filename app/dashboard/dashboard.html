@@ -1,7 +1,17 @@
 <div class="dashboard-main card-panel">
   <div class="dashboard-container">
-    <span>Backlog Items</span>
-    <ul class="collection"
+    <div>
+      <span>Backlog Items</span>
+      <div class="switch">
+        <label>
+          Change order Off
+          <input [(ngModel)]="orderSwitches.backlogSwitch" [disabled]="orderSwitchesDisabled.backlogSwitch" type="checkbox">
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+    </div>
+    <ul *ngIf="!orderSwitches.backlogSwitch" class="collection"
         dnd-droppable (onDropSuccess)="dropToBacklog($event)" [dropZones]="['demo1']">
       <li class="collection-item dashboard-container-item"
           *ngFor="let item of backlogItems"
@@ -11,11 +21,32 @@
         {{item.name}}
       </li>
     </ul>
+
+    <ul *ngIf="orderSwitches.backlogSwitch" class="collection"
+      dnd-sortable-container [sortableData]="backlogItems">
+      <li class="collection-item dashboard-container-item"
+        *ngFor="let item of backlogItems; let i = index"
+        [dragData]="item"
+        dnd-sortable [sortableIndex]="i"
+        style="padding: 15px; border: 1px solid #EEEEEE">
+        {{item.name}}
+      </li>
+    </ul>
   </div>
 
   <div class="dashboard-container">
-    <span>Todo</span>
-    <ul class="collection"
+    <div>
+      <span>Todo</span>
+      <div class="switch">
+        <label>
+          Change order Off
+          <input [(ngModel)]="orderSwitches.todoSwitch" [disabled]="orderSwitchesDisabled.todoSwitch" type="checkbox">
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+    </div>
+    <ul *ngIf="!orderSwitches.todoSwitch" class="collection"
         dnd-droppable (onDropSuccess)="dropToTodo($event)" [dropZones]="['demo2']">
       <li class="collection-item dashboard-container-item"
           *ngFor="let item of todoItems"
@@ -25,11 +56,33 @@
         {{item.name}}
       </li>
     </ul>
+
+    <ul *ngIf="orderSwitches.todoSwitch" class="collection"
+        dnd-sortable-container [sortableData]="todoItems">
+      <li class="collection-item dashboard-container-item"
+          *ngFor="let item of todoItems; let i = index"
+          [dragData]="item"
+          dnd-sortable [sortableIndex]="i"
+          style="padding: 15px; border: 1px solid #EEEEEE">
+        {{item.name}}
+      </li>
+    </ul>
   </div>
 
   <div class="dashboard-container">
-    <span>In Progress</span>
-    <ul class="collection" dnd-droppable (onDropSuccess)="dropToInProgress($event)" [dropZones]="['demo3']">
+    <div>
+      <span>In Progress</span>
+      <div class="switch">
+        <label>
+          Change order Off
+          <input [(ngModel)]="orderSwitches.inProgressSwitch" [disabled]="orderSwitchesDisabled.inProgressSwitch" type="checkbox">
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+    </div>
+    <ul *ngIf="!orderSwitches.inProgressSwitch" class="collection"
+        dnd-droppable (onDropSuccess)="dropToInProgress($event)" [dropZones]="['demo3']">
       <li class="collection-item dashboard-container-item"
           *ngFor='let item of inProgressItems'
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2', 'demo4']"
@@ -38,16 +91,49 @@
         {{item.name}}
       </li>
     </ul>
+
+    <ul *ngIf="orderSwitches.inProgressSwitch" class="collection"
+        dnd-sortable-container [sortableData]="inProgressItems">
+      <li class="collection-item dashboard-container-item"
+          *ngFor="let item of inProgressItems; let i = index"
+          [dragData]="item"
+          dnd-sortable [sortableIndex]="i"
+          style="padding: 15px; border: 1px solid #EEEEEE">
+        {{item.name}}
+      </li>
+    </ul>
   </div>
 
   <div class="dashboard-container">
-    <span>Done</span>
-    <ul class="collection" dnd-droppable (onDropSuccess)="dropToDone($event)" [dropZones]="['demo4']">
+    <div>
+      <span>Done</span>
+      <div class="switch">
+        <label>
+          Change order Off
+          <input [(ngModel)]="orderSwitches.doneSwitch" [disabled]="orderSwitchesDisabled.doneSwitch" type="checkbox">
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+    </div>
+    <ul *ngIf="!orderSwitches.doneSwitch" class="collection"
+        dnd-droppable (onDropSuccess)="dropToDone($event)" [dropZones]="['demo4']">
       <li class="collection-item dashboard-container-item"
           *ngFor='let item of doneItems'
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo3']"
           (onDragSuccess)="removeDoneItem($event)"
           style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #AECE38">
+        {{item.name}}
+      </li>
+    </ul>
+
+    <ul *ngIf="orderSwitches.doneSwitch" class="collection"
+        dnd-sortable-container [sortableData]="doneItems">
+      <li class="collection-item dashboard-container-item"
+          *ngFor="let item of doneItems; let i = index"
+          [dragData]="item"
+          dnd-sortable [sortableIndex]="i"
+          style="padding: 15px; border: 1px solid #EEEEEE">
         {{item.name}}
       </li>
     </ul>
