@@ -15,8 +15,8 @@ RUN \
     npm install gulp-cli && \
     npm install -g typescript@2.0.10 && \
     npm install -g babel && \
+    cd /home/elenor/app && \
     npm install rxjs@5.0.0-beta.12 && \
-    pwd && \
     npm install
 
 # The command to run our app when the container is run
