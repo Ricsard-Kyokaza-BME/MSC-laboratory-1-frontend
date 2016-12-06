@@ -26,19 +26,15 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
       '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
-      '@angular/material': 'npm:@angular/material/material.umd.js',
 
       // other libraries
       'rxjs':                      'npm:rxjs',
-      'dragula': 'npm:dragula',
-      'ng2-dragula': 'npm:ng2-dragula',
       'ng2-dnd': 'npm:ng2-dnd',
       'contra': 'npm:contra',
       'atoa': 'npm:atoa',
       'ticky': 'npm:ticky',
       'crossvent': 'npm:crossvent/src',
-      'custom-event': 'npm:custom-event',
-      'primeng':                   'npm:primeng'
+      'custom-event': 'npm:custom-event'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -50,18 +46,12 @@
         main: 'bundles/Rx.js',
         defaultExtension: 'js'
       },
-      'ng2-dragula': {
-        map: '/app/node_modules/ng2-dragula/ng2-dragula.js',
-        defaultExtension: 'js'
-      },
       'ng2-dnd':  { main: 'index.js',  defaultExtension: 'js' },
-      'dragula': { main: 'dragula.js', defaultExtension: 'js' },
       'contra': { main: 'contra.js', defaultExtension: 'js' },
       'atoa': { main: 'atoa.js', defaultExtension: 'js' },
       'ticky': { main: 'ticky.js', defaultExtension: 'js' },
       'crossvent': { main: 'crossvent.js', defaultExtension: 'js' },
-      'custom-event': { main: 'index.js', defaultExtension: 'js' },
-      primeng: { defaultExtension: 'js' }
+      'custom-event': { main: 'index.js', defaultExtension: 'js' }
     }
   });
 })(this);

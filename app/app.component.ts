@@ -8,8 +8,7 @@ import {SessionService} from "./auth/session.service";
       <div class="nav-wrapper">
       <span>Agile Tool</span>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li *ngIf="isSignedIn == false"><a href="/" routerLinkActive="active">Login</a></li>
-          <li *ngIf="isSignedIn == true"><a href="/logout" routerLinkActive="active">Logout</a></li>
+          <li><a href="/logout" routerLinkActive="active">Logout</a></li>
         </ul>
       </div>
     </nav>

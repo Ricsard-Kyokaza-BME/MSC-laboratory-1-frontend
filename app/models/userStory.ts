@@ -7,7 +7,9 @@ export class UserStory extends BacklogItem {
   private _definitionOfDone: string;
   private _acceptanceCriteria: string;
 
-  constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<User>, complexity: any, depending: any, status: BacklogStatus, subtasks: Array<any>, definitionOfDone: string, acceptanceCriteria: string) {
+  constructor()
+  constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<User>, complexity: any, depending: any, status: BacklogStatus, subtasks: Array<any>, definitionOfDone: string, acceptanceCriteria: string)
+  constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<User>, complexity?: any, depending?: any, status?: BacklogStatus, subtasks?: Array<any>, definitionOfDone?: string, acceptanceCriteria?: string) {
     super(id, title, createDate, keywords, description, assignee, complexity, depending, status);
     this._subtasks = subtasks;
     this._definitionOfDone = definitionOfDone;

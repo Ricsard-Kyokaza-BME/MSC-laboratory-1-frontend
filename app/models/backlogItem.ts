@@ -12,7 +12,9 @@ export abstract class BacklogItem {
   private _depending: any;
   private _status: BacklogStatus;
 
-  constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<User>, complexity: any, depending: any, status: BacklogStatus) {
+  constructor()
+  constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<User>, complexity: any, depending: any, status: BacklogStatus)
+  constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<User>, complexity?: any, depending?: any, status?: BacklogStatus) {
     this._id = id;
     this._title = title;
     this._createDate = createDate;

@@ -8,9 +8,11 @@ import {FormsModule} from "@angular/forms";
 import {SessionService} from "./auth/session.service";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {DndModule} from "ng2-dnd";
+import {CreateBacklogItemComponent} from "./backlogItem/createBacklogItem.component";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
+  { path: 'backlog-item/create', component: CreateBacklogItemComponent },
   { path: '', component: DashboardComponent },
 ];
 
@@ -25,7 +27,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginCmp,
-    DashboardComponent
+    DashboardComponent,
+    CreateBacklogItemComponent
   ],
   providers: [
     SessionService

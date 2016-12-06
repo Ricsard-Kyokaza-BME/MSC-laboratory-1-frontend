@@ -1,4 +1,8 @@
+<div style="padding: 10px">
+  <a class="waves-effect blue-grey btn" routerLink="/backlog-item/create" routerLinkActive="active">Add new Backlog Item</a>
+</div>
 <div class="dashboard-main card-panel">
+  <br/>
   <div class="dashboard-container">
     <div>
       <span>Backlog Items</span>
@@ -139,19 +143,3 @@
     </ul>
   </div>
 </div>
-
-<!-- Sortable -->
-<!--<div class="dashboard-container">-->
-  <!--<span>Backlog Items</span>-->
-  <!--<ul class="collection"-->
-      <!--dnd-droppable (onDropSuccess)="dropToBacklog($event)" [dropZones]="['demo1', 'demo2']"-->
-      <!--dnd-sortable-container [sortableData]="backlogItems">-->
-    <!--<li class="collection-item dashboard-container-item"-->
-        <!--*ngFor="let item of backlogItems; let i = index"-->
-        <!--[dragData]="item"-->
-        <!--dnd-sortable [sortableIndex]="i"-->
-        <!--style="padding: 15px; border: 1px solid #EEEEEE">-->
-      <!--{{item.name}}-->
-    <!--</li>-->
-  <!--</ul>-->
-<!--</div>-->
