@@ -7,7 +7,8 @@ export class User {
   private _email: string;
   private _roles: Array<Role>;
 
-  constructor(id: string, firstName: string, lastName: string, email: string, roles: Array<Role>) {
+  constructor()
+  constructor(id?: string, firstName?: string, lastName?: string, email?: string, roles?: Array<Role>) {
     this._id = id;
     this._firstName = firstName;
     this._lastName = lastName;

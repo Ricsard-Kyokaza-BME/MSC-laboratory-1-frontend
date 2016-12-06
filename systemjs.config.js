@@ -34,7 +34,8 @@
       'atoa': 'npm:atoa',
       'ticky': 'npm:ticky',
       'crossvent': 'npm:crossvent/src',
-      'custom-event': 'npm:custom-event'
+      'custom-event': 'npm:custom-event',
+      'jquery': 'npm:jquery/dist/jquery.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
