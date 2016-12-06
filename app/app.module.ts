@@ -6,12 +6,7 @@ import {LoginCmp} from "./login/login.component";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {SessionService} from "./auth/session.service";
-import {DragulaModule} from "ng2-dragula/ng2-dragula";
-import {MaterialModule} from "@angular/material";
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {InputTextModule} from "primeng/components/inputtext/inputtext";
-import {ButtonModule} from "primeng/components/button/button";
-import {PanelModule} from "primeng/components/panel/panel";
 import {DndModule} from "ng2-dnd";
 
 const appRoutes: Routes = [
@@ -24,12 +19,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    DragulaModule,
     RouterModule.forRoot(appRoutes),
-    MaterialModule.forRoot(),
-    InputTextModule,
-    ButtonModule,
-    PanelModule,
     DndModule.forRoot()
   ],
   declarations: [
