@@ -24,21 +24,21 @@ export class DashboardComponent {
 
   constructor() {
     //TEST DATA
-    this.backlogItems.push(new BacklogItem('1', 'Test 1', BacklogStatus.BACKLOG));
-    this.backlogItems.push(new BacklogItem('2', 'Test 2', BacklogStatus.BACKLOG));
-    this.backlogItems.push(new BacklogItem('3', 'Test 3', BacklogStatus.BACKLOG));
-    this.backlogItems.push(new BacklogItem('4', 'Test 4', BacklogStatus.BACKLOG));
-
-    this.todoItems.push(new BacklogItem('5', 'Test 5', BacklogStatus.BACKLOG));
-    this.todoItems.push(new BacklogItem('6', 'Test 6', BacklogStatus.BACKLOG));
-    this.todoItems.push(new BacklogItem('7', 'Test 7', BacklogStatus.BACKLOG));
-
-    this.inProgressItems.push(new BacklogItem('8', 'Test 8', BacklogStatus.BACKLOG));
-    this.inProgressItems.push(new BacklogItem('9', 'Test 9', BacklogStatus.BACKLOG));
-    this.inProgressItems.push(new BacklogItem('10', 'Test 10', BacklogStatus.BACKLOG));
-
-    this.doneItems.push(new BacklogItem('11', 'Test 11', BacklogStatus.BACKLOG));
-    this.doneItems.push(new BacklogItem('12', 'Test 12', BacklogStatus.BACKLOG));
+    // this.backlogItems.push(new BacklogItem('1', 'Test 1', BacklogStatus.BACKLOG));
+    // this.backlogItems.push(new BacklogItem('2', 'Test 2', BacklogStatus.BACKLOG));
+    // this.backlogItems.push(new BacklogItem('3', 'Test 3', BacklogStatus.BACKLOG));
+    // this.backlogItems.push(new BacklogItem('4', 'Test 4', BacklogStatus.BACKLOG));
+    //
+    // this.todoItems.push(new BacklogItem('5', 'Test 5', BacklogStatus.BACKLOG));
+    // this.todoItems.push(new BacklogItem('6', 'Test 6', BacklogStatus.BACKLOG));
+    // this.todoItems.push(new BacklogItem('7', 'Test 7', BacklogStatus.BACKLOG));
+    //
+    // this.inProgressItems.push(new BacklogItem('8', 'Test 8', BacklogStatus.BACKLOG));
+    // this.inProgressItems.push(new BacklogItem('9', 'Test 9', BacklogStatus.BACKLOG));
+    // this.inProgressItems.push(new BacklogItem('10', 'Test 10', BacklogStatus.BACKLOG));
+    //
+    // this.doneItems.push(new BacklogItem('11', 'Test 11', BacklogStatus.BACKLOG));
+    // this.doneItems.push(new BacklogItem('12', 'Test 12', BacklogStatus.BACKLOG));
 
   }
 
