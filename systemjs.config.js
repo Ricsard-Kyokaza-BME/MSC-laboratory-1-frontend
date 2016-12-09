@@ -35,7 +35,12 @@
       'ticky': 'npm:ticky',
       'crossvent': 'npm:crossvent/src',
       'custom-event': 'npm:custom-event',
-      'jquery': 'npm:jquery/dist/jquery.js'
+      'jquery': 'npm:jquery/dist/jquery.js',
+      "materialize-css": "npm:materialize-css",
+      "angular2-materialize": "npm:angular2-materialize",
+      'angular2-select': 'npm:angular2-select',
+      "class-transformer": "npm:class-transformer",
+      'ng2-select': 'npm:ng2-select'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -47,6 +52,24 @@
         main: 'bundles/Rx.js',
         defaultExtension: 'js'
       },
+      'materialize-css': {
+        format: "global",
+        main: "dist/js/materialize.js",
+        defaultExtension: 'js'
+      },
+      'angular2-materialize': {
+        "main": "dist/index.js",
+        "defaultExtension": "js"
+      },
+      'angular2-select': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      'ng2-select': {
+        main: 'ng2-select.js',
+        defaultExtension: 'js'
+      },
+      "class-transformer": { "main": "index.js", "defaultExtension": "js" },
       'ng2-dnd':  { main: 'index.js',  defaultExtension: 'js' },
       'contra': { main: 'contra.js', defaultExtension: 'js' },
       'atoa': { main: 'atoa.js', defaultExtension: 'js' },

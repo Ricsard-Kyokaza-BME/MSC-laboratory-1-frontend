@@ -4,58 +4,78 @@
       <h5>Choose type</h5>
     </div>
     <div class="col s4" style="text-align: center">
-      <input name="typeGroup" [(ngModel)]="typeRadio" value="userStory" type="radio" id="userStory" />
+      <input name="typeGroup" [(ngModel)]="typeRadio" value="userStory" type="radio"
+             id="userStory" (click)="radioButtonClicked('userStory')" />
       <label for="userStory">User Story</label>
     </div>
     <div class="col s4" style="text-align: center">
-      <input name="typeGroup" [(ngModel)]="typeRadio" value="task" type="radio" id="task" />
+      <input name="typeGroup" [(ngModel)]="typeRadio" value="task" type="radio"
+             id="task" (click)="radioButtonClicked('task')" />
       <label for="task">Task</label>
     </div>
     <div class="col s4" style="text-align: center">
-      <input name="typeGroup" [(ngModel)]="typeRadio" value="bug" type="radio" id="bug" />
+      <input name="typeGroup" [(ngModel)]="typeRadio" value="bug" type="radio"
+             id="bug" (click)="radioButtonClicked('bug')" />
       <label for="bug">Bug</label>
     </div>
   </div>
-  <form class="col s12" (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
+  <form class="col s12" materialize (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
     <h5>Details</h5>
     <div class="row">
       <div class="input-field col s6">
-        <input placeholder="Title" name="title" required
+        <input name="title" required
                id="title" type="text" class="validate"
-               [(ngModel)]="tempObject.title"
-               #title="ngModel">
+               [(ngModel)]="backlogItem.title" #title="ngModel">
+        <label for="title">Title</label>
       </div>
       <div class="input-field col s6">
-        <div class="chips"></div>
-        <input id="last_name" type="text" class="validate">
-        <label for="last_name">Last Name</label>
+        <div id="keywords" class="chips chips-initial" materialize="material_chip"
+             (chip.add)="addKeyword($event.detail)" (chip.delete)="deleteKeyword($event.detail)"></div>
+        <label for="keywords">Keywords</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <input id="disabled" type="text" class="validate">
-        <label for="disabled">Disabled</label>
+        <textarea class="materialize-textarea" id="description" name="description"
+                  [(ngModel)]="backlogItem.description" #description="ngModel"></textarea>
+        <label for="description">Description</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
-        <input id="password" type="password" class="validate">
-        <label for="password">Password</label>
+      <div class="input-field col s6">
+        <ng-select
+          [multiple]="true"
+          [items]="options1"
+          (selected)="addAssignee($event)"
+          (typed)="assigneeTyped($event)"
+          placeholder="Click or type to filter"></ng-select>
+        <!--<ng-select-->
+          <!--[options]="options1"-->
+          <!--[multiple]="true"-->
+          <!--placeholder="Assignee"-->
+          <!--id="assignee" name="assignee"-->
+          <!--[(ngModel)]="backlogItem.assignee" #assignee="ngModel">-->
+        <!--</ng-select>-->
+      </div>
+      <div class="input-field col s6">
+        <select id="complexity" materialize="material_select"
+                name="complexity" [(ngModel)]="backlogItem.complexity">
+          <option *ngFor="let option of complexity.keys()" [value]="option">{{option | capitalize}}</option>
+        </select>
+        <label for="complexity">Complexity</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
-        <input id="email" type="email" class="validate">
-        <label for="email">Email</label>
+      <div class="input-field col s6">
+        <input id="depending" type="text" class="validate">
+        <label for="depending">Depending</label>
       </div>
-    </div>
-    <div class="row">
-      <div class="col s12">
-        This is an inline input field:
-        <div class="input-field inline">
-          <input id="email" type="email" class="validate">
-          <label for="email" data-error="wrong" data-success="right">Email</label>
-        </div>
+      <div class="input-field col s6">
+        <select id="status" materialize="material_select"
+                name="status" [(ngModel)]="backlogItem.status">
+          <option *ngFor="let option of backlogStatus.keys()" [value]="option">{{option | capitalize | removeUnderscore}}</option>
+        </select>
+        <label for="status">Status</label>
       </div>
     </div>
     <button class="waves-effect blue-grey btn">Add</button>

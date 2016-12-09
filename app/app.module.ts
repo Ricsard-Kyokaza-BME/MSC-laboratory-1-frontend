@@ -9,6 +9,10 @@ import {SessionService} from "./auth/session.service";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {DndModule} from "ng2-dnd";
 import {CreateBacklogItemComponent} from "./backlogItem/createBacklogItem.component";
+import {MaterializeModule} from "angular2-materialize";
+import {CapitalizePipe} from "./utility/capitalize.pipe";
+import {RemoveUnderscorePipe} from "./utility/removeUnderscore.pipe";
+import {SelectComponent, SelectModule} from "ng2-select";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
@@ -22,13 +26,17 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    MaterializeModule,
+    SelectModule
   ],
   declarations: [
     AppComponent,
     LoginCmp,
     DashboardComponent,
-    CreateBacklogItemComponent
+    CreateBacklogItemComponent,
+    CapitalizePipe,
+    RemoveUnderscorePipe
   ],
   providers: [
     SessionService

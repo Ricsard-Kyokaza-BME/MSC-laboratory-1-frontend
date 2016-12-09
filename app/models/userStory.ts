@@ -12,7 +12,7 @@ export class UserStory extends BacklogItem {
   constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<User>, complexity: any, depending: any, status: BacklogStatus, subtasks: Array<any>, definitionOfDone: string, acceptanceCriteria: string)
   constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<User>, complexity?: any, depending?: any, status?: BacklogStatus, subtasks?: Array<any>, definitionOfDone?: string, acceptanceCriteria?: string) {
     super(id, title, createDate, keywords, description, assignee, complexity, depending, status);
-    this.subtasks = subtasks;
+    this.subtasks = subtasks || [];
     this.definitionOfDone = definitionOfDone;
     this.acceptanceCriteria = acceptanceCriteria;
   }

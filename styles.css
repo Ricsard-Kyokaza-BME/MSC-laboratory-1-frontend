@@ -1,3 +1,5 @@
+@import "/app/node_modules/materialize-css/dist/css/materialize.css";
+
 /* Master Styles */
 h1 {
   color: #369;
@@ -10,12 +12,12 @@ h2, h3 {
   font-weight: lighter;
 }
 body {
-  margin: 2em;
+  /*margin: 2em;*/
 }
-body, input[text], button {
-  color: #888;
-  font-family: Cambria, Georgia;
-}
+/*body, input[text], button {*/
+  /*color: #888;*/
+  /*font-family: Cambria, Georgia;*/
+/*}*/
 /*a {*/
   /*cursor: pointer;*/
   /*cursor: hand;*/

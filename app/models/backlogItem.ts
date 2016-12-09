@@ -8,7 +8,7 @@ export abstract class BacklogItem {
   keywords: Array<string>;
   description: string;
   assignee: Array<User>;
-  complexity: any;
+  complexity: number;
   depending: any;
   status: BacklogStatus;
 
@@ -17,12 +17,12 @@ export abstract class BacklogItem {
   constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<User>, complexity?: any, depending?: any, status?: BacklogStatus) {
     this.id = id;
     this.title = title;
-    this.createDate = createDate;
-    this.keywords = keywords;
+    this.createDate = createDate || new Date();
+    this.keywords = keywords || [];
     this.description = description;
-    this.assignee = assignee;
+    this.assignee = assignee || [];
     this.complexity = complexity;
-    this.depending = depending;
+    this.depending = depending || [];
     this.status = status;
   }
 
