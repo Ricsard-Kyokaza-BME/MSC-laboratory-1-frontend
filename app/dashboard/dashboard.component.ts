@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
+import {UserStory} from "../models/userStory";
 
 @Component({
   selector: 'dashboard-cmp',
@@ -24,21 +25,21 @@ export class DashboardComponent {
 
   constructor() {
     //TEST DATA
-    // this.backlogItems.push(new BacklogItem('1', 'Test 1', BacklogStatus.BACKLOG));
-    // this.backlogItems.push(new BacklogItem('2', 'Test 2', BacklogStatus.BACKLOG));
-    // this.backlogItems.push(new BacklogItem('3', 'Test 3', BacklogStatus.BACKLOG));
-    // this.backlogItems.push(new BacklogItem('4', 'Test 4', BacklogStatus.BACKLOG));
-    //
-    // this.todoItems.push(new BacklogItem('5', 'Test 5', BacklogStatus.BACKLOG));
-    // this.todoItems.push(new BacklogItem('6', 'Test 6', BacklogStatus.BACKLOG));
-    // this.todoItems.push(new BacklogItem('7', 'Test 7', BacklogStatus.BACKLOG));
-    //
-    // this.inProgressItems.push(new BacklogItem('8', 'Test 8', BacklogStatus.BACKLOG));
-    // this.inProgressItems.push(new BacklogItem('9', 'Test 9', BacklogStatus.BACKLOG));
-    // this.inProgressItems.push(new BacklogItem('10', 'Test 10', BacklogStatus.BACKLOG));
-    //
-    // this.doneItems.push(new BacklogItem('11', 'Test 11', BacklogStatus.BACKLOG));
-    // this.doneItems.push(new BacklogItem('12', 'Test 12', BacklogStatus.BACKLOG));
+    this.backlogItems.push(new UserStory('1', 'Test 1'));
+    this.backlogItems.push(new UserStory('2', 'Test 2'));
+    this.backlogItems.push(new UserStory('3', 'Test 3'));
+    this.backlogItems.push(new UserStory('4', 'Test 4'));
+
+    this.todoItems.push(new UserStory('5', 'Test 5'));
+    this.todoItems.push(new UserStory('6', 'Test 6'));
+    this.todoItems.push(new UserStory('7', 'Test 7'));
+
+    this.inProgressItems.push(new UserStory('8', 'Test 8'));
+    this.inProgressItems.push(new UserStory('9', 'Test 9'));
+    this.inProgressItems.push(new UserStory('10', 'Test 10'));
+
+    this.doneItems.push(new UserStory('11', 'Test 11'));
+    this.doneItems.push(new UserStory('12', 'Test 12'));
 
   }
 

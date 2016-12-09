@@ -22,7 +22,7 @@
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2']"
           (onDragSuccess)="removeBacklogItem($event)"
           style="padding: 15px; border: 1px solid #EEEEEE">
-        {{item.name}}
+        {{item.title}}
       </li>
     </ul>
 
@@ -33,7 +33,7 @@
         [dragData]="item"
         dnd-sortable [sortableIndex]="i"
         style="padding: 15px; border: 1px solid #EEEEEE">
-        {{item.name}}
+        {{item.title}}
       </li>
     </ul>
   </div>
@@ -57,7 +57,7 @@
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo1', 'demo3']"
           (onDragSuccess)="removeTodoItem($event)"
           style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #E84B30">
-        {{item.name}}
+        {{item.title}}
       </li>
     </ul>
 
@@ -68,7 +68,7 @@
           [dragData]="item"
           dnd-sortable [sortableIndex]="i"
           style="padding: 15px; border: 1px solid #EEEEEE">
-        {{item.name}}
+        {{item.title}}
       </li>
     </ul>
   </div>
@@ -92,7 +92,7 @@
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2', 'demo4']"
           (onDragSuccess)="removeInProgressItem($event)"
           style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #FFD432">
-        {{item.name}}
+        {{item.title}}
       </li>
     </ul>
 
@@ -103,7 +103,7 @@
           [dragData]="item"
           dnd-sortable [sortableIndex]="i"
           style="padding: 15px; border: 1px solid #EEEEEE">
-        {{item.name}}
+        {{item.title}}
       </li>
     </ul>
   </div>
@@ -127,7 +127,7 @@
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo3']"
           (onDragSuccess)="removeDoneItem($event)"
           style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #AECE38">
-        {{item.name}}
+        {{item.title}}
       </li>
     </ul>
 
@@ -138,7 +138,7 @@
           [dragData]="item"
           dnd-sortable [sortableIndex]="i"
           style="padding: 15px; border: 1px solid #EEEEEE">
-        {{item.name}}
+        {{item.title}}
       </li>
     </ul>
   </div>
