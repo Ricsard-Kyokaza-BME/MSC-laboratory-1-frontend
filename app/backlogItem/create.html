@@ -43,20 +43,30 @@
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <ng-select
-          [multiple]="true"
-          [items]="options1"
-          (selected)="addAssignee($event)"
-          (typed)="assigneeTyped($event)"
-          placeholder="Click or type to filter"></ng-select>
-        <!--<ng-select-->
-          <!--[options]="options1"-->
-          <!--[multiple]="true"-->
-          <!--placeholder="Assignee"-->
-          <!--id="assignee" name="assignee"-->
-          <!--[(ngModel)]="backlogItem.assignee" #assignee="ngModel">-->
-        <!--</ng-select>-->
+        <input name="assigneeSearch"
+               id="assigneeSearch" type="text" class="validate"
+               [(ngModel)]="assigneeSearch" (ngModelChange)="assigneeTyped($event)">
+        <label for="assigneeSearch">Search assignees</label>
+        <ul style="max-height: 400px; overflow-y: auto">
+          <li style="border-bottom: 1px solid #eee"
+              *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
+            <i class="material-icons">add</i> {{user.firstName}} {{user.lastName}}
+          </li>
+        </ul>
       </div>
+      <div class="input-field col s6">
+        <span>Selected assignees</span>
+        <ul style="max-height: 400px; overflow-y: auto"
+            id="selectedAssignees"
+            name="selectedAssignees">
+          <li style="border-bottom: 1px solid #eee"
+              *ngFor="let user of selectedAssignees" (click)="assigneeRemoved(user)">
+            <i class="material-icons">remove</i> {{user.firstName}} {{user.lastName}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
       <div class="input-field col s6">
         <select id="complexity" materialize="material_select"
                 name="complexity" [(ngModel)]="backlogItem.complexity">
@@ -64,6 +74,13 @@
         </select>
         <label for="complexity">Complexity</label>
       </div>
+      <!--<div class="input-field col s6">-->
+        <!--<select id="status" materialize="material_select"-->
+                <!--name="status" [(ngModel)]="backlogItem.status">-->
+          <!--<option *ngFor="let option of backlogStatus.keys()" [value]="option">{{option | capitalize | removeUnderscore}}</option>-->
+        <!--</select>-->
+        <!--<label for="status">Status</label>-->
+      <!--</div>-->
     </div>
     <div class="row">
       <div class="input-field col s6">

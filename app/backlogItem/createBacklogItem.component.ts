@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
@@ -12,22 +12,23 @@ import {Task} from "../models/task";
 
 @Component({
   selector: 'create-backlog-item-cmp',
-  templateUrl: 'app/app/backlogItem/create.html'
+  templateUrl: 'app/app/backlogItem/create.html',
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateBacklogItemComponent {
   backlogItem: BacklogItem;
   typeRadio: string;
-  options1: Array<any> = [];
+  searchUserOptions: Array<any> = [];
   backlogStatus = BacklogStatus;
   complexity = Complexity;
+  searchedUsers: Array<User> = [];
+  assigneeSearch: string;
+  selectedAssignees: Array<User> = [];
 
   constructor(private http: Http) {
     this.backlogItem = new UserStory();
     this.typeRadio = 'userStory';
 
-    this.options1.push('ab');
-    this.options1.push('cd');
-    this.options1.push('ef');
   }
 
   addKeyword(chip: any) {
@@ -43,8 +44,28 @@ export class CreateBacklogItemComponent {
     console.log(item);
   }
 
+  assigneeClicked(assignee: User) {
+    this.selectedAssignees.push(assignee);
+  }
+
+  assigneeRemoved(assignee: User) {
+    this.selectedAssignees.splice(this.selectedAssignees.indexOf(assignee), 1);
+  }
+
   assigneeTyped(text: any) {
     console.log(text);
+    if(text) {
+      let self = this;
+      this.userSearchSend(text)
+        .subscribe(
+          res => {
+            console.log(res);
+            self.searchedUsers = plainToClass(User, res);
+          },
+          error =>  console.log(error));
+    } else {
+      this.searchedUsers.length = 0;
+    }
   }
 
   radioButtonClicked(type: string) {
@@ -79,7 +100,7 @@ export class CreateBacklogItemComponent {
   }
 
   userSearchSend(text: string): Observable<any[]> {
-    return this.http.post('/api/bug', text)
+    return this.http.post('/user/getUser', { keyword: text })
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
