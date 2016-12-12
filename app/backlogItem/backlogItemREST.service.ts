@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {BacklogItem} from "../models/backlogItem";
-import {BacklogItemType} from "../models/BacklogItemType";
+import {BacklogItemType} from "../models/backlogItemType";
 
 @Injectable()
 export class BacklogItemRESTService {

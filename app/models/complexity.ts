@@ -14,7 +14,7 @@ export enum Complexity {
 export module Complexity {
 
   export function keys(): Array<string>{
-    var keys = Object.keys(Complexity);
+    let keys = Object.keys(Complexity);
     return keys.slice(keys.length/2, keys.length-1);
   }
 }

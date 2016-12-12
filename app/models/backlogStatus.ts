@@ -8,7 +8,7 @@ export enum BacklogStatus {
 export module BacklogStatus {
 
   export function keys(): Array<string>{
-    var keys = Object.keys(BacklogStatus);
+    let keys = Object.keys(BacklogStatus);
     return keys.slice(keys.length / 2, keys.length-1);
   }
 }
