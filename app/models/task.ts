@@ -1,6 +1,7 @@
 import {AbstractTask} from "./abstractTask";
 import {BacklogStatus} from "./backlogStatus";
 import {User} from "./user";
+import {BacklogItemType} from "./BacklogItemType";
 
 export class Task extends AbstractTask {
   private _progressInfo: any;
@@ -8,7 +9,7 @@ export class Task extends AbstractTask {
   constructor()
   constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<string>, complexity: any, depending: any, status: BacklogStatus, progressInfo: any)
   constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<string>, complexity?: any, depending?: any, status?: BacklogStatus, progressInfo?: any) {
-    super(id, title, createDate, keywords, description, assignee, complexity, depending, status);
+    super(id, title, createDate, keywords, description, assignee, complexity, depending, status, BacklogItemType.TASK);
     this._progressInfo = progressInfo;
   }
 
