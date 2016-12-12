@@ -12,7 +12,8 @@ import {CreateBacklogItemComponent} from "./backlogItem/createBacklogItem.compon
 import {MaterializeModule} from "angular2-materialize";
 import {CapitalizePipe} from "./utility/capitalize.pipe";
 import {RemoveUnderscorePipe} from "./utility/removeUnderscore.pipe";
-import {SelectComponent, SelectModule} from "ng2-select";
+import {SelectModule} from "ng2-select";
+import {BacklogItemRESTService} from "./backlogItem/backlogItemREST.service";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     RemoveUnderscorePipe
   ],
   providers: [
-    SessionService
+    SessionService,
+    BacklogItemRESTService
   ],
   bootstrap:    [ AppComponent ]
 })

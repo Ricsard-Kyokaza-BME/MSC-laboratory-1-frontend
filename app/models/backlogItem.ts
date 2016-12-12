@@ -1,6 +1,7 @@
 import {BacklogStatus} from "./backlogStatus";
 import {User} from "./user";
 import {BacklogItemType} from "./BacklogItemType";
+import {Complexity} from "./complexity";
 
 export abstract class BacklogItem {
   id: string;
@@ -23,9 +24,9 @@ export abstract class BacklogItem {
     this.keywords = keywords || [];
     this.description = description;
     this.assignee = assignee || [];
-    this.complexity = complexity;
+    this.complexity = complexity || Complexity.ZERO;
     this.depending = depending || [];
-    this.status = status;
+    this.status = status || BacklogStatus.BACKLOG;
     this.type = type;
   }
 

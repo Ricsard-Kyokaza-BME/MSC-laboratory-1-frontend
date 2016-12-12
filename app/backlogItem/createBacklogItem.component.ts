@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, Inject} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
@@ -9,6 +9,7 @@ import {Bug} from "../models/bug";
 import {Complexity} from "../models/complexity";
 import {plainToClass} from "class-transformer";
 import {Task} from "../models/task";
+import {BacklogItemRESTService} from "./backlogItemREST.service";
 
 @Component({
   selector: 'create-backlog-item-cmp',
@@ -26,14 +27,14 @@ export class CreateBacklogItemComponent implements OnInit {
   backlogItems: Map<string, Array<BacklogItem>> = new Map<string, Array<BacklogItem>>();
   selectedDependingItems: Array<BacklogItem> = [];
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private _backlogItemRESTService: BacklogItemRESTService) {
     this.backlogItem = new UserStory();
     this.typeRadio = 'userStory';
   }
 
   ngOnInit(): void {
     let self = this;
-    this.getBacklogItems()
+    this._backlogItemRESTService.getBacklogItems()
       .subscribe(
         res => {
           console.log(res);
@@ -110,9 +111,8 @@ export class CreateBacklogItemComponent implements OnInit {
     }
     this.backlogItem.assignee = mappedUserIds;
     this.backlogItem.depending = mappedItemIds;
-    let tmpItem = plainToClass(Bug, this.backlogItem);
 
-    this.backlogItemSend(tmpItem)
+    this.backlogItemSend(this.backlogItem)
       .subscribe(
         res => console.log(res),
         error =>  console.log(error));
@@ -121,13 +121,19 @@ export class CreateBacklogItemComponent implements OnInit {
   }
 
   backlogItemSend(backlogItem: BacklogItem): Observable<any[]> {
-    return this.http.post('/api/bug', backlogItem)
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }
-
-  getBacklogItems(): Observable<any[]> {
-    return this.http.get('/api/backlog-item')
+    var path: string;
+    switch (this.typeRadio) {
+      case 'userStory':
+        path = 'userstory';
+        break;
+      case 'task':
+        path = 'task';
+        break;
+      case 'bug':
+        path = 'bug';
+        break;
+    }
+    return this.http.post('/api/' + path, backlogItem)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
