@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
@@ -14,7 +14,7 @@ import {Task} from "../models/task";
   selector: 'create-backlog-item-cmp',
   templateUrl: 'app/app/backlogItem/create.html'
 })
-export class CreateBacklogItemComponent {
+export class CreateBacklogItemComponent implements OnInit {
   backlogItem: BacklogItem;
   typeRadio: string;
   searchUserOptions: Array<any> = [];
@@ -23,11 +23,39 @@ export class CreateBacklogItemComponent {
   searchedUsers: Array<User> = [];
   assigneeSearch: string;
   selectedAssignees: Array<User> = [];
+  backlogItems: Map<string, Array<BacklogItem>> = new Map<string, Array<BacklogItem>>();
+  selectedDependingItems: Array<BacklogItem> = [];
 
   constructor(private http: Http) {
     this.backlogItem = new UserStory();
     this.typeRadio = 'userStory';
+  }
 
+  ngOnInit(): void {
+    let self = this;
+    this.getBacklogItems()
+      .subscribe(
+        res => {
+          console.log(res);
+          self.backlogItems.set('userStory', plainToClass(UserStory, res['userStory']));
+          self.backlogItems.set('task', plainToClass(UserStory, res['task']));
+          self.backlogItems.set('bug', plainToClass(UserStory, res['bug']));
+        },
+        error =>  console.log(error));
+  }
+
+  radioButtonClicked(type: string) {
+    switch (type) {
+      case 'userStory':
+        this.backlogItem = new UserStory();
+        break;
+      case 'task':
+        this.backlogItem = new Task();
+        break;
+      case 'bug':
+        this.backlogItem = new Bug();
+        break;
+    }
   }
 
   addKeyword(chip: any) {
@@ -37,10 +65,6 @@ export class CreateBacklogItemComponent {
 
   deleteKeyword(chip: any) {
     this.backlogItem.keywords.splice(this.backlogItem.keywords.indexOf(chip.tag), 1);
-  }
-
-  addAssignee(item: any) {
-    console.log(item);
   }
 
   assigneeClicked(assignee: User) {
@@ -67,18 +91,12 @@ export class CreateBacklogItemComponent {
     }
   }
 
-  radioButtonClicked(type: string) {
-    switch (type) {
-      case 'userStory':
-        this.backlogItem = new UserStory();
-        break;
-      case 'task':
-        this.backlogItem = new Task();
-        break;
-      case 'bug':
-        this.backlogItem = new Bug();
-        break;
-    }
+  addDependingItem(item: BacklogItem) {
+    this.selectedDependingItems.push(item);
+  }
+
+  dependingItemRemoved(item: BacklogItem) {
+    this.selectedDependingItems.splice(this.selectedDependingItems.indexOf(item), 1);
   }
 
   saveBacklogItem() {
@@ -86,7 +104,12 @@ export class CreateBacklogItemComponent {
     for(let i = 0; i < this.selectedAssignees.length; i++) {
       mappedUserIds.push(this.selectedAssignees[i].id);
     }
+    var mappedItemIds: Array<string> = [];
+    for(let i = 0; i < this.selectedDependingItems.length; i++) {
+      mappedItemIds.push(this.selectedDependingItems[i].id);
+    }
     this.backlogItem.assignee = mappedUserIds;
+    this.backlogItem.depending = mappedItemIds;
     let tmpItem = plainToClass(Bug, this.backlogItem);
 
     this.backlogItemSend(tmpItem)
@@ -99,6 +122,12 @@ export class CreateBacklogItemComponent {
 
   backlogItemSend(backlogItem: BacklogItem): Observable<any[]> {
     return this.http.post('/api/bug', backlogItem)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  getBacklogItems(): Observable<any[]> {
+    return this.http.get('/api/backlog-item')
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
