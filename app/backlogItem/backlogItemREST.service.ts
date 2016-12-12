@@ -53,6 +53,12 @@ export class BacklogItemRESTService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  backlogItemSave(backlogItem: BacklogItem): Observable<any[]> {
+    return this._http.post('/api/' + this.getPath(backlogItem.type), backlogItem)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   updateBacklogItem(backlogItem: BacklogItem): Observable<any[]> {
     return this._http.put('/api/' + this.getPath(backlogItem.type) + '/' + backlogItem.id, backlogItem)
       .map((res:Response) => res.json())
@@ -62,6 +68,12 @@ export class BacklogItemRESTService {
   deleteBacklogItem(backlogItem: BacklogItem): Observable<any[]> {
     return this._http.delete('/api/' + this.getPath(backlogItem.type) + '/' + backlogItem.id, backlogItem)
       .map((res:Response) => res.text())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  resolveTaskIds(ids: Array<string>): Observable<any[]> {
+    return this._http.post('/task/find', ids)
+      .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 }

@@ -13,6 +13,7 @@ import {MaterializeModule} from "angular2-materialize";
 import {CapitalizePipe} from "./utility/capitalize.pipe";
 import {RemoveUnderscorePipe} from "./utility/removeUnderscore.pipe";
 import {BacklogItemRESTService} from "./backlogItem/backlogItemREST.service";
+import {UserRESTService} from "./user/userREST.service";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     SessionService,
-    BacklogItemRESTService
+    BacklogItemRESTService,
+    UserRESTService
   ],
   bootstrap:    [ AppComponent ]
 })

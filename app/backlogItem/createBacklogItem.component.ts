@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
-import {Http, Response} from "@angular/http";
-import {Observable} from "rxjs";
 import {User} from "../models/user";
 import {Bug} from "../models/bug";
 import {Complexity} from "../models/complexity";
@@ -11,6 +9,7 @@ import {plainToClass} from "class-transformer";
 import {Task} from "../models/task";
 import {BacklogItemRESTService} from "./backlogItemREST.service";
 import {Router, ActivatedRoute} from "@angular/router";
+import {UserRESTService} from "../user/userREST.service";
 
 @Component({
   selector: 'create-backlog-item-cmp',
@@ -32,8 +31,8 @@ export class CreateBacklogItemComponent implements OnInit {
   complexity = Complexity;
   backlogStatus = BacklogStatus;
 
-  constructor(private _http: Http, private _backlogItemRESTService: BacklogItemRESTService,
-              private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _backlogItemRESTService: BacklogItemRESTService, private _route: ActivatedRoute,
+              private _router: Router, private _userRESTService: UserRESTService) {
     this.isEditing = false;
     this.searchedUsers = [];
     this.selectedAssignees = [];
@@ -61,25 +60,24 @@ export class CreateBacklogItemComponent implements OnInit {
             this.keywords.data.push({ tag: this.backlogItem.keywords[i] });
           }
 
-          this.resolveUserIds(this.backlogItem.assignee).subscribe(
+          this._userRESTService.resolveUserIds(this.backlogItem.assignee).subscribe(
             res =>    this.selectedAssignees = plainToClass(User, res),
             error =>  console.log(error));
 
-          this.resolveTaskIds(this.backlogItem.depending).subscribe(
+          this._backlogItemRESTService.resolveTaskIds(this.backlogItem.depending).subscribe(
             res =>    this.selectedDependingItems = plainToClass(Task, res),
             error =>  console.log(error));
         },
         error =>  console.log(error));
     }
 
-    this._backlogItemRESTService.getBacklogItems()
-      .subscribe(
-        res => {
-          this.backlogItems.set('userStory', plainToClass(UserStory, res['userStory']));
-          this.backlogItems.set('task', plainToClass(UserStory, res['task']));
-          this.backlogItems.set('bug', plainToClass(UserStory, res['bug']));
-        },
-        error =>  console.log(error));
+    this._backlogItemRESTService.getBacklogItems().subscribe(
+      res => {
+        this.backlogItems.set('userStory', plainToClass(UserStory, res['userStory']));
+        this.backlogItems.set('task', plainToClass(Task, res['task']));
+        this.backlogItems.set('bug', plainToClass(Bug, res['bug']));
+      },
+      error =>  console.log(error));
   }
 
   radioButtonClicked(type: string): void {
@@ -115,10 +113,9 @@ export class CreateBacklogItemComponent implements OnInit {
 
   assigneeTyped(text: any): void {
     if(text) {
-      this.userSearchSend(text)
-        .subscribe(
-          res =>    this.searchedUsers = plainToClass(User, res),
-          error =>  console.log(error));
+      this._userRESTService.userSearchSend(text).subscribe(
+        res =>    this.searchedUsers = plainToClass(User, res),
+        error =>  console.log(error));
     } else {
       this.searchedUsers.length = 0;
     }
@@ -133,43 +130,39 @@ export class CreateBacklogItemComponent implements OnInit {
   }
 
   saveBacklogItem(): boolean {
-    let mappedUserIds: Array<string> = [];
-    for(let i = 0; i < this.selectedAssignees.length; i++) {
-      mappedUserIds.push(this.selectedAssignees[i].id);
-    }
-    let mappedItemIds: Array<string> = [];
-    for(let i = 0; i < this.selectedDependingItems.length; i++) {
-      mappedItemIds.push(this.selectedDependingItems[i].id);
-    }
-
-    this.backlogItem.assignee = mappedUserIds;
-    this.backlogItem.depending = mappedItemIds;
+    this.backlogItem.assignee = this.mapToField(this.selectedAssignees, 'id');
+    this.backlogItem.depending = this.mapToField(this.selectedDependingItems, 'id');
 
     if(this.isEditing) {
-      this._backlogItemRESTService.updateBacklogItem(this.backlogItem)
-        .subscribe(
-          res =>    this._router.navigate(['/']),
-          error =>  console.log(error));
+      this._backlogItemRESTService.updateBacklogItem(this.backlogItem).subscribe(
+        res =>    this._router.navigate(['/']),
+        error =>  console.log(error));
     } else {
-      this.backlogItemSend(this.backlogItem)
-        .subscribe(
-          res =>    this._router.navigate(['/']),
-          error =>  console.log(error));
+      this._backlogItemRESTService.backlogItemSave(this.backlogItem).subscribe(
+        res =>    this._router.navigate(['/']),
+        error =>  console.log(error));
     }
 
     return false;
+  }
+
+  mapToField(sourceArray: Array<any>, field: string): Array<string> {
+    let mappedItems: Array<string> = [];
+    for(let i = 0; i < sourceArray.length; i++) {
+      mappedItems.push(sourceArray[i][field]);
+    }
+    return mappedItems;
   }
 
   deleteBacklogItem(): boolean {
-    this._backlogItemRESTService.deleteBacklogItem(this.backlogItem)
-      .subscribe(
-        res =>    this._router.navigate(['/']),
-        error =>  console.log(error));
+    this._backlogItemRESTService.deleteBacklogItem(this.backlogItem).subscribe(
+      res =>    this._router.navigate(['/']),
+      error =>  console.log(error));
 
     return false;
   }
 
-  instantiateBacklogItem(res: any[]): void {
+  instantiateBacklogItem(res: Array<any>): void {
     switch (this.type) {
       case 'userstory':
         this.backlogItem = plainToClass(UserStory, <BacklogItem><any>res);
@@ -181,29 +174,5 @@ export class CreateBacklogItemComponent implements OnInit {
         this.backlogItem = plainToClass(Bug, <BacklogItem><any>res);
         break;
     }
-  }
-
-  backlogItemSend(backlogItem: BacklogItem): Observable<any[]> {
-    return this._http.post('/api/' + this._backlogItemRESTService.getPath(backlogItem.type), backlogItem)
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }
-
-  resolveUserIds(ids: Array<string>): Observable<any[]> {
-    return this._http.post('/user/find', ids)
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }
-
-  resolveTaskIds(ids: Array<string>): Observable<any[]> {
-    return this._http.post('/task/find', ids)
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }
-
-  userSearchSend(text: string): Observable<any[]> {
-    return this._http.post('/user/getUser', { keyword: text })
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 }
