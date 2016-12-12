@@ -19,6 +19,6 @@ export class AppComponent {
   isSignedIn: boolean;
 
   constructor(@Inject(SessionService) sessionService: SessionService) {
-    this.isSignedIn = sessionService.getSignedInUser() ? true : false;
+    this.isSignedIn = !!sessionService.getSignedInUser();
   }
 }

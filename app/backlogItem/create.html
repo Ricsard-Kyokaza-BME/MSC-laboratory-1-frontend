@@ -86,20 +86,7 @@
       <div class="input-field col s6">
         <span>Select depending Tasks</span>
         <br/>
-        <!--<div *ngIf="backlogItems.get('userStory') && backlogItems.get('userStory').length > 0">-->
-          <!--<span>User Stories</span>-->
-          <!--<ul style="max-height: 400px; overflow-y: auto"-->
-              <!--id="backlogItems"-->
-              <!--name="backlogItems">-->
-            <!--<li style="border-bottom: 1px solid #eee"-->
-                <!--*ngFor="let backlogItem of backlogItems.get('userStory')"-->
-                <!--(click)="addDependingItem(backlogItem)">-->
-              <!--{{backlogItem.title}}-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>-->
         <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
-          <!--<span>Depending Tasks</span>-->
           <ul style="max-height: 400px; overflow-y: auto"
               id="tasks"
               name="tasks">
@@ -110,18 +97,6 @@
             </li>
           </ul>
         </div>
-        <!--<div *ngIf="backlogItems.get('bug') && backlogItems.get('bug').length > 0">-->
-          <!--<span>Bugs</span>-->
-          <!--<ul style="max-height: 400px; overflow-y: auto"-->
-              <!--id="bugs"-->
-              <!--name="bugs">-->
-            <!--<li style="border-bottom: 1px solid #eee"-->
-                <!--*ngFor="let backlogItem of backlogItems.get('bug')"-->
-                <!--(click)="addDependingItem(backlogItem)">-->
-              <!--{{backlogItem.title}}-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>-->
       </div>
       <div class="input-field col s6">
         <span>Selected depending Tasks</span>

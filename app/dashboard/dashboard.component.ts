@@ -38,91 +38,85 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let self = this;
     this._backlogItemRESTService.getBacklogItemsByStatus()
       .subscribe(
         res => {
-          console.log(res);
-          self.backlogItems.push.apply(self.backlogItems, plainToClass(UserStory, res['userStory']['backlog']));
-          self.backlogItems.push.apply(self.backlogItems, plainToClass(Task, res['task']['backlog']));
-          self.backlogItems.push.apply(self.backlogItems, plainToClass(Bug, res['bug']['backlog']));
+          this.backlogItems.push.apply(this.backlogItems, plainToClass(UserStory, res['userStory']['backlog']));
+          this.backlogItems.push.apply(this.backlogItems, plainToClass(Task, res['task']['backlog']));
+          this.backlogItems.push.apply(this.backlogItems, plainToClass(Bug, res['bug']['backlog']));
 
-          self.todoItems.push.apply(self.todoItems, plainToClass(UserStory, res['userStory']['todo']));
-          self.todoItems.push.apply(self.todoItems, plainToClass(Task, res['task']['todo']));
-          self.todoItems.push.apply(self.todoItems, plainToClass(Bug, res['bug']['todo']));
+          this.todoItems.push.apply(this.todoItems, plainToClass(UserStory, res['userStory']['todo']));
+          this.todoItems.push.apply(this.todoItems, plainToClass(Task, res['task']['todo']));
+          this.todoItems.push.apply(this.todoItems, plainToClass(Bug, res['bug']['todo']));
 
-          self.inProgressItems.push.apply(self.inProgressItems, plainToClass(UserStory, res['userStory']['inProgress']));
-          self.inProgressItems.push.apply(self.inProgressItems, plainToClass(Task, res['task']['inProgress']));
-          self.inProgressItems.push.apply(self.inProgressItems, plainToClass(Bug, res['bug']['inProgress']));
+          this.inProgressItems.push.apply(this.inProgressItems, plainToClass(UserStory, res['userStory']['inProgress']));
+          this.inProgressItems.push.apply(this.inProgressItems, plainToClass(Task, res['task']['inProgress']));
+          this.inProgressItems.push.apply(this.inProgressItems, plainToClass(Bug, res['bug']['inProgress']));
 
-          self.doneItems.push.apply(self.doneItems, plainToClass(UserStory, res['userStory']['done']));
-          self.doneItems.push.apply(self.doneItems, plainToClass(Task, res['task']['done']));
-          self.doneItems.push.apply(self.doneItems, plainToClass(Bug, res['bug']['done']));
+          this.doneItems.push.apply(this.doneItems, plainToClass(UserStory, res['userStory']['done']));
+          this.doneItems.push.apply(this.doneItems, plainToClass(Task, res['task']['done']));
+          this.doneItems.push.apply(this.doneItems, plainToClass(Bug, res['bug']['done']));
         },
         error =>  console.log(error));
   }
 
-  dashboardItemClicked(item: BacklogItem) {
+  dashboardItemClicked(item: BacklogItem): void {
     this._router.navigate(['/' + this._backlogItemRESTService.getPath(item.type) + '/edit/' + item.id ]);
   }
 
-  dropToBacklog($event: {dragData: any, mouseEvent: MouseEvent}) {
+  dropToBacklog($event: {dragData: any, mouseEvent: MouseEvent}): void {
     let item: BacklogItem = <BacklogItem>$event.dragData;
     item.status = BacklogStatus.BACKLOG;
     this._backlogItemRESTService.updateBacklogItem(item).subscribe(
       res => console.log(res),
-      error =>  console.log(error)
-    );
+      error =>  console.log(error));
     this.backlogItems.push(item);
   }
 
-  dropToTodo($event: {dragData: any, mouseEvent: MouseEvent}) {
+  dropToTodo($event: {dragData: any, mouseEvent: MouseEvent}): void {
     let item: BacklogItem = <BacklogItem>$event.dragData;
     item.status = BacklogStatus.TODO;
     this._backlogItemRESTService.updateBacklogItem(item).subscribe(
       res => console.log(res),
-      error =>  console.log(error)
-    );
+      error =>  console.log(error));
     this.todoItems.push(item);
   }
 
-  dropToInProgress($event: {dragData: any, mouseEvent: MouseEvent}) {
+  dropToInProgress($event: {dragData: any, mouseEvent: MouseEvent}): void {
     let item: BacklogItem = <BacklogItem>$event.dragData;
     item.status = BacklogStatus.IN_PROGRESS;
     this._backlogItemRESTService.updateBacklogItem(item).subscribe(
       res => console.log(res),
-      error =>  console.log(error)
-    );
+      error =>  console.log(error));
     this.inProgressItems.push(item);
   }
 
-  dropToDone($event: {dragData: any, mouseEvent: MouseEvent}) {
+  dropToDone($event: {dragData: any, mouseEvent: MouseEvent}): void {
     let item: BacklogItem = <BacklogItem>$event.dragData;
     item.status = BacklogStatus.DONE;
     this._backlogItemRESTService.updateBacklogItem(item).subscribe(
       res => console.log(res),
-      error =>  console.log(error)
-    );
+      error =>  console.log(error));
     this.doneItems.push(item);
   }
 
-  removeBacklogItem($event: {dragData: any, mouseEvent: MouseEvent}) {
+  removeBacklogItem($event: {dragData: any, mouseEvent: MouseEvent}): void {
     this.removeItem(<BacklogItem>$event.dragData, this.backlogItems);
   }
 
-  removeTodoItem($event: {dragData: any, mouseEvent: MouseEvent}) {
+  removeTodoItem($event: {dragData: any, mouseEvent: MouseEvent}): void {
     this.removeItem(<BacklogItem>$event.dragData, this.todoItems);
   }
 
-  removeInProgressItem($event: {dragData: any, mouseEvent: MouseEvent}) {
+  removeInProgressItem($event: {dragData: any, mouseEvent: MouseEvent}): void {
     this.removeItem(<BacklogItem>$event.dragData, this.inProgressItems);
   }
 
-  removeDoneItem($event: {dragData: any, mouseEvent: MouseEvent}) {
+  removeDoneItem($event: {dragData: any, mouseEvent: MouseEvent}): void {
     this.removeItem(<BacklogItem>$event.dragData, this.doneItems);
   }
 
-  private removeItem(item: BacklogItem, array: Array<BacklogItem>) {
+  private removeItem(item: BacklogItem, array: Array<BacklogItem>): void {
     array.splice(array.indexOf(item), 1);
   }
 
