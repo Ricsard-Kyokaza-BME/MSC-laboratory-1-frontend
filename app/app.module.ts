@@ -12,7 +12,6 @@ import {CreateBacklogItemComponent} from "./backlogItem/createBacklogItem.compon
 import {MaterializeModule} from "angular2-materialize";
 import {CapitalizePipe} from "./utility/capitalize.pipe";
 import {RemoveUnderscorePipe} from "./utility/removeUnderscore.pipe";
-import {SelectModule} from "ng2-select";
 import {BacklogItemRESTService} from "./backlogItem/backlogItemREST.service";
 
 const appRoutes: Routes = [
@@ -29,8 +28,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     DndModule.forRoot(),
-    MaterializeModule,
-    SelectModule
+    MaterializeModule
   ],
   declarations: [
     AppComponent,
