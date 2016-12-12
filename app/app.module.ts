@@ -18,6 +18,7 @@ import {BacklogItemRESTService} from "./backlogItem/backlogItemREST.service";
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
   { path: 'backlog-item/create', component: CreateBacklogItemComponent },
+  { path: ':type/edit/:id', component: CreateBacklogItemComponent },
   { path: '', component: DashboardComponent },
 ];
 

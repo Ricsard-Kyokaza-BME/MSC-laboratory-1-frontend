@@ -6,8 +6,9 @@ import {SessionService} from "./auth/session.service";
     template: `
     <nav class="blue-grey">
       <div class="nav-wrapper">
-      <span>Agile Tool</span>
+      <span style="padding: 0 15px; font-size: 20px;">Agile Tool</span>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a routerLink="/" routerLinkActive="active">Dashboard</a></li>
           <li><a href="/logout" routerLinkActive="active">Logout</a></li>
         </ul>
       </div>

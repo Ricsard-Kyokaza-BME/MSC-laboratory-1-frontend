@@ -26,6 +26,15 @@ export class BacklogItemRESTService {
   getPath(type: BacklogItemType): string {
     var path: string;
     switch (type.toString()) {
+      case '0':
+        path = 'userstory';
+        break;
+      case '1':
+        path = 'task';
+        break;
+      case '2':
+        path = 'bug';
+        break;
       case 'USER_STORY':
         path = 'userstory';
         break;
@@ -37,6 +46,12 @@ export class BacklogItemRESTService {
         break;
     }
     return path;
+  }
+
+  getBacklogItem(id: string, type: string): Observable<any[]> {
+    return this._http.get('/api/' + type + '/' + id)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getBacklogItems(): Observable<any[]> {
@@ -54,6 +69,12 @@ export class BacklogItemRESTService {
   updateBacklogItem(backlogItem: BacklogItem): Observable<any[]> {
     return this._http.put('/api/' + this.getPath(backlogItem.type) + '/' + backlogItem.id, backlogItem)
       .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  deleteBacklogItem(backlogItem: BacklogItem): Observable<any[]> {
+    return this._http.delete('/api/' + this.getPath(backlogItem.type) + '/' + backlogItem.id, backlogItem)
+      .map((res:Response) => res.text())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 }

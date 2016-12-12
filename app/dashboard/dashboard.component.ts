@@ -2,51 +2,39 @@ import {Component, OnInit} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
-import {Observable} from "rxjs";
-import {Response, Http} from "@angular/http";
 import {plainToClass} from "class-transformer";
 import {Bug} from "../models/bug";
 import {Task} from "../models/task";
 import {BacklogItemRESTService} from "../backlogItem/backlogItemREST.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'dashboard-cmp',
   templateUrl: 'app/app/dashboard/dashboard.html'
 })
 export class DashboardComponent implements OnInit {
-  backlogItems: Array<BacklogItem> = [];
-  todoItems: Array<BacklogItem> = [];
-  inProgressItems: Array<BacklogItem> = [];
-  doneItems: Array<BacklogItem> = [];
+  backlogItems: Array<BacklogItem>;
+  todoItems: Array<BacklogItem>;
+  inProgressItems: Array<BacklogItem>;
+  doneItems: Array<BacklogItem>;
   orderSwitches: {backlogSwitch: boolean, todoSwitch: boolean,
-    inProgressSwitch: boolean, doneSwitch: boolean} = {
-    backlogSwitch: false, todoSwitch: false,
-    inProgressSwitch: false, doneSwitch: false
-  };
+    inProgressSwitch: boolean, doneSwitch: boolean};
   orderSwitchesDisabled: {backlogSwitch: boolean, todoSwitch: boolean,
-    inProgressSwitch: boolean, doneSwitch: boolean} = {
-    backlogSwitch: true, todoSwitch: false,
-    inProgressSwitch: false, doneSwitch: false
-  };
+    inProgressSwitch: boolean, doneSwitch: boolean};
 
-  constructor(private http: Http, private _backlogItemRESTService: BacklogItemRESTService) {
-    //TEST DATA
-    // this.backlogItems.push(new UserStory('1', 'Test 1'));
-    // this.backlogItems.push(new UserStory('2', 'Test 2'));
-    // this.backlogItems.push(new UserStory('3', 'Test 3'));
-    // this.backlogItems.push(new UserStory('4', 'Test 4'));
-    //
-    // this.todoItems.push(new UserStory('5', 'Test 5'));
-    // this.todoItems.push(new UserStory('6', 'Test 6'));
-    // this.todoItems.push(new UserStory('7', 'Test 7'));
-    //
-    // this.inProgressItems.push(new UserStory('8', 'Test 8'));
-    // this.inProgressItems.push(new UserStory('9', 'Test 9'));
-    // this.inProgressItems.push(new UserStory('10', 'Test 10'));
-    //
-    // this.doneItems.push(new UserStory('11', 'Test 11'));
-    // this.doneItems.push(new UserStory('12', 'Test 12'));
-
+  constructor(private _backlogItemRESTService: BacklogItemRESTService, private _router: Router) {
+    this.backlogItems= [];
+    this.todoItems= [];
+    this.inProgressItems= [];
+    this.doneItems= [];
+    this.orderSwitches = {
+      backlogSwitch: false, todoSwitch: false,
+      inProgressSwitch: false, doneSwitch: false
+    };
+    this.orderSwitchesDisabled = {
+      backlogSwitch: true, todoSwitch: false,
+      inProgressSwitch: false, doneSwitch: false
+    };
   }
 
   ngOnInit(): void {
@@ -72,6 +60,10 @@ export class DashboardComponent implements OnInit {
           self.doneItems.push.apply(self.doneItems, plainToClass(Bug, res['bug']['done']));
         },
         error =>  console.log(error));
+  }
+
+  dashboardItemClicked(item: BacklogItem) {
+    this._router.navigate(['/' + this._backlogItemRESTService.getPath(item.type) + '/edit/' + item.id ]);
   }
 
   dropToBacklog($event: {dragData: any, mouseEvent: MouseEvent}) {

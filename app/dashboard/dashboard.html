@@ -21,6 +21,7 @@
           *ngFor="let item of backlogItems"
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2']"
           (onDragSuccess)="removeBacklogItem($event)"
+          (click)="dashboardItemClicked(item)"
           style="padding: 15px; border: 1px solid #EEEEEE">
         {{item.title}}
       </li>
@@ -56,6 +57,7 @@
           *ngFor="let item of todoItems"
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo1', 'demo3']"
           (onDragSuccess)="removeTodoItem($event)"
+          (click)="dashboardItemClicked(item)"
           style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #E84B30">
         {{item.title}}
       </li>
@@ -91,6 +93,7 @@
           *ngFor='let item of inProgressItems'
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2', 'demo4']"
           (onDragSuccess)="removeInProgressItem($event)"
+          (click)="dashboardItemClicked(item)"
           style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #FFD432">
         {{item.title}}
       </li>
@@ -126,6 +129,7 @@
           *ngFor='let item of doneItems'
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo3']"
           (onDragSuccess)="removeDoneItem($event)"
+          (click)="dashboardItemClicked(item)"
           style="padding: 15px; color: #FFF; border: 1px solid #EEEEEE; background-color: #AECE38">
         {{item.title}}
       </li>

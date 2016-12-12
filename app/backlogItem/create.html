@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="row">
+  <div class="row" *ngIf="!isEditing">
     <div class="col s12">
       <h5>Choose type</h5>
     </div>
@@ -29,7 +29,7 @@
         <label for="title">Title</label>
       </div>
       <div class="input-field col s6">
-        <div id="keywords" class="chips chips-initial" materialize="material_chip"
+        <div id="keywords" class="chips chips-initial" materialize="material_chip" [materializeParams]="[keywords]"
              (chip.add)="addKeyword($event.detail)" (chip.delete)="deleteKeyword($event.detail)"></div>
         <label for="keywords">Keywords</label>
       </div>
@@ -84,22 +84,22 @@
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <span>Backlog Items</span>
+        <span>Select depending Tasks</span>
         <br/>
-        <div *ngIf="backlogItems.get('userStory') && backlogItems.get('userStory').length > 0">
-          <span>User Stories</span>
-          <ul style="max-height: 400px; overflow-y: auto"
-              id="backlogItems"
-              name="backlogItems">
-            <li style="border-bottom: 1px solid #eee"
-                *ngFor="let backlogItem of backlogItems.get('userStory')"
-                (click)="addDependingItem(backlogItem)">
-              {{backlogItem.title}}
-            </li>
-          </ul>
-        </div>
+        <!--<div *ngIf="backlogItems.get('userStory') && backlogItems.get('userStory').length > 0">-->
+          <!--<span>User Stories</span>-->
+          <!--<ul style="max-height: 400px; overflow-y: auto"-->
+              <!--id="backlogItems"-->
+              <!--name="backlogItems">-->
+            <!--<li style="border-bottom: 1px solid #eee"-->
+                <!--*ngFor="let backlogItem of backlogItems.get('userStory')"-->
+                <!--(click)="addDependingItem(backlogItem)">-->
+              <!--{{backlogItem.title}}-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
         <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
-          <span>Tasks</span>
+          <!--<span>Depending Tasks</span>-->
           <ul style="max-height: 400px; overflow-y: auto"
               id="tasks"
               name="tasks">
@@ -110,21 +110,21 @@
             </li>
           </ul>
         </div>
-        <div *ngIf="backlogItems.get('bug') && backlogItems.get('bug').length > 0">
-          <span>Bugs</span>
-          <ul style="max-height: 400px; overflow-y: auto"
-              id="bugs"
-              name="bugs">
-            <li style="border-bottom: 1px solid #eee"
-                *ngFor="let backlogItem of backlogItems.get('bug')"
-                (click)="addDependingItem(backlogItem)">
-              {{backlogItem.title}}
-            </li>
-          </ul>
-        </div>
+        <!--<div *ngIf="backlogItems.get('bug') && backlogItems.get('bug').length > 0">-->
+          <!--<span>Bugs</span>-->
+          <!--<ul style="max-height: 400px; overflow-y: auto"-->
+              <!--id="bugs"-->
+              <!--name="bugs">-->
+            <!--<li style="border-bottom: 1px solid #eee"-->
+                <!--*ngFor="let backlogItem of backlogItems.get('bug')"-->
+                <!--(click)="addDependingItem(backlogItem)">-->
+              <!--{{backlogItem.title}}-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
       </div>
       <div class="input-field col s6">
-        <span>Selected depending Backlog Items</span>
+        <span>Selected depending Tasks</span>
         <ul style="max-height: 400px; overflow-y: auto"
             id="selectedDependingItems"
             name="selectedDependingItems">
@@ -136,6 +136,10 @@
       </div>
     </div>
 
-    <button class="waves-effect blue-grey btn">Add</button>
+    <button type="submit"
+            class="waves-effect blue-grey btn" *ngIf="!isEditing">Add</button>
+    <button type="submit"
+            class="waves-effect blue-grey btn" *ngIf="isEditing">Save</button>
+    <button class="waves-effect blue-grey btn" *ngIf="isEditing" (click)="deleteBacklogItem()">Delete</button>
   </form>
 </div>

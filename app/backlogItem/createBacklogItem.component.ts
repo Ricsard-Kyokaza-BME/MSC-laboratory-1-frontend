@@ -10,14 +10,19 @@ import {Complexity} from "../models/complexity";
 import {plainToClass} from "class-transformer";
 import {Task} from "../models/task";
 import {BacklogItemRESTService} from "./backlogItemREST.service";
+import {Router, ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'create-backlog-item-cmp',
   templateUrl: 'app/app/backlogItem/create.html'
 })
 export class CreateBacklogItemComponent implements OnInit {
+  id: string;
+  type: string;
+  isEditing: boolean = false;
   backlogItem: BacklogItem;
   typeRadio: string;
+  keywords: any;
   searchUserOptions: Array<any> = [];
   backlogStatus = BacklogStatus;
   complexity = Complexity;
@@ -27,13 +32,58 @@ export class CreateBacklogItemComponent implements OnInit {
   backlogItems: Map<string, Array<BacklogItem>> = new Map<string, Array<BacklogItem>>();
   selectedDependingItems: Array<BacklogItem> = [];
 
-  constructor(private http: Http, private _backlogItemRESTService: BacklogItemRESTService) {
+  constructor(private http: Http, private _backlogItemRESTService: BacklogItemRESTService,
+              private route: ActivatedRoute, private router: Router) {
     this.backlogItem = new UserStory();
     this.typeRadio = 'userStory';
+    this.id = this.route.snapshot.params['id'];
+    this.type = this.route.snapshot.params['type'];
+    if(this.id && this.type) {
+      this.isEditing = true;
+    }
   }
 
   ngOnInit(): void {
     let self = this;
+
+    if(this.isEditing) {
+      this._backlogItemRESTService.getBacklogItem(this.id, this.type).subscribe(
+        res => {
+          console.log(res);
+          switch (this.type) {
+            case 'userstory':
+              this.backlogItem = plainToClass(UserStory, <BacklogItem><any>res);
+              break;
+            case 'task':
+              this.backlogItem = plainToClass(Task, <BacklogItem><any>res);
+              break;
+            case 'bug':
+              this.backlogItem = plainToClass(Bug, <BacklogItem><any>res);
+              break;
+          }
+
+          this.keywords = { data: [] };
+          for(let i = 0; i < this.backlogItem.keywords.length; i++) {
+            this.keywords.data.push({ tag: this.backlogItem.keywords[i] });
+          }
+
+          this.resolveUserIds(this.backlogItem.assignee).subscribe(
+            res => {
+              console.log(res);
+              self.selectedAssignees = plainToClass(User, res);
+            },
+            error =>  console.log(error));
+
+          this.resolveTaskIds(this.backlogItem.depending).subscribe(
+            res => {
+              console.log(res);
+              self.selectedDependingItems = plainToClass(Task, res);
+            },
+            error =>  console.log(error));
+        },
+        error =>  console.log(error));
+    }
+
     this._backlogItemRESTService.getBacklogItems()
       .subscribe(
         res => {
@@ -112,9 +162,25 @@ export class CreateBacklogItemComponent implements OnInit {
     this.backlogItem.assignee = mappedUserIds;
     this.backlogItem.depending = mappedItemIds;
 
-    this.backlogItemSend(this.backlogItem)
+    if(this.isEditing) {
+      this._backlogItemRESTService.updateBacklogItem(this.backlogItem)
+        .subscribe(
+          res =>    this.router.navigate(['/']),
+          error =>  console.log(error));
+    } else {
+      this.backlogItemSend(this.backlogItem)
+        .subscribe(
+          res =>    this.router.navigate(['/']),
+          error =>  console.log(error));
+    }
+
+    return false;
+  }
+
+  deleteBacklogItem(): boolean {
+    this._backlogItemRESTService.deleteBacklogItem(this.backlogItem)
       .subscribe(
-        res => console.log(res),
+        res =>    this.router.navigate(['/']),
         error =>  console.log(error));
 
     return false;
@@ -122,6 +188,18 @@ export class CreateBacklogItemComponent implements OnInit {
 
   backlogItemSend(backlogItem: BacklogItem): Observable<any[]> {
     return this.http.post('/api/' + this._backlogItemRESTService.getPath(backlogItem.type), backlogItem)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  resolveUserIds(ids: Array<string>): Observable<any[]> {
+    return this.http.post('/user/find', ids)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  resolveTaskIds(ids: Array<string>): Observable<any[]> {
+    return this.http.post('/task/find', ids)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
