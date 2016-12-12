@@ -13,6 +13,8 @@ import {
 } from '@angular/http';
 
 import 'rxjs/add/operator/map';
+import {BacklogItem} from "../models/backlogItem";
+import {BacklogItemType} from "../models/BacklogItemType";
 
 @Injectable()
 export class BacklogItemRESTService {
@@ -21,8 +23,36 @@ export class BacklogItemRESTService {
 
   }
 
+  getPath(type: BacklogItemType): string {
+    var path: string;
+    switch (type.toString()) {
+      case 'USER_STORY':
+        path = 'userstory';
+        break;
+      case 'TASK':
+        path = 'task';
+        break;
+      case 'BUG':
+        path = 'bug';
+        break;
+    }
+    return path;
+  }
+
   getBacklogItems(): Observable<any[]> {
     return this._http.get('/api/backlog-item')
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  getBacklogItemsByStatus(): Observable<any[]> {
+    return this._http.get('/api/backlog-item/by-status')
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  updateBacklogItem(backlogItem: BacklogItem): Observable<any[]> {
+    return this._http.put('/api/' + this.getPath(backlogItem.type) + '/' + backlogItem.id, backlogItem)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }

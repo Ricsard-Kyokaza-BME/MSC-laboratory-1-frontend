@@ -7,6 +7,7 @@ import {Response, Http} from "@angular/http";
 import {plainToClass} from "class-transformer";
 import {Bug} from "../models/bug";
 import {Task} from "../models/task";
+import {BacklogItemRESTService} from "../backlogItem/backlogItemREST.service";
 
 @Component({
   selector: 'dashboard-cmp',
@@ -28,7 +29,7 @@ export class DashboardComponent implements OnInit {
     inProgressSwitch: false, doneSwitch: false
   };
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private _backlogItemRESTService: BacklogItemRESTService) {
     //TEST DATA
     // this.backlogItems.push(new UserStory('1', 'Test 1'));
     // this.backlogItems.push(new UserStory('2', 'Test 2'));
@@ -50,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     let self = this;
-    this.getBacklogItems()
+    this._backlogItemRESTService.getBacklogItemsByStatus()
       .subscribe(
         res => {
           console.log(res);
@@ -76,24 +77,40 @@ export class DashboardComponent implements OnInit {
   dropToBacklog($event: {dragData: any, mouseEvent: MouseEvent}) {
     let item: BacklogItem = <BacklogItem>$event.dragData;
     item.status = BacklogStatus.BACKLOG;
+    this._backlogItemRESTService.updateBacklogItem(item).subscribe(
+      res => console.log(res),
+      error =>  console.log(error)
+    );
     this.backlogItems.push(item);
   }
 
   dropToTodo($event: {dragData: any, mouseEvent: MouseEvent}) {
     let item: BacklogItem = <BacklogItem>$event.dragData;
     item.status = BacklogStatus.TODO;
+    this._backlogItemRESTService.updateBacklogItem(item).subscribe(
+      res => console.log(res),
+      error =>  console.log(error)
+    );
     this.todoItems.push(item);
   }
 
   dropToInProgress($event: {dragData: any, mouseEvent: MouseEvent}) {
     let item: BacklogItem = <BacklogItem>$event.dragData;
     item.status = BacklogStatus.IN_PROGRESS;
+    this._backlogItemRESTService.updateBacklogItem(item).subscribe(
+      res => console.log(res),
+      error =>  console.log(error)
+    );
     this.inProgressItems.push(item);
   }
 
   dropToDone($event: {dragData: any, mouseEvent: MouseEvent}) {
     let item: BacklogItem = <BacklogItem>$event.dragData;
     item.status = BacklogStatus.DONE;
+    this._backlogItemRESTService.updateBacklogItem(item).subscribe(
+      res => console.log(res),
+      error =>  console.log(error)
+    );
     this.doneItems.push(item);
   }
 
@@ -115,12 +132,6 @@ export class DashboardComponent implements OnInit {
 
   private removeItem(item: BacklogItem, array: Array<BacklogItem>) {
     array.splice(array.indexOf(item), 1);
-  }
-
-  getBacklogItems(): Observable<any[]> {
-    return this.http.get('/api/backlog-item/by-status')
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 }

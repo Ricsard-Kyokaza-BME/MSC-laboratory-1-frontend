@@ -121,19 +121,7 @@ export class CreateBacklogItemComponent implements OnInit {
   }
 
   backlogItemSend(backlogItem: BacklogItem): Observable<any[]> {
-    var path: string;
-    switch (this.typeRadio) {
-      case 'userStory':
-        path = 'userstory';
-        break;
-      case 'task':
-        path = 'task';
-        break;
-      case 'bug':
-        path = 'bug';
-        break;
-    }
-    return this.http.post('/api/' + path, backlogItem)
+    return this.http.post('/api/' + this._backlogItemRESTService.getPath(backlogItem.type), backlogItem)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
