@@ -1,6 +1,3 @@
-<div style="padding: 10px">
-  <a class="waves-effect blue-grey btn" routerLink="/backlog-item/create" routerLinkActive="active">Add new Backlog Item</a>
-</div>
 <div class="dashboard-main card-panel">
   <br/>
   <div class="dashboard-container">
@@ -17,6 +14,11 @@
     </div>
     <ul *ngIf="!orderSwitches.backlogSwitch" class="collection"
         dnd-droppable (onDropSuccess)="dropToBacklog($event)" [dropZones]="['demo1']">
+      <li class="collection-item dashboard-container-item"
+          *ngIf="backlogItems.length == 0"
+          style="padding: 15px; border: 1px solid #EEEEEE; text-align: center">
+        Create a new item, or drag'n'drop one
+      </li>
       <li class="collection-item dashboard-container-item"
           *ngFor="let item of backlogItems"
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2']"
@@ -54,6 +56,11 @@
     <ul *ngIf="!orderSwitches.todoSwitch" class="collection"
         dnd-droppable (onDropSuccess)="dropToTodo($event)" [dropZones]="['demo2']">
       <li class="collection-item dashboard-container-item"
+          *ngIf="todoItems.length == 0"
+          style="padding: 15px; border: 1px solid #EEEEEE; text-align: center">
+        Create a new item, or drag'n'drop one
+      </li>
+      <li class="collection-item dashboard-container-item"
           *ngFor="let item of todoItems"
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo1', 'demo3']"
           (onDragSuccess)="removeTodoItem($event)"
@@ -90,6 +97,11 @@
     <ul *ngIf="!orderSwitches.inProgressSwitch" class="collection"
         dnd-droppable (onDropSuccess)="dropToInProgress($event)" [dropZones]="['demo3']">
       <li class="collection-item dashboard-container-item"
+          *ngIf="inProgressItems.length == 0"
+          style="padding: 15px; border: 1px solid #EEEEEE; text-align: center">
+        Create a new item, or drag'n'drop one
+      </li>
+      <li class="collection-item dashboard-container-item"
           *ngFor='let item of inProgressItems'
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2', 'demo4']"
           (onDragSuccess)="removeInProgressItem($event)"
@@ -125,6 +137,11 @@
     </div>
     <ul *ngIf="!orderSwitches.doneSwitch" class="collection"
         dnd-droppable (onDropSuccess)="dropToDone($event)" [dropZones]="['demo4']">
+      <li class="collection-item dashboard-container-item"
+          *ngIf="doneItems.length == 0"
+          style="padding: 15px; border: 1px solid #EEEEEE; text-align: center">
+        Create a new item, or drag'n'drop one
+      </li>
       <li class="collection-item dashboard-container-item"
           *ngFor='let item of doneItems'
           dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo3']"
