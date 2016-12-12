@@ -1,17 +1,6 @@
-import {
-  Inject,
-  Injectable
-} from '@angular/core';
-
-import {
-  Observable
-} from 'rxjs/Observable';
-
-import {
-  Http,
-  Headers, Response
-} from '@angular/http';
-
+import {Inject, Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogItemType} from "../models/BacklogItemType";
@@ -19,9 +8,7 @@ import {BacklogItemType} from "../models/BacklogItemType";
 @Injectable()
 export class BacklogItemRESTService {
 
-  constructor(@Inject(Http) private _http: Http) {
-
-  }
+  constructor(@Inject(Http) private _http: Http) {}
 
   getPath(type: BacklogItemType): string {
     var path: string;

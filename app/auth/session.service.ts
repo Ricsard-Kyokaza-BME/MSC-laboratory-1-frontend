@@ -1,19 +1,8 @@
-import {
-  Inject,
-  Injectable
-} from '@angular/core';
-
-import {
-  Observable
-} from 'rxjs/Observable';
-
-import {
-  Http,
-  Headers
-} from '@angular/http';
+import {Inject, Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Http} from '@angular/http';
 
 import 'rxjs/add/operator/map';
-import Any = jasmine.Any;
 
 type StoredUser = {
   username: String,
@@ -22,13 +11,10 @@ type StoredUser = {
 
 @Injectable()
 export class SessionService {
-  static ENDPOINT: string = '/api/is-signed-in';
 
   constructor(@Inject(Http) private _http: Http) {
-    this.checkSession()
-      .subscribe(
+    this.checkSession().subscribe(
         res => {
-          // console.log(res);
           if(!res.authenticated) {
             window.location.href='/'
           } else {
@@ -40,13 +26,12 @@ export class SessionService {
         error =>  console.log(error));
   }
 
-  checkSession():Observable<any> {
-    return this._http
-      .get(SessionService.ENDPOINT)
+  checkSession(): Observable<any> {
+    return this._http.get('/api/is-signed-in')
       .map((r) => r["_body"] == '' ? {} : r.json());
   }
 
-  getSignedInUser():StoredUser|undefined {
+  getSignedInUser(): StoredUser|undefined {
     return JSON.parse(sessionStorage.getItem('user'));
   }
 
