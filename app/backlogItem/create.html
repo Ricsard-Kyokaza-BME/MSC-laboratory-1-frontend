@@ -74,25 +74,18 @@
         </select>
         <label for="complexity">Complexity</label>
       </div>
-      <!--<div class="input-field col s6">-->
-        <!--<select id="status" materialize="material_select"-->
-                <!--name="status" [(ngModel)]="backlogItem.status">-->
-          <!--<option *ngFor="let option of backlogStatus.keys()" [value]="option">{{option | capitalize | removeUnderscore}}</option>-->
-        <!--</select>-->
-        <!--<label for="status">Status</label>-->
-      <!--</div>-->
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <input id="depending" type="text" class="validate">
-        <label for="depending">Depending</label>
-      </div>
       <div class="input-field col s6">
         <select id="status" materialize="material_select"
                 name="status" [(ngModel)]="backlogItem.status">
           <option *ngFor="let option of backlogStatus.keys()" [value]="option">{{option | capitalize | removeUnderscore}}</option>
         </select>
         <label for="status">Status</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="depending" type="text" class="validate">
+        <label for="depending">Depending</label>
       </div>
     </div>
     <button class="waves-effect blue-grey btn">Add</button>

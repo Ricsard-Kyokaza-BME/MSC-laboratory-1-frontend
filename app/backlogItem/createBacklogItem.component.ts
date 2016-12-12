@@ -12,8 +12,7 @@ import {Task} from "../models/task";
 
 @Component({
   selector: 'create-backlog-item-cmp',
-  templateUrl: 'app/app/backlogItem/create.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: 'app/app/backlogItem/create.html'
 })
 export class CreateBacklogItemComponent {
   backlogItem: BacklogItem;
@@ -83,6 +82,11 @@ export class CreateBacklogItemComponent {
   }
 
   saveBacklogItem() {
+    var mappedUserIds: Array<string> = [];
+    for(let i = 0; i < this.selectedAssignees.length; i++) {
+      mappedUserIds.push(this.selectedAssignees[i].id);
+    }
+    this.backlogItem.assignee = mappedUserIds;
     let tmpItem = plainToClass(Bug, this.backlogItem);
 
     this.backlogItemSend(tmpItem)

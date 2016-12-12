@@ -6,8 +6,8 @@ export class Task extends AbstractTask {
   private _progressInfo: any;
 
   constructor()
-  constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<User>, complexity: any, depending: any, status: BacklogStatus, progressInfo: any)
-  constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<User>, complexity?: any, depending?: any, status?: BacklogStatus, progressInfo?: any) {
+  constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<string>, complexity: any, depending: any, status: BacklogStatus, progressInfo: any)
+  constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<string>, complexity?: any, depending?: any, status?: BacklogStatus, progressInfo?: any) {
     super(id, title, createDate, keywords, description, assignee, complexity, depending, status);
     this._progressInfo = progressInfo;
   }
