@@ -27,6 +27,7 @@ export class CreateBacklogItemComponent implements OnInit {
   searchedUsers: Array<User>;
   selectedAssignees: Array<User>;
   selectedDependingItems: Array<BacklogItem>;
+  selectedSubTaskItems: Array<BacklogItem>;
 
   complexity = Complexity;
   backlogStatus = BacklogStatus;
@@ -37,6 +38,7 @@ export class CreateBacklogItemComponent implements OnInit {
     this.selectedAssignees = [];
     this.backlogItems = new Map<string, Array<BacklogItem>>();
     this.selectedDependingItems = [];
+    this.selectedSubTaskItems = [];
 
     this.backlogItem = new UserStory();
     this.typeRadio = 'userStory';
@@ -65,6 +67,12 @@ export class CreateBacklogItemComponent implements OnInit {
           this._backlogItemRESTService.resolveTaskIds(this.backlogItem.depending).subscribe(
             res =>    this.selectedDependingItems = plainToClass(Task, res),
             error =>  console.log(error));
+
+          if(this.type == 'userstory') {
+            this._backlogItemRESTService.resolveTaskIds((<UserStory>this.backlogItem).subtasks).subscribe(
+              res =>    this.selectedSubTaskItems = plainToClass(Task, res),
+              error =>  console.log(error));
+          }
         },
         error =>  console.log(error));
     }
@@ -127,9 +135,20 @@ export class CreateBacklogItemComponent implements OnInit {
     this.selectedDependingItems.splice(this.selectedDependingItems.indexOf(item), 1);
   }
 
+  addSubTaskItem(item: BacklogItem): void {
+    this.selectedSubTaskItems.push(item);
+  }
+
+  subTaskItemRemoved(item: BacklogItem): void {
+    this.selectedSubTaskItems.splice(this.selectedSubTaskItems.indexOf(item), 1);
+  }
+
   saveBacklogItem(): boolean {
     this.backlogItem.assignee = this.mapToField(this.selectedAssignees, 'id');
     this.backlogItem.depending = this.mapToField(this.selectedDependingItems, 'id');
+    if(this.typeRadio == 'userStory') {
+      (<UserStory>this.backlogItem).subtasks = this.mapToField(this.selectedSubTaskItems, 'id');
+    }
 
     if(this.isEditing) {
       this._backlogItemRESTService.updateBacklogItem(this.backlogItem).subscribe(

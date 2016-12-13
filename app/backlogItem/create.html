@@ -50,7 +50,7 @@
         <ul style="max-height: 400px; overflow-y: auto">
           <li style="border-bottom: 1px solid #eee"
               *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
-            <i class="material-icons">add</i> {{user.firstName}} {{user.lastName}}
+            <i class="material-icons" style="vertical-align: bottom">add</i> {{user.firstName}} {{user.lastName}}
           </li>
         </ul>
       </div>
@@ -61,7 +61,7 @@
             name="selectedAssignees">
           <li style="border-bottom: 1px solid #eee"
               *ngFor="let user of selectedAssignees" (click)="assigneeRemoved(user)">
-            <i class="material-icons">remove</i> {{user.firstName}} {{user.lastName}}
+            <i class="material-icons" style="vertical-align: bottom">remove</i> {{user.firstName}} {{user.lastName}}
           </li>
         </ul>
       </div>
@@ -93,7 +93,7 @@
             <li style="border-bottom: 1px solid #eee"
                 *ngFor="let backlogItem of backlogItems.get('task')"
                 (click)="addDependingItem(backlogItem)">
-              {{backlogItem.title}}
+              <i class="material-icons" style="vertical-align: bottom">add</i> {{backlogItem.title}}
             </li>
           </ul>
         </div>
@@ -105,9 +105,49 @@
             name="selectedDependingItems">
           <li style="border-bottom: 1px solid #eee"
               *ngFor="let backlogItem of selectedDependingItems" (click)="dependingItemRemoved(backlogItem)">
-            <i class="material-icons">remove</i> {{backlogItem.title}}
+            <i class="material-icons" style="vertical-align: bottom">remove</i> {{backlogItem.title}}
           </li>
         </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="typeRadio == 'userStory'">
+      <div class="input-field col s6">
+        <span>Select Sub Tasks</span>
+        <br/>
+        <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
+          <ul style="max-height: 400px; overflow-y: auto"
+              id="subTasks"
+              name="subTasks">
+            <li style="border-bottom: 1px solid #eee"
+                *ngFor="let backlogItem of backlogItems.get('task')"
+                (click)="addSubTaskItem(backlogItem)">
+              <i class="material-icons" style="vertical-align: bottom">add</i> {{backlogItem.title}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="input-field col s6">
+        <span>Selected Sub Tasks</span>
+        <ul style="max-height: 400px; overflow-y: auto"
+            id="selectedSubTasks"
+            name="selectedSubTasks">
+          <li style="border-bottom: 1px solid #eee"
+              *ngFor="let backlogItem of selectedSubTaskItems" (click)="subTaskItemRemoved(backlogItem)">
+            <i class="material-icons" style="vertical-align: bottom">remove</i> {{backlogItem.title}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="typeRadio == 'userStory'">
+      <div class="input-field col s6">
+        <textarea class="materialize-textarea" id="definitionOfDone" name="definitionOfDone"
+                  [(ngModel)]="backlogItem.definitionOfDone" #definitionOfDone="ngModel"></textarea>
+        <label for="definitionOfDone">Definition Of Done</label>
+      </div>
+      <div class="input-field col s6">
+        <textarea class="materialize-textarea" id="acceptanceCriteria" name="acceptanceCriteria"
+                  [(ngModel)]="backlogItem.acceptanceCriteria" #acceptanceCriteria="ngModel"></textarea>
+        <label for="acceptanceCriteria">Acceptance Criteria</label>
       </div>
     </div>
 
