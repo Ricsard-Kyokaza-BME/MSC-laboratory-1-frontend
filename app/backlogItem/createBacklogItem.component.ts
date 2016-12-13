@@ -33,7 +33,6 @@ export class CreateBacklogItemComponent implements OnInit {
 
   constructor(private _backlogItemRESTService: BacklogItemRESTService, private _route: ActivatedRoute,
               private _router: Router, private _userRESTService: UserRESTService) {
-    this.isEditing = false;
     this.searchedUsers = [];
     this.selectedAssignees = [];
     this.backlogItems = new Map<string, Array<BacklogItem>>();
@@ -44,9 +43,8 @@ export class CreateBacklogItemComponent implements OnInit {
 
     this.id = this._route.snapshot.params['id'];
     this.type = this._route.snapshot.params['type'];
-    if(this.id && this.type) {
-      this.isEditing = true;
-    }
+
+    (this.id && this.type) ? this.isEditing = true : this.isEditing = false;
   }
 
   ngOnInit(): void {
