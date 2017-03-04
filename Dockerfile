@@ -13,10 +13,9 @@ RUN \
      && npm install fs-extra \
      && sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs.move/ ./lib/utils/rename.js && \
     npm install gulp-cli && \
-    npm install -g typescript@2.0.10 && \
-    npm install -g babel && \
+    npm install -g typescript@2.2.1 && \
     cd /home/elenor/app && \
-    npm install rxjs@5.0.1 && \
+    npm install rxjs@5.2.0 && \
     npm install && \
     npm install @types/selenium-webdriver@2.53.36
 
