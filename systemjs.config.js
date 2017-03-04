@@ -29,7 +29,7 @@
 
       // other libraries
       'rxjs':                      'npm:rxjs',
-      'ng2-dnd':                   'npm:ng2-dnd',
+      'ng2-dnd':                   'npm:ng2-dnd/bundles/index.umd.js',
       'contra':                    'npm:contra',
       'atoa':                      'npm:atoa',
       'ticky':                     'npm:ticky',
@@ -47,7 +47,6 @@
       'materialize-css': { format: "global", main: "dist/js/materialize.js", defaultExtension: 'js' },
       'angular2-materialize': { "main": "dist/index.js", "defaultExtension": "js" },
       'class-transformer': { "main": "index.js", "defaultExtension": "js" },
-      'ng2-dnd':  { main: 'index.js',  defaultExtension: 'js' },
       'contra': { main: 'contra.js', defaultExtension: 'js' },
       'atoa': { main: 'atoa.js', defaultExtension: 'js' },
       'ticky': { main: 'ticky.js', defaultExtension: 'js' },
