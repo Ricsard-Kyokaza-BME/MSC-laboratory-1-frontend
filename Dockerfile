@@ -17,7 +17,8 @@ RUN \
     npm install -g babel && \
     cd /home/elenor/app && \
     npm install rxjs@5.0.1 && \
-    npm install
+    npm install && \
+    npm install @types/selenium-webdriver@2.53.36
 
 # The command to run our app when the container is run
 CMD ["npm", "run-script", "start"]
