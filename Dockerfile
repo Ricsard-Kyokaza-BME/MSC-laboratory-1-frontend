@@ -15,7 +15,7 @@ RUN \
     npm install gulp-cli && \
     npm install -g typescript@2.2.1 && \
     cd /home/elenor/app && \
-    npm install && \
+    npm install
 
 # The command to run our app when the container is run
 CMD ["npm", "run-script", "start"]
