@@ -12,7 +12,7 @@ RUN \
     cd $(npm root -g)/npm \
      && npm install fs-extra \
      && sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs.move/ ./lib/utils/rename.js && \
-    npm install npm && \
+    npm install npm@latest -g && \
     npm install gulp-cli && \
     npm install -g typescript@2.2.1 && \
     cd /home/elenor/app && \
