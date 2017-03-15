@@ -1,8 +1,11 @@
 import {BacklogStatus} from "./backlogStatus";
 import {BacklogItemType} from "./backlogItemType";
 import {Complexity} from "./complexity";
+import {CRUDEntity} from "./CRUDEntity";
+import {Http} from "@angular/http";
+import {Inject} from "@angular/core";
 
-export abstract class BacklogItem {
+export abstract class BacklogItem extends CRUDEntity {
   id: string;
   title: string;
   createDate: Date;
@@ -17,6 +20,7 @@ export abstract class BacklogItem {
   constructor()
   constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<string>, complexity: any, depending: Array<string>, status: BacklogStatus, type: BacklogItemType)
   constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<string>, complexity?: any, depending?: Array<string>, status?: BacklogStatus, type?: BacklogItemType) {
+    super();
     this.id = id;
     this.title = title;
     this.createDate = createDate || new Date();

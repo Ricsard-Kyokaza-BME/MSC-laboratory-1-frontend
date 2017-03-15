@@ -1,8 +1,12 @@
 import {AbstractTask} from "./abstractTask";
 import {BacklogStatus} from "./backlogStatus";
 import {BacklogItemType} from "./backlogItemType";
+import {Http} from "@angular/http";
+import {Inject} from "@angular/core";
 
 export class Task extends AbstractTask {
+  static path: string = 'task';
+
   progressInfo: any;
 
   constructor()

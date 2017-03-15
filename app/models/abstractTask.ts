@@ -1,8 +1,9 @@
 import {BacklogItem} from "./backlogItem";
 import {BacklogStatus} from "./backlogStatus";
 import {BacklogItemType} from "./backlogItemType";
+import {Http} from "@angular/http";
 
-export class AbstractTask extends BacklogItem {
+export abstract class AbstractTask extends BacklogItem {
 
   constructor()
   constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<string>, complexity: any, depending: Array<string>, status: BacklogStatus, type: BacklogItemType)

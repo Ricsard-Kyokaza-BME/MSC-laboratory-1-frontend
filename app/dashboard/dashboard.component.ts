@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
@@ -7,6 +7,7 @@ import {Bug} from "../models/bug";
 import {Task} from "../models/task";
 import {BacklogItemRESTService} from "../backlogItem/backlogItemREST.service";
 import {Router} from "@angular/router";
+import {Http} from "@angular/http";
 
 @Component({
   selector: 'dashboard-cmp',
@@ -20,7 +21,7 @@ export class DashboardComponent implements OnInit {
   orderSwitches: {backlogSwitch: boolean, todoSwitch: boolean, inProgressSwitch: boolean, doneSwitch: boolean};
   orderSwitchesDisabled: {backlogSwitch: boolean, todoSwitch: boolean, inProgressSwitch: boolean, doneSwitch: boolean};
 
-  constructor(private _backlogItemRESTService: BacklogItemRESTService, private _router: Router) {
+  constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService, private _router: Router) {
     this.backlogItems= [];
     this.todoItems= [];
     this.inProgressItems= [];
@@ -36,6 +37,13 @@ export class DashboardComponent implements OnInit {
         this.mapDashboardItems(this.todoItems, res, 'todo');
         this.mapDashboardItems(this.inProgressItems, res, 'inProgress');
         this.mapDashboardItems(this.doneItems, res, 'done');
+      },
+      error =>  console.log(error));
+
+    //DEBUG
+    Bug.findById(this._http, '58c9a7f21cf363176649adf7').subscribe(
+      res => {
+        console.log(res);
       },
       error =>  console.log(error));
   }
