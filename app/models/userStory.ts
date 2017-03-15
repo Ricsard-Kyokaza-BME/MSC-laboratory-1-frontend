@@ -5,7 +5,7 @@ import {Http} from "@angular/http";
 import {Inject} from "@angular/core";
 
 export class UserStory extends BacklogItem {
-  static path: string = 'userstory';
+  static path: string = 'userstory/';
 
   subtasks: Array<string>;
   definitionOfDone: string;

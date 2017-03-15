@@ -5,7 +5,7 @@ import {Http} from "@angular/http";
 import {Inject} from "@angular/core";
 
 export class Task extends AbstractTask {
-  static path: string = 'task';
+  static path: string = 'task/';
 
   progressInfo: any;
 
