@@ -48,7 +48,7 @@
     "@types/selenium-webdriver": "2.53.36"
   },
   "devDependencies": {
-    "@types/core-js": "^0.9.34",
+    "@types/core-js": "0.9.36",
     "@types/jasmine": "^2.5.36",
     "@types/jquery": "^2.0.34",
     "@types/node": "^6.0.46",
