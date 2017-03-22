@@ -1,7 +1,7 @@
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs";
 export abstract class CRUDEntity {
-  static basePath: string = 'api/';
+  static basePath: string = '/api/';
   static path: string;
 
   constructor() {}
