@@ -8,6 +8,7 @@ import {Task} from "../models/task";
 import {BacklogItemRESTService} from "../backlogItem/backlogItemREST.service";
 import {Router} from "@angular/router";
 import {Http} from "@angular/http";
+import {SessionService} from "../auth/session.service";
 
 @Component({
   selector: 'dashboard-cmp',
@@ -20,14 +21,18 @@ export class DashboardComponent implements OnInit {
   doneItems: Array<BacklogItem>;
   orderSwitches: {backlogSwitch: boolean, todoSwitch: boolean, inProgressSwitch: boolean, doneSwitch: boolean};
   orderSwitchesDisabled: {backlogSwitch: boolean, todoSwitch: boolean, inProgressSwitch: boolean, doneSwitch: boolean};
+  sessionService: SessionService;
 
-  constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService, private _router: Router) {
+
+  constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService,
+              private _router: Router, sessionService: SessionService) {
     this.backlogItems= [];
     this.todoItems= [];
     this.inProgressItems= [];
     this.doneItems= [];
     this.orderSwitches = { backlogSwitch: false, todoSwitch: false, inProgressSwitch: false, doneSwitch: false };
     this.orderSwitchesDisabled = { backlogSwitch: true, todoSwitch: false, inProgressSwitch: false, doneSwitch: false };
+    this.sessionService = sessionService;
   }
 
   ngOnInit(): void {

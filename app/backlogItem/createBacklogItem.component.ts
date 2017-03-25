@@ -12,6 +12,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {UserRESTService} from "../user/userREST.service";
 import {Http} from "@angular/http";
 import {CRUDEntity} from "../models/CRUDEntity";
+import {SessionService} from "../auth/session.service";
 
 @Component({
   selector: 'create-backlog-item-cmp',
@@ -33,17 +34,24 @@ export class CreateBacklogItemComponent implements OnInit {
 
   complexity = Complexity;
   backlogStatus = BacklogStatus;
+  sessionService: SessionService;
 
   constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService, private _route: ActivatedRoute,
-              private _router: Router, private _userRESTService: UserRESTService) {
+              private _router: Router, private _userRESTService: UserRESTService, sessionService: SessionService) {
     this.searchedUsers = [];
     this.selectedAssignees = [];
     this.backlogItems = new Map<string, Array<BacklogItem>>();
     this.selectedDependingItems = [];
     this.selectedSubTaskItems = [];
+    this.sessionService = sessionService;
 
-    this.backlogItem = new UserStory();
-    this.typeRadio = 'userStory';
+    if(sessionService.isProductOwnerSignedIn()) {
+      this.backlogItem = new UserStory();
+      this.typeRadio = 'userStory';
+    } else {
+      this.backlogItem = new Task();
+      this.typeRadio = 'task';
+    }
 
     this.id = this._route.snapshot.params['id'];
     this.type = this._route.snapshot.params['type'];

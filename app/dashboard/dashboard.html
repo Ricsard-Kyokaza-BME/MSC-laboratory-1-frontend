@@ -6,7 +6,7 @@
       <div class="switch">
         <label>
           Change order Off
-          <input [(ngModel)]="orderSwitches.backlogSwitch" [disabled]="orderSwitchesDisabled.backlogSwitch" type="checkbox">
+          <input [(ngModel)]="orderSwitches.backlogSwitch" [disabled]="!(sessionService.isProductOwnerSignedIn())" type="checkbox">
           <span class="lever"></span>
           On
         </label>

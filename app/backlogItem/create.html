@@ -3,7 +3,7 @@
     <div class="col s12">
       <h5>Choose type</h5>
     </div>
-    <div class="col s4" style="text-align: center">
+    <div class="col s4" *ngIf="sessionService.isProductOwnerSignedIn()" style="text-align: center">
       <input name="typeGroup" [(ngModel)]="typeRadio" value="userStory" type="radio"
              id="userStory" (click)="radioButtonClicked('userStory')" />
       <label for="userStory">User Story</label>

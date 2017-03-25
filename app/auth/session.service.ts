@@ -3,10 +3,11 @@ import {Observable} from 'rxjs/Observable';
 import {Http} from '@angular/http';
 
 import 'rxjs/add/operator/map';
+import any = jasmine.any;
 
 type StoredUser = {
   username: String,
-  authorities: Array<String>
+  authorities: Array<{"authority": string}>
 }
 
 @Injectable()
@@ -16,7 +17,7 @@ export class SessionService {
     this.checkSession().subscribe(
         res => {
           if(!res.authenticated) {
-            window.location.href='/'
+            window.location.href='/';
           } else {
             let storedUser: StoredUser = {username: res.principal.username,
                                           authorities: res.principal.authorities};
@@ -33,6 +34,15 @@ export class SessionService {
 
   getSignedInUser(): StoredUser|undefined {
     return JSON.parse(sessionStorage.getItem('user'));
+  }
+
+  isProductOwnerSignedIn(): boolean {
+    for(let entry of this.getSignedInUser().authorities) {
+      if(entry['authority'] == 'PO') {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
