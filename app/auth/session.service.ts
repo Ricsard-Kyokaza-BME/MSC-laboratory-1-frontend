@@ -23,7 +23,7 @@ export class SessionService {
             sessionStorage.setItem('user', JSON.stringify(storedUser));
           }
         },
-        error =>  console.log(error));
+        error =>  window.location.href='/');
   }
 
   checkSession(): Observable<any> {

@@ -6,7 +6,6 @@ import {Http} from "@angular/http";
 import {Inject} from "@angular/core";
 
 export abstract class BacklogItem extends CRUDEntity {
-  id: string;
   title: string;
   createDate: Date;
   keywords: Array<string>;
@@ -20,7 +19,7 @@ export abstract class BacklogItem extends CRUDEntity {
   constructor()
   constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<string>, complexity: any, depending: Array<string>, status: BacklogStatus, type: BacklogItemType)
   constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<string>, complexity?: any, depending?: Array<string>, status?: BacklogStatus, type?: BacklogItemType) {
-    super();
+    super(id);
     this.id = id;
     this.title = title;
     this.createDate = createDate || new Date();

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
@@ -10,6 +10,8 @@ import {Task} from "../models/task";
 import {BacklogItemRESTService} from "./backlogItemREST.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import {UserRESTService} from "../user/userREST.service";
+import {Http} from "@angular/http";
+import {CRUDEntity} from "../models/CRUDEntity";
 
 @Component({
   selector: 'create-backlog-item-cmp',
@@ -32,7 +34,7 @@ export class CreateBacklogItemComponent implements OnInit {
   complexity = Complexity;
   backlogStatus = BacklogStatus;
 
-  constructor(private _backlogItemRESTService: BacklogItemRESTService, private _route: ActivatedRoute,
+  constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService, private _route: ActivatedRoute,
               private _router: Router, private _userRESTService: UserRESTService) {
     this.searchedUsers = [];
     this.selectedAssignees = [];
@@ -51,7 +53,7 @@ export class CreateBacklogItemComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.isEditing) {
-      this._backlogItemRESTService.getBacklogItem(this.id, this.type).subscribe(
+      CRUDEntity.findById(this._http, this.id, this.type).subscribe(
         res => {
           this.instantiateBacklogItem(res);
 
@@ -150,15 +152,19 @@ export class CreateBacklogItemComponent implements OnInit {
       (<UserStory>this.backlogItem).subtasks = this.mapToField(this.selectedSubTaskItems, 'id');
     }
 
-    if(this.isEditing) {
-      this._backlogItemRESTService.updateBacklogItem(this.backlogItem).subscribe(
-        res =>    this._router.navigate(['/']),
-        error =>  console.log(error));
-    } else {
-      this._backlogItemRESTService.backlogItemSave(this.backlogItem).subscribe(
-        res =>    this._router.navigate(['/']),
-        error =>  console.log(error));
-    }
+    // if(this.isEditing) {
+    //   this._backlogItemRESTService.updateBacklogItem(this.backlogItem).subscribe(
+    //     res =>    this._router.navigate(['/']),
+    //     error =>  console.log(error));
+    // } else {
+    //   this._backlogItemRESTService.backlogItemSave(this.backlogItem).subscribe(
+    //     res =>    this._router.navigate(['/']),
+    //     error =>  console.log(error));
+    // }
+
+    this.backlogItem.save(this._http).subscribe(
+      res =>    this._router.navigate(['/']),
+      error =>  console.log(error));
 
     return false;
   }
@@ -172,7 +178,7 @@ export class CreateBacklogItemComponent implements OnInit {
   }
 
   deleteBacklogItem(): boolean {
-    this._backlogItemRESTService.deleteBacklogItem(this.backlogItem).subscribe(
+    this.backlogItem.deleteEntity(this._http).subscribe(
       res =>    this._router.navigate(['/']),
       error =>  console.log(error));
 
