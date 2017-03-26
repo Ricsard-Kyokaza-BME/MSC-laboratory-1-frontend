@@ -1,160 +1,166 @@
-<div class="row">
-  <div class="row" *ngIf="!isEditing">
-    <div class="col s12">
-      <h5>Choose type</h5>
+<div class="container">
+  <div *ngIf="!isEditing">
+    <div class="row">
+      <div class="col-12">
+        <h5>Choose type</h5>
+      </div>
     </div>
-    <div class="col s4" *ngIf="sessionService.isProductOwnerSignedIn()" style="text-align: center">
-      <input name="typeGroup" [(ngModel)]="typeRadio" value="userStory" type="radio"
-             id="userStory" (click)="radioButtonClicked('userStory')" />
-      <label for="userStory">User Story</label>
-    </div>
-    <div class="col s4" style="text-align: center">
-      <input name="typeGroup" [(ngModel)]="typeRadio" value="task" type="radio"
-             id="task" (click)="radioButtonClicked('task')" />
-      <label for="task">Task</label>
-    </div>
-    <div class="col s4" style="text-align: center">
-      <input name="typeGroup" [(ngModel)]="typeRadio" value="bug" type="radio"
-             id="bug" (click)="radioButtonClicked('bug')" />
-      <label for="bug">Bug</label>
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-4" *ngIf="sessionService.isProductOwnerSignedIn()" style="text-align: center">
+        <input name="typeGroup" [(ngModel)]="typeRadio" value="userStory" type="radio"
+               id="userStory" (click)="radioButtonClicked('userStory')" />
+        <label for="userStory">User Story</label>
+      </div>
+      <div class="col-12 col-md-4 col-lg-4" style="text-align: center">
+        <input name="typeGroup" [(ngModel)]="typeRadio" value="task" type="radio"
+               id="task" (click)="radioButtonClicked('task')" />
+        <label for="task">Task</label>
+      </div>
+      <div class="col-12 col-md-4 col-lg-4" style="text-align: center">
+        <input name="typeGroup" [(ngModel)]="typeRadio" value="bug" type="radio"
+               id="bug" (click)="radioButtonClicked('bug')" />
+        <label for="bug">Bug</label>
+      </div>
     </div>
   </div>
-  <form class="col s12" materialize (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
-    <h5>Details</h5>
-    <div class="row">
-      <div class="input-field col s6">
-        <input name="title" required
-               id="title" type="text" class="validate"
-               [(ngModel)]="backlogItem.title" #title="ngModel">
-        <label for="title">Title</label>
+  <div class="row">
+    <form class="col-12" materialize (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
+      <h5>Details</h5>
+      <div class="row">
+        <div class="input-field col-12 col-md-6">
+          <input name="title" required
+                 id="title" type="text" class="validate"
+                 [(ngModel)]="backlogItem.title" #title="ngModel">
+          <label for="title">Title</label>
+        </div>
+        <div class="input-field col-12 col-md-6">
+          <div id="keywords" class="chips chips-initial" materialize="material_chip" [materializeParams]="[keywords]"
+               (chip.add)="addKeyword($event.detail)" (chip.delete)="deleteKeyword($event.detail)"></div>
+          <label for="keywords">Keywords</label>
+        </div>
       </div>
-      <div class="input-field col s6">
-        <div id="keywords" class="chips chips-initial" materialize="material_chip" [materializeParams]="[keywords]"
-             (chip.add)="addKeyword($event.detail)" (chip.delete)="deleteKeyword($event.detail)"></div>
-        <label for="keywords">Keywords</label>
+      <div class="row">
+        <div class="input-field col-12">
+          <textarea class="materialize-textarea" id="description" name="description"
+                    [(ngModel)]="backlogItem.description" #description="ngModel"></textarea>
+          <label for="description">Description</label>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea class="materialize-textarea" id="description" name="description"
-                  [(ngModel)]="backlogItem.description" #description="ngModel"></textarea>
-        <label for="description">Description</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <input name="assigneeSearch"
-               id="assigneeSearch" type="text" class="validate"
-               [(ngModel)]="assigneeSearch" (ngModelChange)="assigneeTyped($event)">
-        <label for="assigneeSearch">Search assignees</label>
-        <ul style="max-height: 400px; overflow-y: auto">
-          <li style="border-bottom: 1px solid #eee"
-              *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
-            <i class="material-icons" style="vertical-align: bottom">add</i> {{user.firstName}} {{user.lastName}}
-          </li>
-        </ul>
-      </div>
-      <div class="input-field col s6">
-        <span>Selected assignees</span>
-        <ul style="max-height: 400px; overflow-y: auto"
-            id="selectedAssignees"
-            name="selectedAssignees">
-          <li style="border-bottom: 1px solid #eee"
-              *ngFor="let user of selectedAssignees" (click)="assigneeRemoved(user)">
-            <i class="material-icons" style="vertical-align: bottom">remove</i> {{user.firstName}} {{user.lastName}}
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <select id="complexity" materialize="material_select"
-                name="complexity" [(ngModel)]="backlogItem.complexity">
-          <option *ngFor="let option of complexity.keys()" [value]="option">{{option | capitalize}}</option>
-        </select>
-        <label for="complexity">Complexity</label>
-      </div>
-      <div class="input-field col s6">
-        <select id="status" materialize="material_select"
-                name="status" [(ngModel)]="backlogItem.status">
-          <option *ngFor="let option of backlogStatus.keys()" [value]="option">{{option | capitalize | removeUnderscore}}</option>
-        </select>
-        <label for="status">Status</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <span>Select depending Tasks</span>
-        <br/>
-        <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
-          <ul style="max-height: 400px; overflow-y: auto"
-              id="tasks"
-              name="tasks">
+      <div class="row">
+        <div class="input-field col-12 col-md-6">
+          <input name="assigneeSearch"
+                 id="assigneeSearch" type="text" class="validate"
+                 [(ngModel)]="assigneeSearch" (ngModelChange)="assigneeTyped($event)">
+          <label for="assigneeSearch">Search assignees</label>
+          <ul style="max-height: 400px; overflow-y: auto">
             <li style="border-bottom: 1px solid #eee"
-                *ngFor="let backlogItem of backlogItems.get('task')"
-                (click)="addDependingItem(backlogItem)">
-              <i class="material-icons" style="vertical-align: bottom">add</i> {{backlogItem.title}}
+                *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
+              <i class="material-icons" style="vertical-align: bottom">add</i> {{user.firstName}} {{user.lastName}}
+            </li>
+          </ul>
+        </div>
+        <div class="input-field col-12 col-md-6">
+          <span>Selected assignees</span>
+          <ul style="max-height: 400px; overflow-y: auto"
+              id="selectedAssignees"
+              name="selectedAssignees">
+            <li style="border-bottom: 1px solid #eee"
+                *ngFor="let user of selectedAssignees" (click)="assigneeRemoved(user)">
+              <i class="material-icons" style="vertical-align: bottom">remove</i> {{user.firstName}} {{user.lastName}}
             </li>
           </ul>
         </div>
       </div>
-      <div class="input-field col s6">
-        <span>Selected depending Tasks</span>
-        <ul style="max-height: 400px; overflow-y: auto"
-            id="selectedDependingItems"
-            name="selectedDependingItems">
-          <li style="border-bottom: 1px solid #eee"
-              *ngFor="let backlogItem of selectedDependingItems" (click)="dependingItemRemoved(backlogItem)">
-            <i class="material-icons" style="vertical-align: bottom">remove</i> {{backlogItem.title}}
-          </li>
-        </ul>
+      <div class="row">
+        <div class="input-field col-12 col-md-6">
+          <select id="complexity" materialize="material_select"
+                  name="complexity" [(ngModel)]="backlogItem.complexity">
+            <option *ngFor="let option of complexity.keys()" [value]="option">{{option | capitalize}}</option>
+          </select>
+          <label for="complexity">Complexity</label>
+        </div>
+        <div class="input-field col-12 col-md-6">
+          <select id="status" materialize="material_select"
+                  name="status" [(ngModel)]="backlogItem.status">
+            <option *ngFor="let option of backlogStatus.keys()" [value]="option">{{option | capitalize | removeUnderscore}}</option>
+          </select>
+          <label for="status">Status</label>
+        </div>
       </div>
-    </div>
-    <div class="row" *ngIf="typeRadio == 'userStory'">
-      <div class="input-field col s6">
-        <span>Select Sub Tasks</span>
-        <br/>
-        <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
+      <div class="row">
+        <div class="input-field col-12 col-md-6">
+          <span>Select depending Tasks</span>
+          <br/>
+          <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
+            <ul style="max-height: 400px; overflow-y: auto"
+                id="tasks"
+                name="tasks">
+              <li style="border-bottom: 1px solid #eee"
+                  *ngFor="let backlogItem of backlogItems.get('task')"
+                  (click)="addDependingItem(backlogItem)">
+                <i class="material-icons" style="vertical-align: bottom">add</i> {{backlogItem.title}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="input-field col-12 col-md-6">
+          <span>Selected depending Tasks</span>
           <ul style="max-height: 400px; overflow-y: auto"
-              id="subTasks"
-              name="subTasks">
+              id="selectedDependingItems"
+              name="selectedDependingItems">
             <li style="border-bottom: 1px solid #eee"
-                *ngFor="let backlogItem of backlogItems.get('task')"
-                (click)="addSubTaskItem(backlogItem)">
-              <i class="material-icons" style="vertical-align: bottom">add</i> {{backlogItem.title}}
+                *ngFor="let backlogItem of selectedDependingItems" (click)="dependingItemRemoved(backlogItem)">
+              <i class="material-icons" style="vertical-align: bottom">remove</i> {{backlogItem.title}}
             </li>
           </ul>
         </div>
       </div>
-      <div class="input-field col s6">
-        <span>Selected Sub Tasks</span>
-        <ul style="max-height: 400px; overflow-y: auto"
-            id="selectedSubTasks"
-            name="selectedSubTasks">
-          <li style="border-bottom: 1px solid #eee"
-              *ngFor="let backlogItem of selectedSubTaskItems" (click)="subTaskItemRemoved(backlogItem)">
-            <i class="material-icons" style="vertical-align: bottom">remove</i> {{backlogItem.title}}
-          </li>
-        </ul>
+      <div class="row" *ngIf="typeRadio == 'userStory'">
+        <div class="input-field col-12 col-md-6">
+          <span>Select Sub Tasks</span>
+          <br/>
+          <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
+            <ul style="max-height: 400px; overflow-y: auto"
+                id="subTasks"
+                name="subTasks">
+              <li style="border-bottom: 1px solid #eee"
+                  *ngFor="let backlogItem of backlogItems.get('task')"
+                  (click)="addSubTaskItem(backlogItem)">
+                <i class="material-icons" style="vertical-align: bottom">add</i> {{backlogItem.title}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="input-field col-12 col-md-6">
+          <span>Selected Sub Tasks</span>
+          <ul style="max-height: 400px; overflow-y: auto"
+              id="selectedSubTasks"
+              name="selectedSubTasks">
+            <li style="border-bottom: 1px solid #eee"
+                *ngFor="let backlogItem of selectedSubTaskItems" (click)="subTaskItemRemoved(backlogItem)">
+              <i class="material-icons" style="vertical-align: bottom">remove</i> {{backlogItem.title}}
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="row" *ngIf="typeRadio == 'userStory'">
-      <div class="input-field col s6">
-        <textarea class="materialize-textarea" id="definitionOfDone" name="definitionOfDone"
-                  [(ngModel)]="backlogItem.definitionOfDone" #definitionOfDone="ngModel"></textarea>
-        <label for="definitionOfDone">Definition Of Done</label>
+      <div class="row" *ngIf="typeRadio == 'userStory'">
+        <div class="input-field col-12 col-md-6">
+          <textarea class="materialize-textarea" id="definitionOfDone" name="definitionOfDone"
+                    [(ngModel)]="backlogItem.definitionOfDone" #definitionOfDone="ngModel"></textarea>
+          <label for="definitionOfDone">Definition Of Done</label>
+        </div>
+        <div class="input-field col-12 col-md-6">
+          <textarea class="materialize-textarea" id="acceptanceCriteria" name="acceptanceCriteria"
+                    [(ngModel)]="backlogItem.acceptanceCriteria" #acceptanceCriteria="ngModel"></textarea>
+          <label for="acceptanceCriteria">Acceptance Criteria</label>
+        </div>
       </div>
-      <div class="input-field col s6">
-        <textarea class="materialize-textarea" id="acceptanceCriteria" name="acceptanceCriteria"
-                  [(ngModel)]="backlogItem.acceptanceCriteria" #acceptanceCriteria="ngModel"></textarea>
-        <label for="acceptanceCriteria">Acceptance Criteria</label>
-      </div>
-    </div>
 
-    <button type="submit"
-            class="waves-effect blue-grey btn" *ngIf="!isEditing">Add</button>
-    <button type="submit"
-            class="waves-effect blue-grey btn" *ngIf="isEditing">Save</button>
-    <button class="waves-effect blue-grey btn" *ngIf="isEditing" (click)="deleteBacklogItem()">Delete</button>
-  </form>
+      <button type="submit"
+              class="waves-effect blue-grey btn" *ngIf="!isEditing">Add</button>
+      <button type="submit"
+              class="waves-effect blue-grey btn" *ngIf="isEditing">Save</button>
+      <button class="waves-effect blue-grey btn" *ngIf="isEditing" (click)="deleteBacklogItem()">Delete</button>
+    </form>
+  </div>
 </div>

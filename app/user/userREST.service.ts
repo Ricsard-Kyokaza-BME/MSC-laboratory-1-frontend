@@ -15,8 +15,9 @@ export class UserRESTService {
   }
 
   userSearchSend(text: string): Observable<any[]> {
-    return this._http.post('/user/getUser', { keyword: text })
+    return this._http.get('/api/user/search/findByFirstNameOrLastName?firstName=' + text + '&lastName=' + text)
       .map((res:Response) => res.json())
+      .map((json) => json._embedded.user)
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 }

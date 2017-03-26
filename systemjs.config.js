@@ -38,7 +38,11 @@
       'jquery':                    'npm:jquery/dist/jquery.js',
       'materialize-css':           'npm:materialize-css',
       'angular2-materialize':      'npm:angular2-materialize',
-      'class-transformer':         'npm:class-transformer'
+      'class-transformer':         'npm:class-transformer',
+      'stylus':         'npm:systemjs-plugin-stylus/stylus.js'
+    },
+    meta: {
+      '*.styl': { loader: 'stylus' }
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
