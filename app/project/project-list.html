@@ -1,5 +1,5 @@
 <div class="container">
   <div class="row">
-    <dashboard-cmp></dashboard-cmp>
+    <dashboard-cmp *ngFor="let project of projects" [project]="project"></dashboard-cmp>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, Input} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
@@ -9,30 +9,36 @@ import {BacklogItemRESTService} from "../backlogItem/backlogItemREST.service";
 import {Router} from "@angular/router";
 import {Http} from "@angular/http";
 import {SessionService} from "../auth/session.service";
+import {Project} from "../models/project";
 
 @Component({
   selector: 'dashboard-cmp',
   templateUrl: 'app/app/dashboard/dashboard.html'
 })
 export class DashboardComponent implements OnInit {
+  @Input() project: Project;
+
+  sessionService: SessionService;
+
   backlogItems: Array<BacklogItem>;
   todoItems: Array<BacklogItem>;
   inProgressItems: Array<BacklogItem>;
   doneItems: Array<BacklogItem>;
   orderSwitches: {backlogSwitch: boolean, todoSwitch: boolean, inProgressSwitch: boolean, doneSwitch: boolean};
   orderSwitchesDisabled: {backlogSwitch: boolean, todoSwitch: boolean, inProgressSwitch: boolean, doneSwitch: boolean};
-  sessionService: SessionService;
-
+  isOpen: boolean;
 
   constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService,
               private _router: Router, sessionService: SessionService) {
+    this.sessionService = sessionService;
+
     this.backlogItems= [];
     this.todoItems= [];
     this.inProgressItems= [];
     this.doneItems= [];
     this.orderSwitches = { backlogSwitch: false, todoSwitch: false, inProgressSwitch: false, doneSwitch: false };
     this.orderSwitchesDisabled = { backlogSwitch: true, todoSwitch: false, inProgressSwitch: false, doneSwitch: false };
-    this.sessionService = sessionService;
+    this.isOpen = false;
   }
 
   ngOnInit(): void {
@@ -44,6 +50,10 @@ export class DashboardComponent implements OnInit {
         this.mapDashboardItems(this.doneItems, res, 'done');
       },
       error =>  console.log(error));
+  }
+
+  dashboardToggle() {
+    this.isOpen = !this.isOpen;
   }
 
   mapDashboardItems(targetArray: Array<BacklogItem>, res:any[], status: string): void {
