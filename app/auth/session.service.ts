@@ -17,21 +17,22 @@ type StoredUser = {
 export class SessionService {
 
   constructor(@Inject(Http) private _http: Http, private _router: Router) {
-    this.checkSession().subscribe(
+    this.updateSignedInUser();
+  }
+
+  updateSignedInUser() {
+    return this._http.get('/api/is-signed-in')
+      .map((r) => r["_body"] == '' ? {} : r.json())
+      .subscribe(
         res => {
           if(res && res.id) {
             sessionStorage.setItem('user', JSON.stringify(res));
             this._router.navigate(['/projects']);
           } else {
-            window.location.href='/';
+            this.logout();
           }
         },
-        error =>  window.location.href='/');
-  }
-
-  checkSession(): Observable<any> {
-    return this._http.get('/api/is-signed-in')
-      .map((r) => r["_body"] == '' ? {} : r.json());
+        error =>  this.logout());
   }
 
   getSignedInUserId(): string|undefined {
@@ -49,6 +50,11 @@ export class SessionService {
       }
     }
     return false;
+  }
+
+  logout() {
+    sessionStorage.removeItem('user');
+    window.location.href='/logout';
   }
 
 }

@@ -22,7 +22,7 @@ import {SessionService} from "./auth/session.service";
                 <a routerLink="/projects" routerLinkActive="active">Dashboard</a>
               </li>
               <li class="nav-item">
-                <a href="/logout" routerLinkActive="active">Logout</a>
+                <a (click)="logout()" routerLinkActive="active">Logout</a>
               </li>
             </ul>
           </div>
@@ -33,7 +33,11 @@ import {SessionService} from "./auth/session.service";
 export class AppComponent {
   isSignedIn: boolean;
 
-  constructor(@Inject(SessionService) sessionService: SessionService) {
-    this.isSignedIn = !!sessionService.getSignedInUser();
+  constructor(@Inject(SessionService) private _sessionService: SessionService) {
+    this.isSignedIn = !!_sessionService.getSignedInUser();
+  }
+
+  logout() {
+    this._sessionService.logout();
   }
 }

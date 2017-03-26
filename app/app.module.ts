@@ -14,8 +14,8 @@ import {CapitalizePipe} from "./utility/capitalize.pipe";
 import {RemoveUnderscorePipe} from "./utility/removeUnderscore.pipe";
 import {BacklogItemRESTService} from "./backlogItem/backlogItemREST.service";
 import {UserRESTService} from "./user/userREST.service";
-import {CreateProjectComponent} from "./project/createProject";
-import {ProjectListComponent} from "./project/projectList";
+import {CreateProjectComponent} from "./project/createProject.component";
+import {ProjectListComponent} from "./project/projectList.component";
 import {LoadComponent} from "./load.component";
 
 const appRoutes: Routes = [

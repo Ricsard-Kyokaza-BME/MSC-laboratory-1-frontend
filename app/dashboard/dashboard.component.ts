@@ -44,13 +44,6 @@ export class DashboardComponent implements OnInit {
         this.mapDashboardItems(this.doneItems, res, 'done');
       },
       error =>  console.log(error));
-
-    //DEBUG
-    Bug.findById(this._http, '58c9a7f21cf363176649adf7').subscribe(
-      res => {
-        console.log(res);
-      },
-      error =>  console.log(error));
   }
 
   mapDashboardItems(targetArray: Array<BacklogItem>, res:any[], status: string): void {
