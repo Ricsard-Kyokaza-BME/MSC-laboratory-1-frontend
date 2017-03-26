@@ -6,6 +6,7 @@ import {plainToClass} from "class-transformer";
 import {UserRESTService} from "../user/userREST.service";
 import {Utility} from "../utility/utility";
 import {Router} from "@angular/router";
+import {SessionService} from "../auth/session.service";
 
 @Component({
   selector: 'create-project-cmp',
@@ -19,7 +20,7 @@ export class CreateProjectComponent implements OnInit {
   selectedAssignees: Array<User>;
 
   constructor(@Inject(Http) private _http: Http, private _userRESTService: UserRESTService,
-              private _router: Router) {
+              private _router: Router, private _sessionService: SessionService) {
     this.project = new Project();
     this.isEditing = false;
 
@@ -53,13 +54,13 @@ export class CreateProjectComponent implements OnInit {
   saveProject() {
     this.project.usersInProject = Utility.mapToField(this.selectedAssignees, 'id');
     this.project.save(this._http).subscribe(
-      res =>    this._router.navigate(['/projects']),
+      res =>    this._sessionService.updateSignedInUser(),
       error =>  console.log(error));
   }
 
   deleteProject() {
     this.project.deleteEntity(this._http).subscribe(
-      res =>    this._router.navigate(['/projects']),
+      res =>    this._sessionService.updateSignedInUser(),
       error =>  console.log(error));
   }
 }
