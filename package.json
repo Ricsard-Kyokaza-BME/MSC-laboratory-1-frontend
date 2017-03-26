@@ -38,7 +38,7 @@
     "bootstrap": "4.0.0-alpha.6",
     "stylus": "0.54.5",
     "systemjs-plugin-stylus": "0.1.0",
-    "materialize-css": "0.98.1",
+    "materialize-css": "0.97.8",
     "angular2-materialize": "6.7.1",
     "class-transformer": "0.1.6",
     "core-js": "2.4.1",

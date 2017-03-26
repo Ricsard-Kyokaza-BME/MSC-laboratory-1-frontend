@@ -2,7 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {SessionService} from "./auth/session.service";
 
 @Component({
-    selector: 'my-app',
+    selector: 'agile-app',
     template: `
       <nav id="menu" class="navbar navbar-toggleable-sm navbar-inverse">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
