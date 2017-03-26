@@ -9,7 +9,7 @@ export class UserRESTService {
   constructor(@Inject(Http) private _http: Http) {}
 
   resolveUserIds(ids: Array<string>): Observable<any[]> {
-    return this._http.post('/user/find', ids)
+    return this._http.post('/api/user/find', ids)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }

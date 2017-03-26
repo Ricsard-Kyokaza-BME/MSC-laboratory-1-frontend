@@ -72,7 +72,7 @@ export class BacklogItemRESTService {
   }
 
   resolveTaskIds(ids: Array<string>): Observable<any[]> {
-    return this._http.post('/task/find', ids)
+    return this._http.post('/api/task/find', ids)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
