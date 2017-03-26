@@ -20,7 +20,7 @@ import {LoadComponent} from "./load.component";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
-  { path: 'backlog-item/create', component: CreateBacklogItemComponent },
+  { path: 'backlog-item/:id/create', component: CreateBacklogItemComponent },
   { path: 'project/create', component: CreateProjectComponent },
   { path: ':type/edit/:id', component: CreateBacklogItemComponent },
   { path: 'projects', component: ProjectListComponent },

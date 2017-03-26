@@ -42,7 +42,19 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._backlogItemRESTService.getBacklogItemsByStatus().subscribe(
+    // this._backlogItemRESTService.getBacklogItemsByStatus().subscribe(
+    //   res => {
+    //     this.mapDashboardItems(this.backlogItems, res, 'backlog');
+    //     this.mapDashboardItems(this.todoItems, res, 'todo');
+    //     this.mapDashboardItems(this.inProgressItems, res, 'inProgress');
+    //     this.mapDashboardItems(this.doneItems, res, 'done');
+    //   },
+    //   error =>  console.log(error));
+  }
+
+  dashboardToggle() {
+    this.isOpen = !this.isOpen;
+    this.project.resolveProject(this._http).subscribe(
       res => {
         this.mapDashboardItems(this.backlogItems, res, 'backlog');
         this.mapDashboardItems(this.todoItems, res, 'todo');
@@ -52,8 +64,8 @@ export class DashboardComponent implements OnInit {
       error =>  console.log(error));
   }
 
-  dashboardToggle() {
-    this.isOpen = !this.isOpen;
+  goToCreateBacklogItem() {
+    this._router.navigate(['/backlog-item/' + this.project.dashboardId + '/create'])
   }
 
   mapDashboardItems(targetArray: Array<BacklogItem>, res:any[], status: string): void {

@@ -1,6 +1,9 @@
 <div class="dashboard-project-container container">
   <div class="row dashboard-project-title">
-    <div class="col-1" (click)="dashboardToggle()"><i class="material-icons">list</i></div>
+    <div class="col-1">
+      <i class="material-icons" (click)="dashboardToggle()">list</i>
+      <i class="material-icons" (click)="goToCreateBacklogItem()">add</i>
+    </div>
     <div class="col-11">
       <h4>{{project.name | capitalize}}</h4>
       <h6>{{project.description | capitalize}}</h6>

@@ -14,6 +14,7 @@ import {Http} from "@angular/http";
 import {CRUDEntity} from "../models/CRUDEntity";
 import {SessionService} from "../auth/session.service";
 import {Utility} from "../utility/utility";
+import {Dashboard} from "../models/dashboard";
 
 @Component({
   selector: 'create-backlog-item-cmp',
@@ -175,7 +176,7 @@ export class CreateBacklogItemComponent implements OnInit {
     //     error =>  console.log(error));
     // }
 
-    this.backlogItem.save(this._http).subscribe(
+    Dashboard.addBacklogItem(this._http, this.id, this.backlogItem).subscribe(
       res =>    this._router.navigate(['/projects']),
       error =>  console.log(error));
 

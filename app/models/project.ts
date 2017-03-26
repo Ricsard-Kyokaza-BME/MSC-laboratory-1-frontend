@@ -1,4 +1,6 @@
 import {CRUDEntity} from "./CRUDEntity";
+import {Http, Response} from "@angular/http";
+import {Observable} from "rxjs";
 
 export class Project extends CRUDEntity {
   static path: string = 'project/';
@@ -16,5 +18,11 @@ export class Project extends CRUDEntity {
     this.description = description;
     this.usersInProject = usersInProject;
     this.dashboardId = dashboardId;
+  }
+
+  resolveProject(http: Http) : Observable<any[]> {
+    return http.get(CRUDEntity.basePath + Project.path + "resolve/" + this.id)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 }
