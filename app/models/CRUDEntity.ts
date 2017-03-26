@@ -25,7 +25,7 @@ export abstract class CRUDEntity {
 
   public deleteEntity(http: Http): Observable<any[]> {
     return http.delete(CRUDEntity.basePath + this.getPath() + this.id)
-      .map((res:Response) => res.text())
+      .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 

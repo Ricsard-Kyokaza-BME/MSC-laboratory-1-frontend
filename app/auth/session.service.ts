@@ -4,6 +4,8 @@ import {Http} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import any = jasmine.any;
+import {User} from "../models/user";
+import {plainToClass} from "class-transformer";
 
 type StoredUser = {
   username: String,
@@ -16,12 +18,10 @@ export class SessionService {
   constructor(@Inject(Http) private _http: Http) {
     this.checkSession().subscribe(
         res => {
-          if(!res.authenticated) {
-            window.location.href='/';
+          if(res && res.id) {
+            sessionStorage.setItem('user', JSON.stringify(res));
           } else {
-            let storedUser: StoredUser = {username: res.principal.username,
-                                          authorities: res.principal.authorities};
-            sessionStorage.setItem('user', JSON.stringify(storedUser));
+            window.location.href='/';
           }
         },
         error =>  window.location.href='/');
@@ -32,12 +32,16 @@ export class SessionService {
       .map((r) => r["_body"] == '' ? {} : r.json());
   }
 
-  getSignedInUser(): StoredUser|undefined {
-    return JSON.parse(sessionStorage.getItem('user'));
+  getSignedInUserId(): string|undefined {
+    return this.getSignedInUser().id;
+  }
+
+  getSignedInUser(): User|undefined {
+    return plainToClass(User, <User>JSON.parse(sessionStorage.getItem('user')));
   }
 
   isProductOwnerSignedIn(): boolean {
-    for(let entry of this.getSignedInUser().authorities) {
+    for(let entry of this.getSignedInUser().roles) {
       if(entry['authority'] == 'PO') {
         return true;
       }

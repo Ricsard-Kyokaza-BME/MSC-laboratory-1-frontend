@@ -13,6 +13,7 @@ import {UserRESTService} from "../user/userREST.service";
 import {Http} from "@angular/http";
 import {CRUDEntity} from "../models/CRUDEntity";
 import {SessionService} from "../auth/session.service";
+import {Utility} from "../utility/utility";
 
 @Component({
   selector: 'create-backlog-item-cmp',
@@ -154,10 +155,10 @@ export class CreateBacklogItemComponent implements OnInit {
   }
 
   saveBacklogItem(): boolean {
-    this.backlogItem.assignee = this.mapToField(this.selectedAssignees, 'id');
-    this.backlogItem.depending = this.mapToField(this.selectedDependingItems, 'id');
+    this.backlogItem.assignee = Utility.mapToField(this.selectedAssignees, 'id');
+    this.backlogItem.depending = Utility.mapToField(this.selectedDependingItems, 'id');
     if(this.typeRadio == 'userStory') {
-      (<UserStory>this.backlogItem).subtasks = this.mapToField(this.selectedSubTaskItems, 'id');
+      (<UserStory>this.backlogItem).subtasks = Utility.mapToField(this.selectedSubTaskItems, 'id');
     }
 
     // if(this.isEditing) {
@@ -175,14 +176,6 @@ export class CreateBacklogItemComponent implements OnInit {
       error =>  console.log(error));
 
     return false;
-  }
-
-  mapToField(sourceArray: Array<any>, field: string): Array<string> {
-    let mappedItems: Array<string> = [];
-    for(let i = 0; i < sourceArray.length; i++) {
-      mappedItems.push(sourceArray[i][field]);
-    }
-    return mappedItems;
   }
 
   deleteBacklogItem(): boolean {

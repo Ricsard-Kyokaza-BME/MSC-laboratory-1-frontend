@@ -16,6 +16,9 @@ import {SessionService} from "./auth/session.service";
                 <a routerLink="/backlog-item/create" routerLinkActive="active">Create Backlog Item</a>
               </li>
               <li class="nav-item">
+                <a routerLink="/project/create" routerLinkActive="active">Create Project</a>
+              </li>
+              <li class="nav-item">
                 <a routerLink="/" routerLinkActive="active">Dashboard</a>
               </li>
               <li class="nav-item">

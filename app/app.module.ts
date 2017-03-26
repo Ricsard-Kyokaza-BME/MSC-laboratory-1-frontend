@@ -14,12 +14,15 @@ import {CapitalizePipe} from "./utility/capitalize.pipe";
 import {RemoveUnderscorePipe} from "./utility/removeUnderscore.pipe";
 import {BacklogItemRESTService} from "./backlogItem/backlogItemREST.service";
 import {UserRESTService} from "./user/userREST.service";
+import {CreateProjectComponent} from "./project/createProject";
+import {ProjectListComponent} from "./project/projectList";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
   { path: 'backlog-item/create', component: CreateBacklogItemComponent },
+  { path: 'project/create', component: CreateProjectComponent },
   { path: ':type/edit/:id', component: CreateBacklogItemComponent },
-  { path: '', component: DashboardComponent },
+  { path: '', component: ProjectListComponent },
 ];
 
 @NgModule({
@@ -36,6 +39,8 @@ const appRoutes: Routes = [
     LoginCmp,
     DashboardComponent,
     CreateBacklogItemComponent,
+    CreateProjectComponent,
+    ProjectListComponent,
     CapitalizePipe,
     RemoveUnderscorePipe
   ],
