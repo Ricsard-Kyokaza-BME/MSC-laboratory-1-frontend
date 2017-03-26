@@ -172,7 +172,7 @@ export class CreateBacklogItemComponent implements OnInit {
     // }
 
     this.backlogItem.save(this._http).subscribe(
-      res =>    this._router.navigate(['/']),
+      res =>    this._router.navigate(['/projects']),
       error =>  console.log(error));
 
     return false;
@@ -180,7 +180,7 @@ export class CreateBacklogItemComponent implements OnInit {
 
   deleteBacklogItem(): boolean {
     this.backlogItem.deleteEntity(this._http).subscribe(
-      res =>    this._router.navigate(['/']),
+      res =>    this._router.navigate(['/projects']),
       error =>  console.log(error));
 
     return false;

@@ -10,7 +10,7 @@ import {SessionService} from "./auth/session.service";
         </button>
         <div class="container">
           <div class="collapse navbar-collapse" id="navbarToggler">
-            <a class="navbar-brand hidden-sm-down" routerLink="/" routerLinkActive="active">Agile Tool</a>
+            <a class="navbar-brand hidden-sm-down" routerLink="/projects" routerLinkActive="active">Agile Tool</a>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                 <a routerLink="/backlog-item/create" routerLinkActive="active">Create Backlog Item</a>
@@ -19,7 +19,7 @@ import {SessionService} from "./auth/session.service";
                 <a routerLink="/project/create" routerLinkActive="active">Create Project</a>
               </li>
               <li class="nav-item">
-                <a routerLink="/" routerLinkActive="active">Dashboard</a>
+                <a routerLink="/projects" routerLinkActive="active">Dashboard</a>
               </li>
               <li class="nav-item">
                 <a href="/logout" routerLinkActive="active">Logout</a>

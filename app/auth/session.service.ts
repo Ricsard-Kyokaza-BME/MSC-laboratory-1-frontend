@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import any = jasmine.any;
 import {User} from "../models/user";
 import {plainToClass} from "class-transformer";
+import {Router} from "@angular/router";
 
 type StoredUser = {
   username: String,
@@ -15,11 +16,12 @@ type StoredUser = {
 @Injectable()
 export class SessionService {
 
-  constructor(@Inject(Http) private _http: Http) {
+  constructor(@Inject(Http) private _http: Http, private _router: Router) {
     this.checkSession().subscribe(
         res => {
           if(res && res.id) {
             sessionStorage.setItem('user', JSON.stringify(res));
+            this._router.navigate(['/projects']);
           } else {
             window.location.href='/';
           }

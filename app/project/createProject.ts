@@ -53,13 +53,13 @@ export class CreateProjectComponent implements OnInit {
   saveProject() {
     this.project.usersInProject = Utility.mapToField(this.selectedAssignees, 'id');
     this.project.save(this._http).subscribe(
-      res =>    this._router.navigate(['/']),
+      res =>    this._router.navigate(['/projects']),
       error =>  console.log(error));
   }
 
   deleteProject() {
     this.project.deleteEntity(this._http).subscribe(
-      res =>    this._router.navigate(['/']),
+      res =>    this._router.navigate(['/projects']),
       error =>  console.log(error));
   }
 }

@@ -16,13 +16,15 @@ import {BacklogItemRESTService} from "./backlogItem/backlogItemREST.service";
 import {UserRESTService} from "./user/userREST.service";
 import {CreateProjectComponent} from "./project/createProject";
 import {ProjectListComponent} from "./project/projectList";
+import {LoadComponent} from "./load.component";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
   { path: 'backlog-item/create', component: CreateBacklogItemComponent },
   { path: 'project/create', component: CreateProjectComponent },
   { path: ':type/edit/:id', component: CreateBacklogItemComponent },
-  { path: '', component: ProjectListComponent },
+  { path: 'projects', component: ProjectListComponent },
+  { path: '', component: LoadComponent },
 ];
 
 @NgModule({
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
     CreateBacklogItemComponent,
     CreateProjectComponent,
     ProjectListComponent,
+    LoadComponent,
     CapitalizePipe,
     RemoveUnderscorePipe
   ],
