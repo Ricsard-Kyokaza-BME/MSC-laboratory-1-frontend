@@ -21,8 +21,8 @@ export class Dashboard extends CRUDEntity {
     this.done = done;
   }
 
-  public static addBacklogItem(http: Http, id: string, backlogItem: BacklogItem) : Observable<any[]> {
-    return http.post(CRUDEntity.basePath + Dashboard.path + id, backlogItem)
+  public static addBacklogItem(http: Http, dashboardId: string, backlogItem: BacklogItem) : Observable<any[]> {
+    return http.post(CRUDEntity.basePath + Dashboard.path + dashboardId, backlogItem)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }

@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
   }
 
   dashboardItemClicked(item: BacklogItem): void {
-    this._router.navigate(['/' + this._backlogItemRESTService.getPath(item.type) + '/edit/' + item.id ]);
+    this._router.navigate(['/' + item.getPath() + 'edit/' + this.project.dashboardId + '/' + item.id ]);
   }
 
   dropToBacklog($event: {dragData: any, mouseEvent: MouseEvent}): void {

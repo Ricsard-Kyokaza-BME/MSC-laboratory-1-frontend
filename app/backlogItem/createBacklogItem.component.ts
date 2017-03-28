@@ -22,6 +22,8 @@ import {Dashboard} from "../models/dashboard";
 })
 export class CreateBacklogItemComponent implements OnInit {
   id: string;
+  dashboardId: string;
+
   isEditing: boolean;
   type: string;
   typeRadio: string;
@@ -56,6 +58,7 @@ export class CreateBacklogItemComponent implements OnInit {
     }
 
     this.id = this._route.snapshot.params['id'];
+    this.dashboardId = this._route.snapshot.params['dashboardId'];
     this.type = this._route.snapshot.params['type'];
 
     (this.id && this.type) ? this.isEditing = true : this.isEditing = false;
@@ -176,7 +179,7 @@ export class CreateBacklogItemComponent implements OnInit {
     //     error =>  console.log(error));
     // }
 
-    Dashboard.addBacklogItem(this._http, this.id, this.backlogItem).subscribe(
+    Dashboard.addBacklogItem(this._http, this.dashboardId, this.backlogItem).subscribe(
       res =>    this._router.navigate(['/projects']),
       error =>  console.log(error));
 
