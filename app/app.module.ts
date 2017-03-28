@@ -17,6 +17,7 @@ import {UserRESTService} from "./user/userREST.service";
 import {CreateProjectComponent} from "./project/createProject.component";
 import {ProjectListComponent} from "./project/projectList.component";
 import {LoadComponent} from "./load.component";
+import {UiSwitchModule} from "angular2-ui-switch";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     DndModule.forRoot(),
-    MaterializeModule
+    UiSwitchModule
+    // MaterializeModule
   ],
   declarations: [
     AppComponent,

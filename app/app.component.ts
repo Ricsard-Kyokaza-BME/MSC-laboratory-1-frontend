@@ -25,7 +25,7 @@ import {SessionService} from "./auth/session.service";
           </div>
         </div>
       </nav>
-      <router-outlet></router-outlet>`
+      <router-outlet></router-outlet>`,
 })
 export class AppComponent {
   isSignedIn: boolean;

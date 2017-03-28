@@ -63,9 +63,9 @@ export class CreateBacklogItemComponent implements OnInit {
 
     (this.id && this.type) ? this.isEditing = true : this.isEditing = false;
 
-    $(document).ready(function() {
-      $('select').material_select();
-    });
+    // $(document).ready(function() {
+    //   $('select').material_select();
+    // });
   }
 
   ngOnInit(): void {

@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="row">
-    <form class="col-12" materialize (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
+    <form class="col-12"  (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
       <h5>Details</h5>
       <div class="row">
         <div class="input-field col-12 col-md-6">
@@ -34,8 +34,7 @@
           <label for="title">Title</label>
         </div>
         <div class="input-field col-12 col-md-6">
-          <div id="keywords" class="chips chips-initial" materialize="material_chip" [materializeParams]="[keywords]"
-               (chip.add)="addKeyword($event.detail)" (chip.delete)="deleteKeyword($event.detail)"></div>
+          <div id="keywords" class="chips chips-initial"></div>
           <label for="keywords">Keywords</label>
         </div>
       </div>
@@ -73,14 +72,14 @@
       </div>
       <div class="row">
         <div class="input-field col-12 col-md-6">
-          <select id="complexity" materialize="material_select"
+          <select id="complexity"
                   name="complexity" [(ngModel)]="backlogItem.complexity">
             <option *ngFor="let option of complexity.keys()" [value]="option">{{option | capitalize}}</option>
           </select>
           <label for="complexity">Complexity</label>
         </div>
         <div class="input-field col-12 col-md-6">
-          <select id="status" materialize="material_select"
+          <select id="status"
                   name="status" [(ngModel)]="backlogItem.status">
             <option *ngFor="let option of backlogStatus.keys()" [value]="option">{{option | capitalize | removeUnderscore}}</option>
           </select>

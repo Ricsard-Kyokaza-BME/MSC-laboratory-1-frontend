@@ -39,7 +39,8 @@
       'materialize-css':           'npm:materialize-css',
       'angular2-materialize':      'npm:angular2-materialize',
       'class-transformer':         'npm:class-transformer',
-      'stylus':         'npm:systemjs-plugin-stylus/stylus.js'
+      'stylus':                    'npm:systemjs-plugin-stylus/stylus.js',
+      'angular2-ui-switch':        'npm:angular2-ui-switch'
     },
     meta: {
       '*.styl': { loader: 'stylus' }
@@ -55,7 +56,8 @@
       'atoa': { main: 'atoa.js', defaultExtension: 'js' },
       'ticky': { main: 'ticky.js', defaultExtension: 'js' },
       'crossvent': { main: 'crossvent.js', defaultExtension: 'js' },
-      'custom-event': { main: 'index.js', defaultExtension: 'js' }
+      'custom-event': { main: 'index.js', defaultExtension: 'js' },
+      'angular2-ui-switch': { main: './dist/index.js', defaultExtension: 'js' }
     }
   });
 })(this);

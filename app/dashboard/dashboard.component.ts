@@ -10,10 +10,12 @@ import {Router} from "@angular/router";
 import {Http} from "@angular/http";
 import {SessionService} from "../auth/session.service";
 import {Project} from "../models/project";
+import {Utility} from "../utility/utility";
 
 @Component({
   selector: 'dashboard-cmp',
-  templateUrl: 'app/app/dashboard/dashboard.html'
+  templateUrl: 'app/app/dashboard/dashboard.html',
+  animations: [ Utility.fadeInOutAnimation ]
 })
 export class DashboardComponent implements OnInit {
   @Input() project: Project;
