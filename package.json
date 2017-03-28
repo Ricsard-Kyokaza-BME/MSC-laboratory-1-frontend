@@ -37,6 +37,7 @@
     "@types/selenium-webdriver": "2.53.36",
     "angular-in-memory-web-api": "0.2.5",
     "angular2-materialize": "6.7.1",
+    "angular2-tag-input": "1.2.3",
     "angular2-ui-switch": "1.2.0",
     "bootstrap": "4.0.0-alpha.6",
     "class-transformer": "0.1.6",

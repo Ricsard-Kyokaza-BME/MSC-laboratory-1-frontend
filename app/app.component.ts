@@ -13,10 +13,10 @@ import {SessionService} from "./auth/session.service";
             <a class="navbar-brand hidden-sm-down" routerLink="/projects" routerLinkActive="active">Agile Tool</a>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a routerLink="/project/create" routerLinkActive="active">Create Project</a>
+                <a routerLink="/projects" routerLinkActive="active">Dashboard</a>
               </li>
               <li class="nav-item">
-                <a routerLink="/projects" routerLinkActive="active">Dashboard</a>
+                <a routerLink="/project/create" routerLinkActive="active">Create Project</a>
               </li>
               <li class="nav-item">
                 <a (click)="logout()" routerLinkActive="active">Logout</a>

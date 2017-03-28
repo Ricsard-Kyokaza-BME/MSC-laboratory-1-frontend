@@ -18,6 +18,7 @@ import {CreateProjectComponent} from "./project/createProject.component";
 import {ProjectListComponent} from "./project/projectList.component";
 import {LoadComponent} from "./load.component";
 import {UiSwitchModule} from "angular2-ui-switch";
+import {RlTagInputModule} from "angular2-tag-input";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     DndModule.forRoot(),
-    UiSwitchModule
+    UiSwitchModule,
+    RlTagInputModule
     // MaterializeModule
   ],
   declarations: [
