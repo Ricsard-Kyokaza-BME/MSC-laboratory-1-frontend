@@ -2,11 +2,13 @@
   <div class="row dashboard-project-title">
     <div class="col-1">
       <i class="material-icons" (click)="dashboardToggle()">list</i>
-      <i class="material-icons" (click)="goToCreateBacklogItem()">add</i>
     </div>
-    <div class="col-11">
+    <div class="col-11 col-lg-8">
       <h4>{{project.name | capitalize}}</h4>
       <h6>{{project.description | capitalize}}</h6>
+    </div>
+    <div class="item-create-button col-12 col-lg-3 text-center">
+      <button class="btn btn-default" (click)="goToCreateBacklogItem()"><i class="material-icons">add</i> <span>Backlog item</span></button>
     </div>
   </div>
   <div class="row" *ngIf="isOpen">
@@ -16,7 +18,7 @@
         <div class="switch">
           <label>
             Change order Off
-            <input [(ngModel)]="orderSwitches.backlogSwitch" [disabled]="!(sessionService.isProductOwnerSignedIn())" type="checkbox">
+            <input [(ngModel)]="orderSwitches.backlogSwitch" [disabled]="!(sessionService.isProductOwnerSignedIn()) || backlogItems.length == 0" type="checkbox">
             <span class="lever"></span>
             On
           </label>
@@ -55,7 +57,7 @@
         <div class="switch">
           <label>
             Change order Off
-            <input [(ngModel)]="orderSwitches.todoSwitch" [disabled]="orderSwitchesDisabled.todoSwitch" type="checkbox">
+            <input [(ngModel)]="orderSwitches.todoSwitch" [disabled]="orderSwitchesDisabled.todoSwitch || todoItems.length == 0" type="checkbox">
             <span class="lever"></span>
             On
           </label>
@@ -94,7 +96,7 @@
         <div class="switch">
           <label>
             Change order Off
-            <input [(ngModel)]="orderSwitches.inProgressSwitch" [disabled]="orderSwitchesDisabled.inProgressSwitch" type="checkbox">
+            <input [(ngModel)]="orderSwitches.inProgressSwitch" [disabled]="orderSwitchesDisabled.inProgressSwitch || inProgressItems.length == 0" type="checkbox">
             <span class="lever"></span>
             On
           </label>
@@ -133,7 +135,7 @@
         <div class="switch">
           <label>
             Change order Off
-            <input [(ngModel)]="orderSwitches.doneSwitch" [disabled]="orderSwitchesDisabled.doneSwitch" type="checkbox">
+            <input [(ngModel)]="orderSwitches.doneSwitch" [disabled]="orderSwitchesDisabled.doneSwitch || doneItems.length == 0" type="checkbox">
             <span class="lever"></span>
             On
           </label>
