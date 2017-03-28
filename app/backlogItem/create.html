@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-12">
         <h5>Choose type</h5>
+        <hr/>
       </div>
     </div>
     <div class="row">
@@ -23,34 +24,36 @@
       </div>
     </div>
   </div>
+
   <div class="row">
-    <form class="col-12"  (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
+    <form class="col-12 form-group"  (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
       <h5>Details</h5>
+      <hr/>
       <div class="row">
         <div class="input-field col-12 col-md-6">
-          <input name="title" required
-                 id="title" type="text" class="validate"
-                 [(ngModel)]="backlogItem.title" #title="ngModel">
           <label for="title">Title</label>
+          <input name="title" required
+                 id="title" type="text" class="validate form-control"
+                 [(ngModel)]="backlogItem.title" #title="ngModel">
         </div>
         <div class="input-field col-12 col-md-6">
-          <div id="keywords" class="chips chips-initial"></div>
           <label for="keywords">Keywords</label>
+          <div id="keywords" class="form-control"></div>
         </div>
       </div>
       <div class="row">
         <div class="input-field col-12">
-          <textarea class="materialize-textarea" id="description" name="description"
-                    [(ngModel)]="backlogItem.description" #description="ngModel"></textarea>
           <label for="description">Description</label>
+          <textarea class="form-control" id="description" name="description"
+                    [(ngModel)]="backlogItem.description" #description="ngModel"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="input-field col-12 col-md-6">
-          <input name="assigneeSearch"
-                 id="assigneeSearch" type="text" class="validate"
-                 [(ngModel)]="assigneeSearch" (ngModelChange)="assigneeTyped($event)">
           <label for="assigneeSearch">Search assignees</label>
+          <input name="assigneeSearch"
+                 id="assigneeSearch" type="text" class="validate form-control"
+                 [(ngModel)]="assigneeSearch" (ngModelChange)="assigneeTyped($event)">
           <ul style="max-height: 400px; overflow-y: auto">
             <li style="border-bottom: 1px solid #eee"
                 *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
@@ -72,18 +75,18 @@
       </div>
       <div class="row">
         <div class="input-field col-12 col-md-6">
-          <select id="complexity"
-                  name="complexity" [(ngModel)]="backlogItem.complexity">
-            <option *ngFor="let option of complexity.keys()" [value]="option">{{option | capitalize}}</option>
-          </select>
           <label for="complexity">Complexity</label>
+          <select id="complexity" class="form-control"
+                  name="complexity" [(ngModel)]="backlogItem.complexity">
+            <option *ngFor="let option of complexity.keys()" [ngValue]="complexity[option]">{{option | capitalize}}</option>
+          </select>
         </div>
         <div class="input-field col-12 col-md-6">
-          <select id="status"
-                  name="status" [(ngModel)]="backlogItem.status">
-            <option *ngFor="let option of backlogStatus.keys()" [value]="option">{{option | capitalize | removeUnderscore}}</option>
-          </select>
           <label for="status">Status</label>
+          <select id="status" class="form-control"
+                  name="status" [(ngModel)]="backlogItem.status">
+            <option *ngFor="let option of backlogStatus.keys()" [ngValue]="backlogStatus[option]">{{option | capitalize | removeUnderscore}}</option>
+          </select>
         </div>
       </div>
       <div class="row">
@@ -144,22 +147,22 @@
       </div>
       <div class="row" *ngIf="typeRadio == 'userStory'">
         <div class="input-field col-12 col-md-6">
-          <textarea class="materialize-textarea" id="definitionOfDone" name="definitionOfDone"
-                    [(ngModel)]="backlogItem.definitionOfDone" #definitionOfDone="ngModel"></textarea>
           <label for="definitionOfDone">Definition Of Done</label>
+          <textarea class="form-control" id="definitionOfDone" name="definitionOfDone"
+                    [(ngModel)]="backlogItem.definitionOfDone" #definitionOfDone="ngModel"></textarea>
         </div>
         <div class="input-field col-12 col-md-6">
-          <textarea class="materialize-textarea" id="acceptanceCriteria" name="acceptanceCriteria"
-                    [(ngModel)]="backlogItem.acceptanceCriteria" #acceptanceCriteria="ngModel"></textarea>
           <label for="acceptanceCriteria">Acceptance Criteria</label>
+          <textarea class="form-control" id="acceptanceCriteria" name="acceptanceCriteria"
+                    [(ngModel)]="backlogItem.acceptanceCriteria" #acceptanceCriteria="ngModel"></textarea>
         </div>
       </div>
 
       <button type="submit"
-              class="waves-effect blue-grey btn" *ngIf="!isEditing">Add</button>
+              class="btn btn-primary" *ngIf="!isEditing">Add</button>
       <button type="submit"
-              class="waves-effect blue-grey btn" *ngIf="isEditing">Save</button>
-      <button class="waves-effect blue-grey btn" *ngIf="isEditing" (click)="deleteBacklogItem()">Delete</button>
+              class="btn btn-primary" *ngIf="isEditing">Save</button>
+      <button class="btn btn-danger" *ngIf="isEditing" (click)="deleteBacklogItem()">Delete</button>
     </form>
   </div>
 </div>

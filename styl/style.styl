@@ -21,77 +21,80 @@ body#custom-body {
   background-color $dirtyWhite !important
   color $darkText
 
-  .switch label input[type=checkbox]:checked + .lever {
-    background-color $blue04
+  //.switch label input[type=checkbox]:checked + .lever {
+  //  background-color $blue04
+  //
+  //  &:after {
+  //    background-color $blue
+  //  }
+  //}
+  //
+  //
+  ////  Materialize color hacks
+  //[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+  //  background-color $blue
+  //}
+  //
+  //[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+  //  border-color $blue
+  //}
+  //
+  //input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
+  //input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]),
+  //input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]),
+  //input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]),
+  //input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]),
+  //input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+  //  border-color $blue
+  //  box-shadow 0 1px 0 0 $blue
+  //}
+  //
+  //input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
+  //input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]),
+  //input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]),
+  //input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]),
+  //input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]),
+  //input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]),
+  //textarea.materialize-textarea:focus:not([readonly]) {
+  //  border-color $blue
+  //  box-shadow 0 1px 0 0 $blue
+  //}
+  //
+  //input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
+  //input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]),
+  //input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]),
+  //input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]),
+  //input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]),
+  //input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]),
+  //textarea.materialize-textarea:focus:not([readonly]) {
+  //  border-color $blue
+  //  box-shadow 0 1px 0 0 $blue
+  //}
+  //
+  //.chips.focus {
+  //  border-color $blue
+  //  box-shadow 0 1px 0 0 $blue
+  //}
+  //
+  //.chips .chip.selected {
+  //  background-color $blue
+  //}
+  //
+  //.input-field label {
+  //  left: initial;
+  //}
+  //
+  //.dropdown-content li > a, .dropdown-content li > span {
+  //  color $blue
+  //}
 
-    &:after {
-      background-color $blue
-    }
+
+  ul {
+    list-style none
+    padding 0
   }
-
-
-  //  Materialize color hacks
-  [type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
-    background-color $blue
-  }
-
-  [type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
-    border-color $blue
-  }
-
-  input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
-  input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]),
-  input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]),
-  input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]),
-  input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]),
-  input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
-    border-color $blue
-    box-shadow 0 1px 0 0 $blue
-  }
-
-  input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
-  input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]),
-  input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]),
-  input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]),
-  input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]),
-  input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]),
-  textarea.materialize-textarea:focus:not([readonly]) {
-    border-color $blue
-    box-shadow 0 1px 0 0 $blue
-  }
-
-  input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
-  input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]),
-  input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]),
-  input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]),
-  input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]),
-  input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]),
-  textarea.materialize-textarea:focus:not([readonly]) {
-    border-color $blue
-    box-shadow 0 1px 0 0 $blue
-  }
-
-  .chips.focus {
-    border-color $blue
-    box-shadow 0 1px 0 0 $blue
-  }
-
-  .chips .chip.selected {
-    background-color $blue
-  }
-
-  .input-field label {
-    left: initial;
-  }
-
-  .dropdown-content li > a, .dropdown-content li > span {
-    color $blue
-  }
-
-
 
   //Bootstrap overrides
-
   .btn-outline-primary {
     color $blue
     border-color $blue
@@ -106,6 +109,28 @@ body#custom-body {
       background-color $blue
       border-color $blue
     }
+  }
+
+  .btn-primary {
+    background-color $blue
+    border-color $blue
+    cursor pointer
+    &:hover {
+      color $white
+      background-color $blue
+      border-color $blue
+    }
+    &:acitve {
+      color $white
+      background-color $blue
+      border-color $blue
+    }
+  }
+}
+
+form {
+  .row {
+    margin-bottom 1rem
   }
 }
 
@@ -234,8 +259,6 @@ nav#menu {
 
     & > ul {
       min-height: 50px;
-      list-style none
-      padding 0
     }
 
     &-item {
