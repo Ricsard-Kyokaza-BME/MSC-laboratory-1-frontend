@@ -213,11 +213,14 @@ nav#menu {
 }
 
 .dashboard {
-  &-project-container {
+  &-grey-box {
     margin-top 2rem
-    border 2px solid #d1d1d1
-    background-color #e2e2e2
+    border 2px solid $lightGreyBorder
+    background-color $lightGrey
     border-radius 15px
+  }
+
+  &-project-container {
     padding 1em 0 1em 0
 
     .collection {
@@ -226,15 +229,16 @@ nav#menu {
   }
 
   &-project-title {
-    h4 {
-    }
-
     h6 {
       color $grey
       margin-bottom 0
     }
 
     i {
+      cursor pointer
+    }
+
+    &-text {
       cursor pointer
     }
 
@@ -314,6 +318,12 @@ nav#menu {
       font-size 14px
       border-top: 1px solid $dirtyWhite;
 
+      &.empty-item {
+        cursor pointer
+        color rgba($darkText, 0.6)
+        text-align center
+      }
+
       &:last-of-type {
         border-bottom: 1px solid $dirtyWhite;
       }
@@ -340,6 +350,43 @@ nav#menu {
 
 .create-container {
   margin-top 2rem
+}
+
+.empty-project-list {
+  padding 3rem 0 3rem 0
+  text-align center
+  cursor pointer
+  color rgba($darkText, 0.6)
+}
+
+.max-1-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-height: 1.1;        /* fallback */
+  max-height: 1.1em;       /* fallback */
+}
+
+.max-2-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-height: 1.1;        /* fallback */
+  max-height: 2.2em;       /* fallback */
+}
+
+.max-3-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-height: 1.1;        /* fallback */
+  max-height: 3.3em;       /* fallback */
 }
 
 //.gu{

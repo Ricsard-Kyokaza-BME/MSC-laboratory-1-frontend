@@ -1,13 +1,13 @@
-<div class="dashboard-project-container container">
+<div class="dashboard-project-container dashboard-grey-box container">
   <div class="row dashboard-project-title">
     <div class="col-1">
       <i class="material-icons" (click)="dashboardToggle()">list</i>
     </div>
-    <div class="col-11 col-lg-8">
-      <h4>{{project.name | capitalize}}</h4>
-      <h6>{{project.description | capitalize}}</h6>
+    <div class="col-11 col-lg-8 dashboard-project-title-text" (click)="dashboardToggle()">
+      <h4 class="max-1-lines" [title]="project.name | capitalize">{{project.name | capitalize}}</h4>
+      <h6 class="max-2-lines" [title]="project.description | capitalize">{{project.description | capitalize}}</h6>
     </div>
-    <div class="item-create-button col-12 col-lg-3 text-center text-lg-right">
+    <div class="item-create-button col-12 col-lg-3 text-center text-lg-right mt-3 mt-lg-0">
       <button class="btn btn-outline-primary btn-sm" (click)="goToCreateBacklogItem()"><i class="material-icons">add</i> <span>Backlog item</span></button>
     </div>
   </div>
@@ -26,7 +26,7 @@
       </div>
       <ul *ngIf="!orderSwitches.backlogSwitch" class="collection"
           dnd-droppable (onDropSuccess)="dropToBacklog($event)" [dropZones]="['demo1']">
-        <li class="dashboard-container-item"
+        <li class="dashboard-container-item empty-item" (click)="goToCreateBacklogItem()"
             *ngIf="backlogItems.length == 0">
           Create a new item, or drag'n'drop one
         </li>
@@ -65,7 +65,7 @@
       </div>
       <ul *ngIf="!orderSwitches.todoSwitch" class="collection"
           dnd-droppable (onDropSuccess)="dropToTodo($event)" [dropZones]="['demo2']">
-        <li class="dashboard-container-item"
+        <li class="dashboard-container-item empty-item" (click)="goToCreateBacklogItem()"
             *ngIf="todoItems.length == 0">
           Create a new item, or drag'n'drop one
         </li>
@@ -104,7 +104,7 @@
       </div>
       <ul *ngIf="!orderSwitches.inProgressSwitch" class="collection"
           dnd-droppable (onDropSuccess)="dropToInProgress($event)" [dropZones]="['demo3']">
-        <li class="dashboard-container-item"
+        <li class="dashboard-container-item empty-item" (click)="goToCreateBacklogItem()"
             *ngIf="inProgressItems.length == 0">
           Create a new item, or drag'n'drop one
         </li>
@@ -143,7 +143,7 @@
       </div>
       <ul *ngIf="!orderSwitches.doneSwitch" class="collection"
           dnd-droppable (onDropSuccess)="dropToDone($event)" [dropZones]="['demo4']">
-        <li class="dashboard-container-item"
+        <li class="dashboard-container-item empty-item" (click)="goToCreateBacklogItem()"
             *ngIf="doneItems.length == 0">
           Create a new item, or drag'n'drop one
         </li>

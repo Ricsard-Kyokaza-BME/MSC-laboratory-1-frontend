@@ -78,7 +78,7 @@
           <label for="complexity">Complexity</label>
           <select id="complexity" class="form-control"
                   name="complexity" [(ngModel)]="backlogItem.complexity">
-            <option *ngFor="let option of complexity.keys()" [ngValue]="complexity[option]">{{option | capitalize}}</option>
+            <option *ngFor="let option of complexity.keys()" [ngValue]="complexity[option]">{{complexity[option]}}</option>
           </select>
         </div>
         <div class="input-field col-12 col-md-6">
