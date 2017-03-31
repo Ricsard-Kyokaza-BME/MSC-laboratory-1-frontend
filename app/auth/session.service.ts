@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 export class SessionService {
 
   constructor(@Inject(Http) private _http: Http, private _router: Router) {
-    this.updateSignedInUser();
+    this.updateSignedInUser('/projects');
   }
 
   updateSignedInUser(redirectUrl?: string) {
