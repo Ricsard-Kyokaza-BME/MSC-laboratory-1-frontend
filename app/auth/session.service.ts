@@ -1,17 +1,9 @@
 import {Inject, Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {Http} from '@angular/http';
-
 import 'rxjs/add/operator/map';
-import any = jasmine.any;
 import {User} from "../models/user";
 import {plainToClass} from "class-transformer";
 import {Router} from "@angular/router";
-
-type StoredUser = {
-  username: String,
-  authorities: Array<{"authority": string}>
-}
 
 @Injectable()
 export class SessionService {
@@ -20,31 +12,31 @@ export class SessionService {
     this.updateSignedInUser();
   }
 
-  updateSignedInUser() {
+  updateSignedInUser(redirectUrl?: string) {
     return this._http.get('/api/is-signed-in')
       .map((r) => r["_body"] == '' ? {} : r.json())
       .subscribe(
         res => {
           if(res && res.id) {
             sessionStorage.setItem('user', JSON.stringify(res));
-            this._router.navigate(['/projects']);
+            this._router.navigate([(redirectUrl || this._router.url)]);
           } else {
-            this.logout();
+            SessionService.logout();
           }
         },
-        error =>  this.logout());
+        error =>  SessionService.logout());
   }
 
   getSignedInUserId(): string|undefined {
-    return this.getSignedInUser().id;
+    return SessionService.getSignedInUser().id;
   }
 
-  getSignedInUser(): User|undefined {
+  static getSignedInUser(): User|undefined {
     return plainToClass(User, <User>JSON.parse(sessionStorage.getItem('user')));
   }
 
   isProductOwnerSignedIn(): boolean {
-    for(let entry of this.getSignedInUser().roles) {
+    for(let entry of SessionService.getSignedInUser().roles) {
       if(entry['authority'] == 'PO') {
         return true;
       }
@@ -52,7 +44,7 @@ export class SessionService {
     return false;
   }
 
-  logout() {
+  static logout() {
     sessionStorage.removeItem('user');
     window.location.href='/logout';
   }

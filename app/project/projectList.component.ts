@@ -11,12 +11,12 @@ import {plainToClass} from "class-transformer";
 export class ProjectListComponent implements OnInit {
   projects: Array<Project>;
 
-  constructor(@Inject(Http) private _http: Http, private _sessionService: SessionService) {
+  constructor(@Inject(Http) private _http: Http) {
     this.projects = [];
   }
 
   ngOnInit(): void {
-    this._sessionService.getSignedInUser().getProjects(this._http).subscribe(
+    SessionService.getSignedInUser().getProjects(this._http).subscribe(
       res =>    this.projects = plainToClass(Project, res),
       error =>  console.log(error));
   }

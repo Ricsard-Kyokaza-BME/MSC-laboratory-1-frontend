@@ -1,7 +1,6 @@
 import {BacklogItem} from "./backlogItem";
 import {BacklogStatus} from "./backlogStatus";
 import {BacklogItemType} from "./backlogItemType";
-import {Http} from "@angular/http";
 
 export abstract class AbstractTask extends BacklogItem {
 

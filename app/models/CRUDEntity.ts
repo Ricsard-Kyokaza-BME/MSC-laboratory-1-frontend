@@ -1,5 +1,6 @@
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs";
+
 export abstract class CRUDEntity {
   id: string;
   static basePath: string = '/api/';

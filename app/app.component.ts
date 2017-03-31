@@ -31,10 +31,10 @@ export class AppComponent {
   isSignedIn: boolean;
 
   constructor(@Inject(SessionService) private _sessionService: SessionService) {
-    this.isSignedIn = !!_sessionService.getSignedInUser();
+    this.isSignedIn = !!SessionService.getSignedInUser();
   }
 
   logout() {
-    this._sessionService.logout();
+    SessionService.logout();
   }
 }

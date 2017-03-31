@@ -1,8 +1,6 @@
 import {BacklogItem} from "./backlogItem";
 import {BacklogStatus} from "./backlogStatus";
 import {BacklogItemType} from "./backlogItemType";
-import {Http} from "@angular/http";
-import {Inject} from "@angular/core";
 
 export class UserStory extends BacklogItem {
   static path: string = 'userstory/';

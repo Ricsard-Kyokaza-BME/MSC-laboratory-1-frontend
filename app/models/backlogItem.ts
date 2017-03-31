@@ -2,8 +2,6 @@ import {BacklogStatus} from "./backlogStatus";
 import {BacklogItemType} from "./backlogItemType";
 import {Complexity} from "./complexity";
 import {CRUDEntity} from "./CRUDEntity";
-import {Http} from "@angular/http";
-import {Inject} from "@angular/core";
 
 export abstract class BacklogItem extends CRUDEntity {
   title: string;
@@ -11,7 +9,7 @@ export abstract class BacklogItem extends CRUDEntity {
   keywords: Array<string>;
   description: string;
   assignee: Array<string>;
-  complexity: number;
+  complexity: string;
   depending: Array<string>;
   status: BacklogStatus;
   type: BacklogItemType;

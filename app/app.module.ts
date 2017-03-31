@@ -9,7 +9,6 @@ import {SessionService} from "./auth/session.service";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {DndModule} from "ng2-dnd";
 import {CreateBacklogItemComponent} from "./backlogItem/createBacklogItem.component";
-import {MaterializeModule} from "angular2-materialize";
 import {CapitalizePipe} from "./utility/capitalize.pipe";
 import {RemoveUnderscorePipe} from "./utility/removeUnderscore.pipe";
 import {BacklogItemRESTService} from "./backlogItem/backlogItemREST.service";
@@ -38,7 +37,6 @@ const appRoutes: Routes = [
     DndModule.forRoot(),
     UiSwitchModule,
     RlTagInputModule
-    // MaterializeModule
   ],
   declarations: [
     AppComponent,
