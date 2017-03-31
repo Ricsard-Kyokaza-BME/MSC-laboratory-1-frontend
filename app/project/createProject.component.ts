@@ -31,6 +31,8 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit(): void {
     if(this.isEditing) {
     }
+
+    this.selectedAssignees.push(this._sessionService.getSignedInUser());
   }
 
   assigneeClicked(assignee: User): void {
