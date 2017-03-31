@@ -26,44 +26,45 @@ export class DashboardComponent implements OnInit {
   todoItems: Array<BacklogItem>;
   inProgressItems: Array<BacklogItem>;
   doneItems: Array<BacklogItem>;
+
   orderSwitches: {backlogSwitch: boolean, todoSwitch: boolean, inProgressSwitch: boolean, doneSwitch: boolean};
   orderSwitchesDisabled: {backlogSwitch: boolean, todoSwitch: boolean, inProgressSwitch: boolean, doneSwitch: boolean};
   isOpen: boolean;
+  isLoaded: boolean;
 
   constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService,
               private _router: Router, sessionService: SessionService) {
+
     this.sessionService = sessionService;
 
     this.backlogItems= [];
     this.todoItems= [];
     this.inProgressItems= [];
     this.doneItems= [];
+
     this.orderSwitches = { backlogSwitch: false, todoSwitch: false, inProgressSwitch: false, doneSwitch: false };
     this.orderSwitchesDisabled = { backlogSwitch: true, todoSwitch: false, inProgressSwitch: false, doneSwitch: false };
     this.isOpen = false;
+    this.isLoaded = false;
   }
 
   ngOnInit(): void {
-    // this._backlogItemRESTService.getBacklogItemsByStatus().subscribe(
-    //   res => {
-    //     this.mapDashboardItems(this.backlogItems, res, 'backlog');
-    //     this.mapDashboardItems(this.todoItems, res, 'todo');
-    //     this.mapDashboardItems(this.inProgressItems, res, 'inProgress');
-    //     this.mapDashboardItems(this.doneItems, res, 'done');
-    //   },
-    //   error =>  console.log(error));
   }
 
   dashboardToggle() {
     this.isOpen = !this.isOpen;
-    this.project.resolveProject(this._http).subscribe(
-      res => {
-        this.mapDashboardItems(this.backlogItems, res, 'backlog');
-        this.mapDashboardItems(this.todoItems, res, 'todo');
-        this.mapDashboardItems(this.inProgressItems, res, 'inProgress');
-        this.mapDashboardItems(this.doneItems, res, 'done');
-      },
-      error =>  console.log(error));
+    if(this.isOpen && !this.isLoaded) {
+      this.project.resolveProject(this._http).subscribe(
+        res => {
+          this.mapDashboardItems(this.backlogItems, res, 'backlog');
+          this.mapDashboardItems(this.todoItems, res, 'todo');
+          this.mapDashboardItems(this.inProgressItems, res, 'inProgress');
+          this.mapDashboardItems(this.doneItems, res, 'done');
+
+          this.isLoaded = true;
+        },
+        error =>  console.log(error));
+    }
   }
 
   goToCreateBacklogItem() {
