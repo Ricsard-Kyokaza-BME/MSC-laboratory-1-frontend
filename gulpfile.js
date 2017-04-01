@@ -4,6 +4,7 @@ var gulp = require('gulp'),
   stylus = require('gulp-stylus'),
   rucksack = require('rucksack-css'),
   poststylus = require('poststylus'),
+  sourcemaps = require('gulp-sourcemaps'),
   exec = require('child_process').exec;
 
 const tsProject = typescript.createProject('tsconfig.json');
@@ -33,8 +34,12 @@ gulp.task('watch', function() {
 });
 
 gulp.task('compile', function(){
-  gulp.src(['app/**/*.ts'])
-    .pipe(tsProject())
+  var tsResult = tsProject.src()
+    .pipe(sourcemaps.init())
+    .pipe(tsProject());
+  return tsResult.js
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(''));
 });
 
 gulp.task('default', ['compile', 'stylus', 'watch', 'lite-server']);
