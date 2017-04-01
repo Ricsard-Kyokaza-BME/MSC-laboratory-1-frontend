@@ -30,7 +30,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('compile', function(){
-  gulp.src(['src/**/*.ts'])
+  gulp.src(['app/**/*.ts'])
 });
 
 gulp.task('default', ['compile', 'stylus', 'watch', 'lite-server']);
