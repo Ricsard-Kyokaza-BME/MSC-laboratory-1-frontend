@@ -1,17 +1,19 @@
 @import "variables.styl"
 
+$stepFooterHeight = 50px
+
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
 h1 {
   color: #369;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 250%;
 }
 h2, h3 {
   color: #444;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-weight: lighter;
 }
 
@@ -20,6 +22,7 @@ body#custom-body {
   font-range 320px 1200px
   background-color $dirtyWhite !important
   color $darkText
+  font-weight 400
 
   rl-tag-input {
     padding: .5rem .75rem;
@@ -124,6 +127,8 @@ nav {
 }
 
 nav#menu {
+  font-weight 300
+
   a {
     color: $white;
     text-decoration: none;
@@ -290,6 +295,7 @@ nav#menu {
 
 .create-container {
   margin-top 2rem
+  padding-bottom $stepFooterHeight
 }
 
 .empty-project-list {
@@ -362,6 +368,62 @@ nav#menu {
       background-color $blue
       color $white
     }
+  }
+}
+
+.step-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $stepFooterHeight;
+  background-color $blue
+  padding 0.5rem
+  color $white04
+  border-color $white04
+  font-weight 300
+
+  &-line {
+    line-height 2
+    i {
+      vertical-align middle
+    }
+  }
+
+  &-step-holder {
+    display flex
+    align-items center
+    justify-content center
+  }
+
+  &-step {
+    display flex
+    align-items center
+  }
+
+  &-circle {
+    width 24px
+    height 24px
+    border 2px solid
+    border-radius 50%
+    position relative
+    margin-right 5px
+
+    span {
+      position absolute
+      left 6px
+      top -4px
+      font-size 14px
+    }
+  }
+
+  &-nav {
+    color $white
+  }
+
+  &-active {
+    color $white
+    border-color $white
   }
 }
 

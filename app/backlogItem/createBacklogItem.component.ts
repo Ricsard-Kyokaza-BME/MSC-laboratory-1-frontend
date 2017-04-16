@@ -16,6 +16,11 @@ import {SessionService} from "../auth/session.service";
 import {Utility} from "../utility/utility";
 import {Dashboard} from "../models/dashboard";
 
+type Step = {
+  name: string,
+  isActive: boolean
+}
+
 @Component({
   selector: 'create-backlog-item-cmp',
   templateUrl: 'app/app/backlogItem/create.html'
@@ -39,6 +44,8 @@ export class CreateBacklogItemComponent implements OnInit {
   complexity = Complexity;
   backlogStatus = BacklogStatus;
   sessionService: SessionService;
+  steps = Array<Step>();
+
 
   constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService, private _route: ActivatedRoute,
               private _router: Router, private _userRESTService: UserRESTService, sessionService: SessionService) {
@@ -48,13 +55,16 @@ export class CreateBacklogItemComponent implements OnInit {
     this.selectedDependingItems = [];
     this.selectedSubTaskItems = [];
     this.sessionService = sessionService;
+    this.steps = [];
 
     if(sessionService.isProductOwnerSignedIn()) {
       this.backlogItem = new UserStory();
       this.typeRadio = 'userStory';
+      this.initSteps('userStory');
     } else {
       this.backlogItem = new Task();
       this.typeRadio = 'task';
+      this.initSteps('task');
     }
 
     this.id = this._route.snapshot.params['id'];
@@ -63,9 +73,6 @@ export class CreateBacklogItemComponent implements OnInit {
 
     (this.id && this.type) ? this.isEditing = true : this.isEditing = false;
 
-    // $(document).ready(function() {
-    //   $('select').material_select();
-    // });
   }
 
   ngOnInit(): void {
@@ -105,27 +112,57 @@ export class CreateBacklogItemComponent implements OnInit {
       error =>  console.log(error));
   }
 
-  radioButtonClicked(type: string): void {
-    switch (type) {
+  initSteps(backlogItemType) {
+    this.steps.length = 0;
+
+    switch (backlogItemType) {
       case 'userStory':
-        this.backlogItem = new UserStory();
+        this.steps.push({name: 'General info', isActive: true});
+        this.steps.push({name: 'Details', isActive: false});
+        this.steps.push({name: 'Acceptance', isActive: false});
         break;
-      case 'task':
-        this.backlogItem = new Task();
-        break;
-      case 'bug':
-        this.backlogItem = new Bug();
+      default:
+        this.steps.push({name: 'General info', isActive: true});
+        this.steps.push({name: 'Details', isActive: false});
         break;
     }
   }
 
-  addKeyword(chip: any): void {
-    !this.backlogItem.keywords ? this.backlogItem.keywords = [] : '';
-    this.backlogItem.keywords.push(chip.tag);
+  nextStep() {
+    for(let i = 0; i < this.steps.length; i++) {
+      if(this.steps[i].isActive && i+1 < this.steps.length) {
+        this.steps[i].isActive = false;
+        this.steps[i + 1].isActive = true;
+        break;
+      }
+    }
   }
 
-  deleteKeyword(chip: any): void {
-    this.backlogItem.keywords.splice(this.backlogItem.keywords.indexOf(chip.tag), 1);
+  previousStep() {
+    for(let i = 0; i < this.steps.length; i++) {
+      if(this.steps[i].isActive && i-1 >= 0) {
+        this.steps[i].isActive = false;
+        this.steps[i - 1].isActive = true;
+        break;
+      }
+    }
+  }
+
+  radioButtonClicked(type: string): void {
+    switch (type) {
+      case 'userStory':
+        this.backlogItem = new UserStory();
+        this.initSteps('userStory');
+        break;
+      case 'task':
+        this.backlogItem = new Task();
+        this.initSteps('task');
+        break;
+      case 'bug':
+        this.backlogItem = new Bug();
+        this.initSteps('bug');
+        break;
+    }
   }
 
   assigneeClicked(assignee: User): void {
