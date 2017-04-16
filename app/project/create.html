@@ -23,21 +23,17 @@
           <input name="assigneeSearch"
                  id="assigneeSearch" type="text" class="validate form-control"
                  [(ngModel)]="assigneeSearch" (ngModelChange)="assigneeTyped($event)">
-          <ul style="max-height: 400px; overflow-y: auto">
-            <li style="border-bottom: 1px solid #eee"
-                *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
-              <i class="material-icons" style="vertical-align: bottom">add</i> {{user.firstName}} {{user.lastName}}
-            </li>
+          <ul *ngIf="searchedUsers.length" class="selector-list">
+              <li *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
+                <i class="material-icons">add_circle_outline</i> <span>{{user.firstName}} {{user.lastName}}</span>
+              </li>
           </ul>
         </div>
         <div class="input-field col-12 col-md-6">
           <span>Selected assignees</span>
-          <ul style="max-height: 400px; overflow-y: auto"
-              id="selectedAssignees"
-              name="selectedAssignees">
-            <li style="border-bottom: 1px solid #eee"
-                *ngFor="let user of selectedAssignees" (click)="assigneeRemoved(user)">
-              <i class="material-icons" style="vertical-align: bottom">remove</i> {{user.firstName}} {{user.lastName}}
+          <ul *ngIf="selectedAssignees.length" class="selector-list" style="border-radius: 5px; margin-top: 7px" id="selectedAssignees">
+            <li *ngFor="let user of selectedAssignees" (click)="assigneeRemoved(user)">
+              <i class="material-icons">remove_circle_outline</i> {{user.firstName}} {{user.lastName}}
             </li>
           </ul>
         </div>

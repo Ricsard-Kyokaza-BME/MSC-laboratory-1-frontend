@@ -5,15 +5,19 @@ var gulp = require('gulp'),
   rucksack = require('rucksack-css'),
   poststylus = require('poststylus'),
   sourcemaps = require('gulp-sourcemaps'),
-  exec = require('child_process').exec;
+  spawn = require('child_process').spawn;
 
 const tsProject = typescript.createProject('tsconfig.json');
 
 gulp.task('lite-server', function (cb) {
-  exec('npm run lite', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
+  var ls = spawn('npm', ['run', 'lite']);
+
+  ls.stdout.on('data', function(data) {
+    console.log('' + data);
+  });
+
+  ls.stderr.on('data', function(data) {
+    console.log('' + data);
   });
 });
 

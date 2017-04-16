@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 export class SessionService {
 
   constructor(@Inject(Http) private _http: Http, private _router: Router) {
-    this.updateSignedInUser('/projects');
+    this.updateSignedInUser();
   }
 
   updateSignedInUser(redirectUrl?: string) {
@@ -19,7 +19,7 @@ export class SessionService {
         res => {
           if(res && res.id) {
             sessionStorage.setItem('user', JSON.stringify(res));
-            this._router.navigate([(redirectUrl || this._router.url)]);
+            this._router.navigate([(redirectUrl || this._router.url == '/' ? '/projects' : this._router.url)]);
           } else {
             SessionService.logout();
           }

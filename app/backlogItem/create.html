@@ -54,21 +54,17 @@
           <input name="assigneeSearch"
                  id="assigneeSearch" type="text" class="validate form-control"
                  [(ngModel)]="assigneeSearch" (ngModelChange)="assigneeTyped($event)">
-          <ul style="max-height: 400px; overflow-y: auto">
-            <li style="border-bottom: 1px solid #eee"
-                *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
-              <i class="material-icons" style="vertical-align: bottom">add</i> {{user.firstName}} {{user.lastName}}
+          <ul *ngIf="searchedUsers.length" class="selector-list">
+            <li *ngFor="let user of searchedUsers" (click)="assigneeClicked(user)">
+              <i class="material-icons" style="vertical-align: bottom">add_circle_outline</i> {{user.firstName}} {{user.lastName}}
             </li>
           </ul>
         </div>
         <div class="input-field col-12 col-md-6">
           <span>Selected assignees</span>
-          <ul style="max-height: 400px; overflow-y: auto"
-              id="selectedAssignees"
-              name="selectedAssignees">
-            <li style="border-bottom: 1px solid #eee"
-                *ngFor="let user of selectedAssignees" (click)="assigneeRemoved(user)">
-              <i class="material-icons" style="vertical-align: bottom">remove</i> {{user.firstName}} {{user.lastName}}
+          <ul *ngIf="selectedAssignees.length" style="border-radius: 5px; margin-top: 7px" class="selector-list" id="selectedAssignees">
+            <li *ngFor="let user of selectedAssignees" (click)="assigneeRemoved(user)">
+              <i class="material-icons" style="vertical-align: bottom">remove_circle_outline</i> {{user.firstName}} {{user.lastName}}
             </li>
           </ul>
         </div>
@@ -94,25 +90,20 @@
           <span>Select depending Tasks</span>
           <br/>
           <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
-            <ul style="max-height: 400px; overflow-y: auto"
-                id="tasks"
-                name="tasks">
-              <li style="border-bottom: 1px solid #eee"
-                  *ngFor="let backlogItem of backlogItems.get('task')"
+            <ul class="selector-list" id="tasks" style="border-radius: 5px; margin-top: 7px">
+              <li *ngFor="let backlogItem of backlogItems.get('task')"
                   (click)="addDependingItem(backlogItem)">
-                <i class="material-icons" style="vertical-align: bottom">add</i> {{backlogItem.title}}
+                <i class="material-icons" style="vertical-align: bottom">add_circle_outline</i> {{backlogItem.title}}
               </li>
             </ul>
           </div>
         </div>
         <div class="input-field col-12 col-md-6">
           <span>Selected depending Tasks</span>
-          <ul style="max-height: 400px; overflow-y: auto"
-              id="selectedDependingItems"
-              name="selectedDependingItems">
-            <li style="border-bottom: 1px solid #eee"
-                *ngFor="let backlogItem of selectedDependingItems" (click)="dependingItemRemoved(backlogItem)">
-              <i class="material-icons" style="vertical-align: bottom">remove</i> {{backlogItem.title}}
+          <ul *ngIf="selectedDependingItems.length" class="selector-list"
+              id="selectedDependingItems" style="border-radius: 5px; margin-top: 7px">
+            <li *ngFor="let backlogItem of selectedDependingItems" (click)="dependingItemRemoved(backlogItem)">
+              <i class="material-icons" style="vertical-align: bottom">remove_circle_outline</i> {{backlogItem.title}}
             </li>
           </ul>
         </div>
@@ -122,25 +113,19 @@
           <span>Select Sub Tasks</span>
           <br/>
           <div *ngIf="backlogItems.get('task') && backlogItems.get('task').length > 0">
-            <ul style="max-height: 400px; overflow-y: auto"
-                id="subTasks"
-                name="subTasks">
-              <li style="border-bottom: 1px solid #eee"
-                  *ngFor="let backlogItem of backlogItems.get('task')"
+            <ul class="selector-list" style="border-radius: 5px; margin-top: 7px" id="subTasks">
+              <li *ngFor="let backlogItem of backlogItems.get('task')"
                   (click)="addSubTaskItem(backlogItem)">
-                <i class="material-icons" style="vertical-align: bottom">add</i> {{backlogItem.title}}
+                <i class="material-icons" style="vertical-align: bottom">add_circle_outline</i> {{backlogItem.title}}
               </li>
             </ul>
           </div>
         </div>
         <div class="input-field col-12 col-md-6">
           <span>Selected Sub Tasks</span>
-          <ul style="max-height: 400px; overflow-y: auto"
-              id="selectedSubTasks"
-              name="selectedSubTasks">
-            <li style="border-bottom: 1px solid #eee"
-                *ngFor="let backlogItem of selectedSubTaskItems" (click)="subTaskItemRemoved(backlogItem)">
-              <i class="material-icons" style="vertical-align: bottom">remove</i> {{backlogItem.title}}
+          <ul *ngIf="selectedSubTaskItems.length" class="selector-list" id="selectedSubTasks">
+            <li *ngFor="let backlogItem of selectedSubTaskItems" (click)="subTaskItemRemoved(backlogItem)">
+              <i class="material-icons" style="vertical-align: bottom">remove_circle_outline</i> {{backlogItem.title}}
             </li>
           </ul>
         </div>

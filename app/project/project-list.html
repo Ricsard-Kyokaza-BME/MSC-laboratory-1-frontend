@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container-fluid" style="margin: 0 1.25rem;">
   <div class="row">
-    <dashboard-cmp *ngFor="let project of projects" [project]="project"></dashboard-cmp>
+    <dashboard-cmp class="w-100" *ngFor="let project of projects" [project]="project"></dashboard-cmp>
 
     <div class="col-12 empty-project-list dashboard-grey-box" *ngIf="projects.length == 0" routerLink="/project/create" routerLinkActive="active">
       <h3>You don't have any project, let's create one!</h3>
