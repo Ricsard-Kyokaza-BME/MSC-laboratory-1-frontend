@@ -27,6 +27,7 @@
 
   <div class="row">
     <form class="col-12 form-group"  (ngSubmit)="saveBacklogItem()" #backlogItemForm="ngForm">
+
       <div *ngIf="steps[0].isActive">
         <h5>General info</h5>
         <hr/>
@@ -50,6 +51,7 @@
           </div>
         </div>
       </div>
+
       <div *ngIf="steps[1].isActive">
         <h5>Details</h5>
         <hr/>
@@ -79,14 +81,14 @@
             <label for="complexity">Complexity</label>
             <select id="complexity" class="form-control"
                     name="complexity" [(ngModel)]="backlogItem.complexity">
-              <option *ngFor="let option of complexity.keys()" [ngValue]="complexity[option]">{{complexity[option]}}</option>
+              <option *ngFor="let option of complexity.keys()" [ngValue]="option">{{complexity[option]}}</option>
             </select>
           </div>
           <div class="input-field col-12 col-md-6">
             <label for="status">Status</label>
             <select id="status" class="form-control"
                     name="status" [(ngModel)]="backlogItem.status">
-              <option *ngFor="let option of backlogStatus.keys()" [ngValue]="backlogStatus[option]">{{option | capitalize | removeUnderscore}}</option>
+              <option *ngFor="let option of backlogStatus.keys()" [ngValue]="option">{{option | capitalize | removeUnderscore}}</option>
             </select>
           </div>
         </div>
@@ -114,6 +116,7 @@
           </div>
         </div>
       </div>
+
       <div *ngIf="steps[2] && steps[2].isActive">
         <h5>Acceptance details</h5>
         <hr/>
@@ -151,13 +154,16 @@
                       [(ngModel)]="backlogItem.acceptanceCriteria" #acceptanceCriteria="ngModel"></textarea>
           </div>
         </div>
+      </div>
 
+      <div *ngIf="steps[steps.length-1].isActive">
         <button type="submit"
                 class="btn btn-primary" *ngIf="!isEditing">Add</button>
         <button type="submit"
                 class="btn btn-primary" *ngIf="isEditing">Save</button>
-        <button class="btn btn-danger" *ngIf="isEditing" (click)="deleteBacklogItem()">Delete</button>
+        <button class="btn btn-danger" *ngIf="isEditing" formnovalidate (click)="deleteBacklogItem()">Delete</button>
       </div>
+
     </form>
   </div>
 </div>

@@ -83,28 +83,28 @@ export class DashboardComponent implements OnInit {
 
   dropToBacklog($event: {dragData: any, mouseEvent: MouseEvent}): void {
     let item: BacklogItem = <BacklogItem>$event.dragData;
-    item.status = BacklogStatus.BACKLOG;
+    item.status = BacklogStatus[BacklogStatus.BACKLOG];
     this.updateBacklogItem(item);
     this.backlogItems.push(item);
   }
 
   dropToTodo($event: {dragData: any, mouseEvent: MouseEvent}): void {
     let item: BacklogItem = <BacklogItem>$event.dragData;
-    item.status = BacklogStatus.TODO;
+    item.status = BacklogStatus[BacklogStatus.TODO];
     this.updateBacklogItem(item);
     this.todoItems.push(item);
   }
 
   dropToInProgress($event: {dragData: any, mouseEvent: MouseEvent}): void {
     let item: BacklogItem = <BacklogItem>$event.dragData;
-    item.status = BacklogStatus.IN_PROGRESS;
+    item.status = BacklogStatus[BacklogStatus.IN_PROGRESS];
     this.updateBacklogItem(item);
     this.inProgressItems.push(item);
   }
 
   dropToDone($event: {dragData: any, mouseEvent: MouseEvent}): void {
     let item: BacklogItem = <BacklogItem>$event.dragData;
-    item.status = BacklogStatus.DONE;
+    item.status = BacklogStatus[BacklogStatus.DONE];
     this.updateBacklogItem(item);
     this.doneItems.push(item);
   }
