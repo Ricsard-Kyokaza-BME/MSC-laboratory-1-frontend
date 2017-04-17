@@ -1,4 +1,4 @@
-<div class="create-container container">
+<div class="create-container container" [ngClass]="{'padding-footer-double': isEditing}">
   <div *ngIf="!isEditing && steps[0].isActive">
     <div class="row">
       <div class="col-12">
@@ -159,12 +159,22 @@
       <div *ngIf="steps[steps.length-1].isActive">
         <button type="submit"
                 class="btn btn-primary" *ngIf="!isEditing">Add</button>
-        <button type="submit"
-                class="btn btn-primary" *ngIf="isEditing">Save</button>
-        <button class="btn btn-danger" *ngIf="isEditing" formnovalidate (click)="deleteBacklogItem()">Delete</button>
+        <!--<button type="submit"-->
+                <!--class="btn btn-primary" *ngIf="isEditing">Save</button>-->
+        <!--<button class="btn btn-danger" *ngIf="isEditing" formnovalidate (click)="deleteBacklogItem()">Delete</button>-->
       </div>
 
     </form>
+  </div>
+</div>
+<div class="button-footer" *ngIf="isEditing">
+  <div class="row text-center">
+    <div class="col-6">
+      <button type="submit" class="btn btn-success" *ngIf="isEditing" (click)="saveBacklogItem()">Save</button>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-danger" *ngIf="isEditing" formnovalidate (click)="deleteBacklogItem()">Delete</button>
+    </div>
   </div>
 </div>
 <div class="step-footer">
