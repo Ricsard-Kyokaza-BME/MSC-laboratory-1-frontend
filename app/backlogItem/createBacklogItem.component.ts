@@ -15,6 +15,7 @@ import {CRUDEntity} from "../models/CRUDEntity";
 import {SessionService} from "../auth/session.service";
 import {Utility} from "../utility/utility";
 import {Dashboard} from "../models/dashboard";
+import {BacklogItemType} from "../models/backlogItemType";
 
 type Step = {
   name: string,
@@ -236,12 +237,15 @@ export class CreateBacklogItemComponent implements OnInit {
     switch (this.type) {
       case 'userstory':
         this.backlogItem = plainToClass(UserStory, <BacklogItem><any>res);
+        this.backlogItem.type = BacklogItemType.USER_STORY;
         break;
       case 'task':
         this.backlogItem = plainToClass(Task, <BacklogItem><any>res);
+        this.backlogItem.type = BacklogItemType.TASK;
         break;
       case 'bug':
         this.backlogItem = plainToClass(Bug, <BacklogItem><any>res);
+        this.backlogItem.type = BacklogItemType.BUG;
         break;
     }
   }
