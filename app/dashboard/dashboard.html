@@ -25,7 +25,7 @@
         </div>
       </div>
       <ul *ngIf="!orderSwitches.backlogSwitch" class="collection"
-          dnd-droppable (onDropSuccess)="dropToBacklog($event)" [dropZones]="['demo1']">
+          dnd-droppable (onDropSuccess)="dropDnDItem($event, backlogStatus.BACKLOG, 'backlog')" [dropZones]="['demo1']">
         <li class="dashboard-container-item empty-item" (click)="goToCreateBacklogItem()"
             *ngIf="dashboard.backlog.length == 0">
           Create a new item, or drag'n'drop one
@@ -33,7 +33,7 @@
         <li class="dashboard-container-item"
             *ngFor="let item of dashboard.backlog"
             dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2']"
-            (onDragSuccess)="removeBacklogItem($event)"
+            (onDragSuccess)="removeDnDItem($event, 'backlog')"
             (click)="dashboardItemClicked(item)">
           <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
           {{item.title}}
@@ -64,7 +64,7 @@
         </div>
       </div>
       <ul *ngIf="!orderSwitches.todoSwitch" class="collection"
-          dnd-droppable (onDropSuccess)="dropToTodo($event)" [dropZones]="['demo2']">
+          dnd-droppable (onDropSuccess)="dropDnDItem($event, backlogStatus.TODO, 'todo')" [dropZones]="['demo2']">
         <li class="dashboard-container-item empty-item" (click)="goToCreateBacklogItem()"
             *ngIf="dashboard.todo.length == 0">
           Create a new item, or drag'n'drop one
@@ -72,7 +72,7 @@
         <li class="dashboard-container-item"
             *ngFor="let item of dashboard.todo"
             dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo1', 'demo3']"
-            (onDragSuccess)="removeTodoItem($event)"
+            (onDragSuccess)="removeDnDItem($event, 'todo')"
             (click)="dashboardItemClicked(item)">
           <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
           {{item.title}}
@@ -103,7 +103,7 @@
         </div>
       </div>
       <ul *ngIf="!orderSwitches.inProgressSwitch" class="collection"
-          dnd-droppable (onDropSuccess)="dropToInProgress($event)" [dropZones]="['demo3']">
+          dnd-droppable (onDropSuccess)="dropDnDItem($event, backlogStatus.IN_PROGRESS, 'inProgress')" [dropZones]="['demo3']">
         <li class="dashboard-container-item empty-item" (click)="goToCreateBacklogItem()"
             *ngIf="dashboard.inProgress.length == 0">
           Create a new item, or drag'n'drop one
@@ -111,7 +111,7 @@
         <li class="dashboard-container-item"
             *ngFor='let item of dashboard.inProgress'
             dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2', 'demo4']"
-            (onDragSuccess)="removeInProgressItem($event)"
+            (onDragSuccess)="removeDnDItem($event, 'inProgress')"
             (click)="dashboardItemClicked(item)">
           <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
           {{item.title}}
@@ -142,7 +142,7 @@
         </div>
       </div>
       <ul *ngIf="!orderSwitches.doneSwitch" class="collection"
-          dnd-droppable (onDropSuccess)="dropToDone($event)" [dropZones]="['demo4']">
+          dnd-droppable (onDropSuccess)="dropDnDItem($event, backlogStatus.DONE, 'done')" [dropZones]="['demo4']">
         <li class="dashboard-container-item empty-item" (click)="goToCreateBacklogItem()"
             *ngIf="dashboard.done.length == 0">
           Create a new item, or drag'n'drop one
@@ -150,7 +150,7 @@
         <li class="dashboard-container-item"
             *ngFor='let item of dashboard.done'
             dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo3']"
-            (onDragSuccess)="removeDoneItem($event)"
+            (onDragSuccess)="removeDnDItem($event, 'done')"
             (click)="dashboardItemClicked(item)">
           <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
           {{item.title}}

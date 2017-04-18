@@ -19,11 +19,12 @@ import * as _ from "underscore"
   templateUrl: 'app/app/dashboard/dashboard.html',
   animations: [ Utility.fadeInOutAnimation ]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   @Input() project: Project;
 
   sessionService: SessionService;
   backlogItemType = BacklogItemType;
+  backlogStatus = BacklogStatus;
 
   backlogItems: Array<BacklogItem>;
   todoItems: Array<BacklogItem>;
@@ -49,9 +50,6 @@ export class DashboardComponent implements OnInit {
     this.orderSwitchesDisabled = { backlogSwitch: true, todoSwitch: false, inProgressSwitch: false, doneSwitch: false };
     this.isOpen = false;
     this.isLoaded = false;
-  }
-
-  ngOnInit(): void {
   }
 
   dashboardToggle() {
@@ -98,72 +96,52 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  dashboardItemClicked(item: BacklogItem): void {
-    this._router.navigate(['/' + item.getPath() + 'edit/' + this.project.dashboardId + '/' + item.id ]);
-  }
-
-  dropToBacklog($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    let item: BacklogItem = <BacklogItem>$event.dragData;
-    item.status = BacklogStatus[BacklogStatus.BACKLOG];
-    this.dashboard.backlog.push(item);
-    this.updateDashboard();
-  }
-
-  dropToTodo($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    let item: BacklogItem = <BacklogItem>$event.dragData;
-    item.status = BacklogStatus[BacklogStatus.TODO];
-    this.dashboard.todo.push(item);
-    this.updateDashboard();
-  }
-
-  dropToInProgress($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    let item: BacklogItem = <BacklogItem>$event.dragData;
-    item.status = BacklogStatus[BacklogStatus.IN_PROGRESS];
-    this.dashboard.inProgress.push(item);
-    this.updateDashboard();
-  }
-
-  dropToDone($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    let item: BacklogItem = <BacklogItem>$event.dragData;
-    item.status = BacklogStatus[BacklogStatus.DONE];
-    this.dashboard.done.push(item);
-    this.updateDashboard();
-  }
-
   updateDashboard() {
     let tmpDashboard = jQuery.extend(true, {}, this.dashboard);
+
     tmpDashboard.backlog = _.map(tmpDashboard.backlog, function (element: any) { return element.id; });
     tmpDashboard.todo = _.map(tmpDashboard.todo, function (element: any) { return element.id; });
     tmpDashboard.inProgress = _.map(tmpDashboard.inProgress, function (element: any) { return element.id; });
     tmpDashboard.done = _.map(tmpDashboard.done, function (element: any) { return element.id; });
+
+    tmpDashboard.backlog = this.toObject(tmpDashboard.backlog);
+    tmpDashboard.todo = this.toObject(tmpDashboard.todo);
+    tmpDashboard.inProgress = this.toObject(tmpDashboard.inProgress);
+    tmpDashboard.done = this.toObject(tmpDashboard.done);
 
     tmpDashboard.update(this._http).subscribe(
       res =>    '',
       error =>  console.log(error));
   }
 
-  removeBacklogItem($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    this.removeItem(<BacklogItem>$event.dragData, this.dashboard.backlog);
+  dashboardItemClicked(item: BacklogItem): void {
+    this._router.navigate(['/' + item.getPath() + 'edit/' + this.project.dashboardId + '/' + item.id ]);
   }
 
-  removeTodoItem($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    this.removeItem(<BacklogItem>$event.dragData, this.dashboard.todo);
+  dropDnDItem($event: {dragData: any, mouseEvent: MouseEvent}, status: BacklogStatus, type: string): void {
+    let item: BacklogItem = <BacklogItem>$event.dragData;
+    item.status = BacklogStatus[status];
+    this.dashboard[type].push(item);
   }
 
-  removeInProgressItem($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    this.removeItem(<BacklogItem>$event.dragData, this.dashboard.inProgress);
+  removeDnDItem($event: {dragData: any, mouseEvent: MouseEvent}, type: string): void {
+    this.removeItem(<BacklogItem>$event.dragData, this.dashboard[type]);
+    this.updateDashboard();
   }
 
-  removeDoneItem($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    this.removeItem(<BacklogItem>$event.dragData, this.dashboard.done);
+  onSortSuccess($event: {dragData: any, mouseEvent: MouseEvent}): void {
+    this.updateDashboard();
   }
 
   private removeItem(item: BacklogItem, array: Array<BacklogItem>): void {
     array.splice(array.indexOf(item), 1);
   }
 
-  onSortSuccess($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    this.updateDashboard();
+  toObject(arr) {
+    var rv = {};
+    for (var i = 0; i < arr.length; ++i)
+      rv[i] = arr[i];
+    return rv;
   }
 
 }
