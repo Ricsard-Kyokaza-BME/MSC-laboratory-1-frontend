@@ -6,14 +6,14 @@ import {BacklogItem} from "./backlogItem";
 export class Dashboard extends CRUDEntity {
   static path: string = 'dashboard/';
 
-  backlog: Map<Number, string>;
-  todo: Map<Number, string>;
-  inProgress: Map<Number, string>;
-  done: Map<Number, string>;
+  backlog: Array<BacklogItem>;
+  todo: Array<BacklogItem>;
+  inProgress: Array<BacklogItem>;
+  done: Array<BacklogItem>;
 
   constructor()
-  constructor(id: string, backlog: Map<Number, string>, todo: Map<Number, string>, inProgress: Map<Number, string>, done: Map<Number, string>)
-  constructor(id?: string, backlog?: Map<Number, string>, todo?: Map<Number, string>, inProgress?: Map<Number, string>, done?: Map<Number, string>) {
+  constructor(id: string, backlog: Array<BacklogItem>, todo: Array<BacklogItem>, inProgress: Array<BacklogItem>, done: Array<BacklogItem>)
+  constructor(id?: string, backlog?: Array<BacklogItem>, todo?: Array<BacklogItem>, inProgress?: Array<BacklogItem>, done?: Array<BacklogItem>) {
     super(id);
     this.backlog = backlog;
     this.todo = todo;

@@ -41,7 +41,8 @@
       'class-transformer':         'npm:class-transformer',
       'stylus':                    'npm:systemjs-plugin-stylus/stylus.js',
       'angular2-ui-switch':        'npm:angular2-ui-switch',
-      'angular2-tag-input':        'npm:angular2-tag-input'
+      'angular2-tag-input':        'npm:angular2-tag-input',
+      'underscore':                'npm:underscore'
     },
     meta: {
       '*.styl': { loader: 'stylus' }
@@ -59,7 +60,8 @@
       'crossvent': { main: 'crossvent.js', defaultExtension: 'js' },
       'custom-event': { main: 'index.js', defaultExtension: 'js' },
       'angular2-ui-switch': { main: './dist/index.js', defaultExtension: 'js' },
-      'angular2-tag-input': { main: './dist/index.js', defaultExtension: 'js' }
+      'angular2-tag-input': { main: './dist/index.js', defaultExtension: 'js' },
+      'underscore': { main: './underscore.js', defaultExtension: 'js' }
     }
   });
 })(this);

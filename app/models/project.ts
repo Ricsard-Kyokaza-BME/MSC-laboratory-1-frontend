@@ -20,8 +20,8 @@ export class Project extends CRUDEntity {
     this.dashboardId = dashboardId;
   }
 
-  resolveProject(http: Http) : Observable<any[]> {
-    return http.get(CRUDEntity.basePath + Project.path + "resolve/" + this.id)
+  getDashboard(http: Http) : Observable<any[]> {
+    return http.get(CRUDEntity.basePath + Project.path + this.id + "/dashboard")
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }

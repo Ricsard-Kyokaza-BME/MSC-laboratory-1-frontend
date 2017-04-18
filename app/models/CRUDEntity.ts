@@ -24,6 +24,12 @@ export abstract class CRUDEntity {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  public update(http: Http): Observable<any[]> {
+    return http.put(CRUDEntity.basePath + this.getPath() + this.id, this)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   public deleteEntity(http: Http): Observable<any[]> {
     return http.delete(CRUDEntity.basePath + this.getPath() + this.id)
       .map((res:Response) => res.json())

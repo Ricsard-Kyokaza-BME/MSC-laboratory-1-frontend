@@ -208,16 +208,6 @@ export class CreateBacklogItemComponent implements OnInit {
       (<UserStory>this.backlogItem).subtasks = Utility.mapToField(this.selectedSubTaskItems, 'id');
     }
 
-    // if(this.isEditing) {
-    //   this._backlogItemRESTService.updateBacklogItem(this.backlogItem).subscribe(
-    //     res =>    this._router.navigate(['/']),
-    //     error =>  console.log(error));
-    // } else {
-    //   this._backlogItemRESTService.backlogItemSave(this.backlogItem).subscribe(
-    //     res =>    this._router.navigate(['/']),
-    //     error =>  console.log(error));
-    // }
-
     Dashboard.addBacklogItem(this._http, this.dashboardId, this.backlogItem).subscribe(
       res =>    this._router.navigate(['/projects']),
       error =>  console.log(error));
@@ -236,16 +226,13 @@ export class CreateBacklogItemComponent implements OnInit {
   instantiateBacklogItem(res: Array<any>): void {
     switch (this.type) {
       case 'userstory':
-        this.backlogItem = plainToClass(UserStory, <BacklogItem><any>res);
-        this.backlogItem.type = BacklogItemType.USER_STORY;
+        this.backlogItem = UserStory.instantiate(res);
         break;
       case 'task':
-        this.backlogItem = plainToClass(Task, <BacklogItem><any>res);
-        this.backlogItem.type = BacklogItemType.TASK;
+        this.backlogItem = Task.instantiate(res);
         break;
       case 'bug':
-        this.backlogItem = plainToClass(Bug, <BacklogItem><any>res);
-        this.backlogItem.type = BacklogItemType.BUG;
+        this.backlogItem = Bug.instantiate(res);
         break;
     }
   }

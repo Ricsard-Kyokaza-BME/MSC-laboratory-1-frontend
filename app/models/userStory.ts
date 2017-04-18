@@ -1,6 +1,6 @@
 import {BacklogItem} from "./backlogItem";
-import {BacklogStatus} from "./backlogStatus";
 import {BacklogItemType} from "./backlogItemType";
+import {plainToClass} from "class-transformer";
 
 export class UserStory extends BacklogItem {
   static path: string = 'userstory/';
@@ -16,6 +16,12 @@ export class UserStory extends BacklogItem {
     this.subtasks = subtasks || [];
     this.definitionOfDone = definitionOfDone;
     this.acceptanceCriteria = acceptanceCriteria;
+  }
+
+  public static instantiate(object: any): UserStory {
+    var userStory: UserStory = plainToClass(UserStory, <BacklogItem>object);
+    userStory.type = BacklogItemType.USER_STORY;
+    return userStory;
   }
 
 }
