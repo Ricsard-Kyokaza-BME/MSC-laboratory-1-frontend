@@ -26,6 +26,8 @@
     <script src="app/systemjs.config.js"></script>
     <script>
       System.import('app').catch(function(err){ console.error(err); });
+
+      var idx=window.location.toString().indexOf("#_=_"); if (idx>0) { window.location = window.location.toString().substring(0, idx); }
     </script>
   </head>
 
