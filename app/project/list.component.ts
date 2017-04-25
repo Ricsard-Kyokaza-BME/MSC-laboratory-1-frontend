@@ -6,7 +6,7 @@ import {plainToClass} from "class-transformer";
 
 @Component({
   selector: 'project-list-cmp',
-  templateUrl: 'app/app/project/project-list.html'
+  templateUrl: 'app/app/project/list.html'
 })
 export class ProjectListComponent implements OnInit {
   projects: Array<Project>;

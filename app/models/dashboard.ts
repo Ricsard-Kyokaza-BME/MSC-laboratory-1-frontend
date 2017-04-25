@@ -15,10 +15,10 @@ export class Dashboard extends CRUDEntity {
   constructor(id: string, backlog: Array<BacklogItem>, todo: Array<BacklogItem>, inProgress: Array<BacklogItem>, done: Array<BacklogItem>)
   constructor(id?: string, backlog?: Array<BacklogItem>, todo?: Array<BacklogItem>, inProgress?: Array<BacklogItem>, done?: Array<BacklogItem>) {
     super(id);
-    this.backlog = backlog;
-    this.todo = todo;
-    this.inProgress = inProgress;
-    this.done = done;
+    this.backlog = backlog || [];
+    this.todo = todo  || [];
+    this.inProgress = inProgress  || [];
+    this.done = done  || [];
   }
 
   public static addBacklogItem(http: Http, dashboardId: string, backlogItem: BacklogItem) : Observable<any[]> {

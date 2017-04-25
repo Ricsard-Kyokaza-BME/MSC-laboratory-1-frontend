@@ -8,6 +8,7 @@
       <h6 class="max-2-lines" [title]="project.description | capitalize">{{project.description | capitalize}}</h6>
     </div>
     <div class="item-create-button col-12 col-lg-3 text-center text-lg-right mt-3 mt-lg-0">
+      <button class="btn btn-outline-primary btn-sm" (click)="goToCreateSprint()"><i class="material-icons">add</i> <span>Sprint</span></button>
       <button class="btn btn-outline-primary btn-sm" (click)="goToCreateBacklogItem()"><i class="material-icons">add</i> <span>Backlog item</span></button>
     </div>
   </div>

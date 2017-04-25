@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, Input} from '@angular/core';
+import {Component, Inject, Input} from '@angular/core';
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogStatus} from "../models/backlogStatus";
 import {UserStory} from "../models/userStory";
@@ -71,7 +71,11 @@ export class DashboardComponent {
   }
 
   goToCreateBacklogItem() {
-    this._router.navigate(['/backlog-item/' + this.project.dashboardId + '/create'])
+    this._router.navigate(['/backlog-item/' + this.project.dashboardId + '/create']);
+  }
+
+  goToCreateSprint() {
+    this._router.navigate(['project/' + this.project.id + '/sprint/create']);
   }
 
   mapDashboardItems(res:any[]): Array<BacklogItem> {

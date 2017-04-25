@@ -1,0 +1,60 @@
+<div class="create-container container">
+  <div class="row">
+    <form class="col-12 form-group" (ngSubmit)="saveSprint()" #sprintForm="ngForm">
+      <h5>Sprint details</h5>
+      <hr/>
+      <div class="row">
+        <div class="input-field col-12 col-md-6">
+          <label for="startTime">Start date</label>
+          <input name="startTime" required
+                 id="startTime" type="date" class="validate form-control"
+                 [(ngModel)]="sprint.startTime" #startTime="ngModel">
+        </div>
+        <div class="input-field col-12 col-md-6">
+          <label for="endTime">End date</label>
+          <input class="form-control" id="endTime" name="endTime" type="date"
+                    [(ngModel)]="sprint.endTime" #endTime="ngModel">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col-12 col-md-6">
+          <span>Backlog Items</span>
+          <ul class="collection"
+              dnd-droppable (onDropSuccess)="addToBacklogItem($event)" [dropZones]="['original']">
+            <li class="dashboard-container-item empty-item"
+                *ngIf="backlogItems.length == 0">
+              Drop one here
+            </li>
+            <li class="dashboard-container-item"
+                *ngFor="let item of backlogItems"
+                dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['selected']"
+                (onDragSuccess)="removeFromBacklogItem($event)">
+              <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
+              {{item.title}}
+            </li>
+          </ul>
+        </div>
+        <div class="input-field col-12 col-md-6">
+          <span>Selected backlog items</span>
+          <ul class="collection"
+              dnd-droppable (onDropSuccess)="addToSelectedBacklogItem($event)" [dropZones]="['selected']">
+            <li class="dashboard-container-item empty-item"
+                *ngIf="sprint.backlogItemsInvolved.length == 0">
+              Drop one here
+            </li>
+            <li class="dashboard-container-item"
+                *ngFor="let item of sprint.backlogItemsInvolved"
+                dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['original']"
+                (onDragSuccess)="removeFromSelectedBacklogItem($event)">
+              <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
+              {{item.title}}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>

@@ -42,7 +42,8 @@
       'stylus':                    'npm:systemjs-plugin-stylus/stylus.js',
       'angular2-ui-switch':        'npm:angular2-ui-switch',
       'angular2-tag-input':        'npm:angular2-tag-input',
-      'underscore':                'npm:underscore'
+      'underscore':                'npm:underscore',
+      'moment':                    'npm:moment'
     },
     meta: {
       '*.styl': { loader: 'stylus' }
@@ -61,7 +62,8 @@
       'custom-event': { main: 'index.js', defaultExtension: 'js' },
       'angular2-ui-switch': { main: './dist/index.js', defaultExtension: 'js' },
       'angular2-tag-input': { main: './dist/index.js', defaultExtension: 'js' },
-      'underscore': { main: './underscore.js', defaultExtension: 'js' }
+      'underscore': { main: './underscore.js', defaultExtension: 'js' },
+      'moment': { main: './moment.js', defaultExtension: 'js' }
     }
   });
 })(this);
