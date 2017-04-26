@@ -21,8 +21,8 @@ export class Sprint extends CRUDEntity {
   }
 
 
-  public save(http: Http): Observable<any[]> {
-    return http.post(CRUDEntity.basePath + 'project/' + this.id + '/sprint', this)
+  public saveSprint(http: Http, projectId: string): Observable<any[]> {
+    return http.post(CRUDEntity.basePath + 'project/' + projectId + '/sprint', this)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }

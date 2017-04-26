@@ -99,7 +99,7 @@ export class CreateSprintComponent implements OnInit {
       return element.id;
     });
 
-    tmpSprint.save(this._http).subscribe(
+    tmpSprint.saveSprint(this._http, this.project.id).subscribe(
       res =>    this._router.navigate(['/projects']),
       error =>  console.log(error));
   }
