@@ -203,7 +203,6 @@ export class CreateBacklogItemComponent implements OnInit {
   saveBacklogItem(): boolean {
     this.backlogItem.assignee = Utility.mapToField(this.selectedAssignees, 'id');
     this.backlogItem.depending = Utility.mapToField(this.selectedDependingItems, 'id');
-    this.backlogItem.complexity = Complexity[this.backlogItem.complexity];
     if(this.typeRadio == 'userStory') {
       (<UserStory>this.backlogItem).subtasks = Utility.mapToField(this.selectedSubTaskItems, 'id');
     }

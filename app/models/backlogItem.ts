@@ -24,7 +24,7 @@ export abstract class BacklogItem extends CRUDEntity {
     this.keywords = keywords || [];
     this.description = description;
     this.assignee = assignee || [];
-    this.complexity = Complexity[complexity] || Complexity[Complexity.ZERO];
+    this.complexity = complexity || Complexity.ZERO;
     this.depending = depending || [];
     this.status = BacklogStatus[status] || BacklogStatus[BacklogStatus.BACKLOG];
     this.type = type;

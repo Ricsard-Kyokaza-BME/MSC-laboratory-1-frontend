@@ -141,6 +141,10 @@ export class DashboardComponent {
     array.splice(array.indexOf(item), 1);
   }
 
+  isInTheSprint(itemId: string): boolean {
+    return _.contains(this.dashboard.sprint.backlogItemsInvolved, itemId);
+  }
+
   toObject(arr) {
     var rv = {};
     for (var i = 0; i < arr.length; ++i)
