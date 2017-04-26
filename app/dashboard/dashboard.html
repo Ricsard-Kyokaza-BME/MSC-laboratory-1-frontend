@@ -35,9 +35,10 @@
             *ngFor="let item of dashboard.backlog"
             dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2']"
             (onDragSuccess)="removeDnDItem($event, 'backlog')"
-            (click)="dashboardItemClicked(item)" [ngClass]="{'backlog-item-in-sprint': isInTheSprint(item.id)}">
+            (click)="dashboardItemClicked(item)">
           <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
           {{item.title}}
+          <div class="dashboard-container-in-sprint" *ngIf="isInTheSprint(item.id)">Sprint</div>
         </li>
       </ul>
 
@@ -74,9 +75,10 @@
             *ngFor="let item of dashboard.todo"
             dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo1', 'demo3']"
             (onDragSuccess)="removeDnDItem($event, 'todo')"
-            (click)="dashboardItemClicked(item)" [ngClass]="{'backlog-item-in-sprint': isInTheSprint(item.id)}">
+            (click)="dashboardItemClicked(item)">
           <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
           {{item.title}}
+          <div class="dashboard-container-in-sprint" *ngIf="isInTheSprint(item.id)">Sprint</div>
         </li>
       </ul>
 
@@ -113,9 +115,10 @@
             *ngFor='let item of dashboard.inProgress'
             dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo2', 'demo4']"
             (onDragSuccess)="removeDnDItem($event, 'inProgress')"
-            (click)="dashboardItemClicked(item)" [ngClass]="{'backlog-item-in-sprint': isInTheSprint(item.id)}">
+            (click)="dashboardItemClicked(item)">
           <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
           {{item.title}}
+          <div class="dashboard-container-in-sprint" *ngIf="isInTheSprint(item.id)">Sprint</div>
         </li>
       </ul>
 
@@ -152,9 +155,10 @@
             *ngFor='let item of dashboard.done'
             dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="['demo3']"
             (onDragSuccess)="removeDnDItem($event, 'done')"
-            (click)="dashboardItemClicked(item)" [ngClass]="{'backlog-item-in-sprint': isInTheSprint(item.id)}">
+            (click)="dashboardItemClicked(item)">
           <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
           {{item.title}}
+          <div class="dashboard-container-in-sprint" *ngIf="isInTheSprint(item.id)">Sprint</div>
         </li>
       </ul>
 
@@ -169,5 +173,11 @@
       </ul>
     </div>
 
+  </div>
+
+  <div class="row" *ngIf="isOpen && isLoaded" [@fadeInOut]>
+    <div class="col-12 text-center">
+      <span>Sprint <strong class="sprint-date">{{formatDate(dashboard.sprint.startTime)}}</strong> &rarr; <strong class="sprint-date">{{formatDate(dashboard.sprint.endTime)}}</strong></span>
+    </div>
   </div>
 </div>

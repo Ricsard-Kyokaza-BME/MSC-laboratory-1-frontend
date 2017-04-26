@@ -260,6 +260,22 @@ nav#menu {
       overflow-y: auto;
     }
 
+    &-in-sprint {
+        position absolute
+        height 100%
+        width 15px
+        right 0
+        top 0
+        font-size 9px
+        line-height 15px
+        text-align center
+        background-color $green
+        color $dirtyWhite
+        border-radius 5px 0 0 5px
+        writing-mode tb-rl
+        white-space:nowrap;
+    }
+
     &-item {
       position relative
       background-color: $white02;
@@ -447,6 +463,10 @@ nav#menu {
     color $white
     border-color $white
   }
+}
+
+.sprint-date {
+  color $green;
 }
 
 //.dnd-drag-over {

@@ -12,7 +12,8 @@ import {Project} from "../models/project";
 import {Utility} from "../utility/utility";
 import {Dashboard} from "../models/dashboard";
 import {BacklogItemType} from "../models/backlogItemType";
-import * as _ from "underscore"
+import * as _ from "underscore";
+import * as moment from "moment";
 
 @Component({
   selector: 'dashboard-cmp',
@@ -143,6 +144,10 @@ export class DashboardComponent {
 
   isInTheSprint(itemId: string): boolean {
     return _.contains(this.dashboard.sprint.backlogItemsInvolved, itemId);
+  }
+
+  formatDate(date: any): string {
+    return moment(date).format('YYYY-MM-DD');
   }
 
   toObject(arr) {
