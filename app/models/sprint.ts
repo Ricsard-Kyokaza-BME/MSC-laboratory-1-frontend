@@ -1,6 +1,8 @@
 import {CRUDEntity} from "./CRUDEntity";
 import * as moment from "moment";
 import {BacklogItem} from "./backlogItem";
+import {Http, Response} from "@angular/http";
+import {Observable} from "rxjs";
 
 export class Sprint extends CRUDEntity {
   static path: string = 'sprint/';
@@ -16,6 +18,13 @@ export class Sprint extends CRUDEntity {
     this.startTime = moment(startTime).format('YYYY-MM-DD') || moment().format('YYYY-MM-DD');
     this.endTime = moment(endTime).format('YYYY-MM-DD') || moment().format('YYYY-MM-DD');
     this.backlogItemsInvolved = backlogItemsInvolved || [];
+  }
+
+
+  public save(http: Http): Observable<any[]> {
+    return http.post(CRUDEntity.basePath + 'project/' + this.id + '/sprint', this)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 }
