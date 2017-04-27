@@ -175,7 +175,7 @@
 
   </div>
 
-  <div class="row" *ngIf="isOpen && isLoaded" [@fadeInOut]>
+  <div class="row" *ngIf="isOpen && isLoaded && dashboard.sprint" [@fadeInOut]>
     <div class="col-12 text-center">
       <span>Sprint <strong class="sprint-date">{{formatDate(dashboard.sprint.startTime)}}</strong> &rarr; <strong class="sprint-date">{{formatDate(dashboard.sprint.endTime)}}</strong></span>
     </div>
