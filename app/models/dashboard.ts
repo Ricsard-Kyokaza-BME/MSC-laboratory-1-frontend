@@ -29,4 +29,15 @@ export class Dashboard extends CRUDEntity {
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  public updateAfterDragnDrop(http: Http, backlogItem: BacklogItem) : Observable<any[]> {
+    let dashboardWrapper: {dashboard: Dashboard, backlogItem: string} = {
+      dashboard: this,
+      backlogItem: JSON.stringify(backlogItem)
+    };
+
+    return http.post(CRUDEntity.basePath + Dashboard.path + this.id + "/dnd", dashboardWrapper)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }

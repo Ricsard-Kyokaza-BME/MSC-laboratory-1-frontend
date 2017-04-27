@@ -105,7 +105,7 @@ export class DashboardComponent {
     }
   }
 
-  updateDashboard() {
+  updateDashboard(type: string, backlogItem: BacklogItem) {
     let tmpDashboard = jQuery.extend(true, {}, this.dashboard);
 
     tmpDashboard.backlog = _.map(tmpDashboard.backlog, function (element: any) { return element.id; });
@@ -118,9 +118,15 @@ export class DashboardComponent {
     tmpDashboard.inProgress = this.toObject(tmpDashboard.inProgress);
     tmpDashboard.done = this.toObject(tmpDashboard.done);
 
-    tmpDashboard.update(this._http).subscribe(
-      res =>    '',
-      error =>  console.log(error));
+    if(type === 'sort') {
+      tmpDashboard.update(this._http).subscribe(
+        res =>    '',
+        error =>  console.log(error));
+    } else {
+      tmpDashboard.updateAfterDragnDrop(this._http, backlogItem).subscribe(
+        res =>    '',
+        error =>  console.log(error));
+    }
   }
 
   dashboardItemClicked(item: BacklogItem): void {
@@ -134,12 +140,14 @@ export class DashboardComponent {
   }
 
   removeDnDItem($event: {dragData: any, mouseEvent: MouseEvent}, type: string): void {
-    this.removeItem(<BacklogItem>$event.dragData, this.dashboard[type]);
-    this.updateDashboard();
+    let backlogItem: BacklogItem = <BacklogItem>$event.dragData;
+    this.removeItem(backlogItem, this.dashboard[type]);
+    this.updateDashboard('dnd', backlogItem);
   }
 
   onSortSuccess($event: {dragData: any, mouseEvent: MouseEvent}): void {
-    this.updateDashboard();
+    let backlogItem: BacklogItem = <BacklogItem>$event.dragData;
+    this.updateDashboard('sort', backlogItem);
   }
 
   private removeItem(item: BacklogItem, array: Array<BacklogItem>): void {
