@@ -6,32 +6,57 @@ import {plainToClass} from "class-transformer";
 import {UserRESTService} from "../user/userREST.service";
 import {Utility} from "../utility/utility";
 import {SessionService} from "../auth/session.service";
+import {ActivatedRoute} from "@angular/router";
+import * as _ from "underscore"
 
 @Component({
   selector: 'create-project-cmp',
   templateUrl: 'app/app/project/create.html'
 })
 export class CreateProjectComponent implements OnInit {
-  isEditing: boolean;
   project: Project;
 
   searchedUsers: Array<User>;
   selectedAssignees: Array<User>;
+  isEditing: boolean;
+  id: string;
 
   constructor(@Inject(Http) private _http: Http, private _userRESTService: UserRESTService,
-              private _sessionService: SessionService) {
+              private _sessionService: SessionService, private _route: ActivatedRoute,) {
     this.project = new Project();
     this.isEditing = false;
 
     this.searchedUsers = [];
     this.selectedAssignees = [];
+
+    this.id = this._route.snapshot.params['id'];
+
+    this.id ? this.isEditing = true : this.isEditing = false;
   }
 
   ngOnInit(): void {
     if(this.isEditing) {
-    }
+      Project.findById(this._http, this.id).subscribe(
+        res => {
+          this.project = <Project><any>plainToClass(Project, res);
 
-    this.assigneeClicked(SessionService.getSignedInUser());
+          this._userRESTService.resolveUserIds(this.project.usersInProject).subscribe(
+            res => {
+              this.project.usersInProject = res;
+              let that = this;
+              _.each(this.project.usersInProject, function (user) {
+                that.assigneeClicked((<User><any>user));
+              })
+            },
+            error => {
+              console.log(error)
+            }
+          );
+        },
+        error =>  console.log(error));
+    } else {
+      this.assigneeClicked(SessionService.getSignedInUser());
+    }
   }
 
   assigneeClicked(assignee: User): void {

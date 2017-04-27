@@ -71,6 +71,10 @@ export class DashboardComponent {
     }
   }
 
+  goToEditProject() {
+    this._router.navigate(['project/edit/' + this.project.id]);
+  }
+
   goToCreateBacklogItem() {
     this._router.navigate(['/backlog-item/' + this.project.dashboardId + '/create']);
   }

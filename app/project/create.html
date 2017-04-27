@@ -39,11 +39,9 @@
         </div>
       </div>
 
-      <button type="submit"
-              class="btn btn-primary" *ngIf="!isEditing">Add</button>
-      <button type="submit"
-              class="btn btn-primary" *ngIf="isEditing">Save</button>
-      <button class="btn btn-primary" *ngIf="isEditing" (click)="deleteProject()">Delete</button>
+      <button type="submit" class="btn btn-primary" *ngIf="!isEditing">Add</button>
+      <button type="submit" class="btn btn-primary" *ngIf="isEditing">Save</button>
+      <button class="btn btn-danger" *ngIf="isEditing" (click)="deleteProject()">Delete</button>
     </form>
   </div>
 </div>

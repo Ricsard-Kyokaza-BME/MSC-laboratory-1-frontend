@@ -469,6 +469,25 @@ nav#menu {
   color $green;
 }
 
+#sprint-cmp {
+  ul {
+    border-radius 5px
+    border 1px solid $lightGreyBorder
+
+    li:first-of-type {
+      border-radius 5px 5px 0 0
+    }
+
+    li:last-of-type {
+      border-radius 0 0 5px 5px
+    }
+
+    li:only-of-type {
+      border-radius 5px
+    }
+  }
+}
+
 //.dnd-drag-over {
 //  border 1px dashed $blue !important
 //}

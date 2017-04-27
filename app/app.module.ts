@@ -24,6 +24,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
   { path: 'backlog-item/:dashboardId/create', component: CreateBacklogItemComponent },
   { path: 'project/create', component: CreateProjectComponent },
+  { path: 'project/edit/:id', component: CreateProjectComponent },
   { path: 'project/:id/sprint/create', component: CreateSprintComponent },
   { path: ':type/edit/:dashboardId/:id', component: CreateBacklogItemComponent },
   { path: 'projects', component: ProjectListComponent },
