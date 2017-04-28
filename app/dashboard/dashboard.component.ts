@@ -155,7 +155,11 @@ export class DashboardComponent {
   }
 
   isInTheSprint(itemId: string): boolean {
-    return _.contains(this.dashboard.sprint.backlogItemsInvolved, itemId);
+    if(this.dashboard && this.dashboard.sprint) {
+      return _.contains(this.dashboard.sprint.backlogItemsInvolved, itemId);
+    } else {
+      return false;
+    }
   }
 
   formatDate(date: any): string {
