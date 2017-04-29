@@ -15,7 +15,8 @@ import {CRUDEntity} from "../models/CRUDEntity";
 import {SessionService} from "../auth/session.service";
 import {Utility} from "../utility/utility";
 import {Dashboard} from "../models/dashboard";
-import {BacklogItemType} from "../models/backlogItemType";
+import {CheckItem} from "../models/checkItem";
+import * as _ from "underscore"
 
 type Step = {
   name: string,
@@ -27,36 +28,41 @@ type Step = {
   templateUrl: 'app/app/backlogItem/create.html'
 })
 export class CreateBacklogItemComponent implements OnInit {
+  complexity = Complexity;
+  backlogStatus = BacklogStatus;
+  sessionService: SessionService;
+  backlogItem: BacklogItem;
+
   id: string;
   dashboardId: string;
 
   isEditing: boolean;
   type: string;
-  typeRadio: string;
-  keywords: any;
-  assigneeSearch: string;
-  backlogItem: BacklogItem;
   backlogItems: Map<string, Array<BacklogItem>>;
+
+  typeRadio: string;
+  assigneeSearch: string;
   searchedUsers: Array<User>;
   selectedAssignees: Array<User>;
   selectedDependingItems: Array<BacklogItem>;
   selectedSubTaskItems: Array<BacklogItem>;
+  definitionOfDoneItems: Array<string>;
+  acceptanceCriteriaItems: Array<string>;
 
-  complexity = Complexity;
-  backlogStatus = BacklogStatus;
-  sessionService: SessionService;
   steps = Array<Step>();
-
 
   constructor(@Inject(Http) private _http: Http, private _backlogItemRESTService: BacklogItemRESTService, private _route: ActivatedRoute,
               private _router: Router, private _userRESTService: UserRESTService, sessionService: SessionService) {
+    this.sessionService = sessionService;
+
     this.searchedUsers = [];
     this.selectedAssignees = [];
     this.backlogItems = new Map<string, Array<BacklogItem>>();
     this.selectedDependingItems = [];
     this.selectedSubTaskItems = [];
-    this.sessionService = sessionService;
     this.steps = [];
+    this.definitionOfDoneItems = [];
+    this.acceptanceCriteriaItems = [];
 
     if(sessionService.isProductOwnerSignedIn()) {
       this.backlogItem = new UserStory();
@@ -73,7 +79,6 @@ export class CreateBacklogItemComponent implements OnInit {
     this.type = this._route.snapshot.params['type'];
 
     (this.id && this.type) ? this.isEditing = true : this.isEditing = false;
-
   }
 
   ngOnInit(): void {
@@ -81,11 +86,6 @@ export class CreateBacklogItemComponent implements OnInit {
       CRUDEntity.findById(this._http, this.id, this.type).subscribe(
         res => {
           this.instantiateBacklogItem(res);
-
-          this.keywords = { data: [] };
-          for(let i = 0; i < this.backlogItem.keywords.length; i++) {
-            this.keywords.data.push({ tag: this.backlogItem.keywords[i] });
-          }
 
           this._userRESTService.resolveUserIds(this.backlogItem.assignee).subscribe(
             res =>    this.selectedAssignees = plainToClass(User, res),
@@ -96,6 +96,9 @@ export class CreateBacklogItemComponent implements OnInit {
             error =>  console.log(error));
 
           if(this.type == 'userstory') {
+            this.definitionOfDoneItems = this.mapCheckItemsToKeywords((<UserStory>this.backlogItem).definitionOfDone);
+            this.acceptanceCriteriaItems = this.mapCheckItemsToKeywords((<UserStory>this.backlogItem).acceptanceCriteria);
+
             this._backlogItemRESTService.resolveTaskIds((<UserStory>this.backlogItem).subtasks).subscribe(
               res =>    this.selectedSubTaskItems = plainToClass(Task, res),
               error =>  console.log(error));
@@ -203,8 +206,11 @@ export class CreateBacklogItemComponent implements OnInit {
   saveBacklogItem(): boolean {
     this.backlogItem.assignee = Utility.mapToField(this.selectedAssignees, 'id');
     this.backlogItem.depending = Utility.mapToField(this.selectedDependingItems, 'id');
+
     if(this.typeRadio == 'userStory') {
       (<UserStory>this.backlogItem).subtasks = Utility.mapToField(this.selectedSubTaskItems, 'id');
+      (<UserStory>this.backlogItem).definitionOfDone = this.mapKeywordsToCheckItem(this.definitionOfDoneItems);
+      (<UserStory>this.backlogItem).acceptanceCriteria = this.mapKeywordsToCheckItem(this.acceptanceCriteriaItems);
     }
 
     Dashboard.addBacklogItem(this._http, this.dashboardId, this.backlogItem).subscribe(
@@ -220,6 +226,18 @@ export class CreateBacklogItemComponent implements OnInit {
       error =>  console.log(error));
 
     return false;
+  }
+
+  private mapKeywordsToCheckItem(definitionOfDoneItems: any): Array<CheckItem> {
+    return _.map(definitionOfDoneItems, function (item) {
+      return new CheckItem(false, item.toString());
+    });
+  }
+
+  private mapCheckItemsToKeywords(acceptanceCriteria: Array<CheckItem>): Array<string> {
+    return _.map(acceptanceCriteria, function (item: CheckItem) {
+      return item.content;
+    });
   }
 
   instantiateBacklogItem(res: Array<any>): void {

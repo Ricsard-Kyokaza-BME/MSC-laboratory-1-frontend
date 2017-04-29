@@ -2,6 +2,7 @@ import {BacklogStatus} from "./backlogStatus";
 import {BacklogItemType} from "./backlogItemType";
 import {Complexity} from "./complexity";
 import {CRUDEntity} from "./CRUDEntity";
+import {CheckItem} from "./checkItem";
 
 export abstract class BacklogItem extends CRUDEntity {
   title: string;
@@ -13,10 +14,11 @@ export abstract class BacklogItem extends CRUDEntity {
   depending: Array<string>;
   status: string;
   type: BacklogItemType;
+  checkList: Array<CheckItem>;
 
   constructor()
-  constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<string>, complexity: any, depending: Array<string>, status: any, type: any)
-  constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<string>, complexity?: any, depending?: Array<string>, status?: any, type?: any) {
+  constructor(id: string, title: string, createDate: Date, keywords: Array<string>, description: string, assignee: Array<string>, complexity: any, depending: Array<string>, status: any, type: any, checkList: Array<CheckItem>)
+  constructor(id?: string, title?: string, createDate?: Date, keywords?: Array<string>, description?: string, assignee?: Array<string>, complexity?: any, depending?: Array<string>, status?: any, type?: any, checkList?: Array<CheckItem>) {
     super(id);
     this.id = id;
     this.title = title;
@@ -28,6 +30,7 @@ export abstract class BacklogItem extends CRUDEntity {
     this.depending = depending || [];
     this.status = BacklogStatus[status] || BacklogStatus[BacklogStatus.BACKLOG];
     this.type = type;
+    this.checkList = checkList || [];
   }
 
 }

@@ -13,11 +13,11 @@ gulp.task('lite-server', function (cb) {
   var ls = spawn('npm', ['run', 'lite']);
 
   ls.stdout.on('data', function(data) {
-    console.log('' + data);
+    process.stdout.write('' + data);
   });
 
   ls.stderr.on('data', function(data) {
-    console.log('' + data);
+    process.stdout.write('' + data);
   });
 });
 

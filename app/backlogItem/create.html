@@ -145,28 +145,27 @@
         <div class="row" *ngIf="typeRadio == 'userStory'">
           <div class="input-field col-12 col-md-6">
             <label for="definitionOfDone">Definition Of Done</label>
-            <textarea class="form-control" id="definitionOfDone" name="definitionOfDone"
-                      [(ngModel)]="backlogItem.definitionOfDone" #definitionOfDone="ngModel"></textarea>
+            <rl-tag-input id="definitionOfDone" name="definitionOfDone" [(ngModel)]="definitionOfDoneItems" placeholder=""></rl-tag-input>
+            <!--<textarea class="form-control" id="definitionOfDone" name="definitionOfDone"-->
+                      <!--[(ngModel)]="backlogItem.definitionOfDone" #definitionOfDone="ngModel"></textarea>-->
           </div>
           <div class="input-field col-12 col-md-6">
             <label for="acceptanceCriteria">Acceptance Criteria</label>
-            <textarea class="form-control" id="acceptanceCriteria" name="acceptanceCriteria"
-                      [(ngModel)]="backlogItem.acceptanceCriteria" #acceptanceCriteria="ngModel"></textarea>
+            <rl-tag-input id="acceptanceCriteria" name="acceptanceCriteria" [(ngModel)]="acceptanceCriteriaItems" placeholder=""></rl-tag-input>
+            <!--<textarea class="form-control" id="acceptanceCriteria" name="acceptanceCriteria"-->
+                      <!--[(ngModel)]="backlogItem.acceptanceCriteria" #acceptanceCriteria="ngModel"></textarea>-->
           </div>
         </div>
       </div>
 
       <div *ngIf="steps[steps.length-1].isActive">
-        <button type="submit"
-                class="btn btn-primary" *ngIf="!isEditing">Add</button>
-        <!--<button type="submit"-->
-                <!--class="btn btn-primary" *ngIf="isEditing">Save</button>-->
-        <!--<button class="btn btn-danger" *ngIf="isEditing" formnovalidate (click)="deleteBacklogItem()">Delete</button>-->
+        <button type="submit" class="btn btn-primary" *ngIf="!isEditing">Add</button>
       </div>
 
     </form>
   </div>
 </div>
+
 <div class="button-footer" *ngIf="isEditing">
   <div class="row text-center">
     <div class="col-6">
