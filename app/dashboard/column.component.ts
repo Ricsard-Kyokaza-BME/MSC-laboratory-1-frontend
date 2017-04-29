@@ -1,17 +1,19 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {SessionService} from "../auth/session.service";
 import {BacklogItem} from "../models/backlogItem";
 import {BacklogItemType} from "../models/backlogItemType";
 import {Dashboard} from "../models/dashboard";
-import * as _ from "underscore";
 import {BacklogStatus} from "../models/backlogStatus";
 import {Router} from "@angular/router";
+import * as _ from "underscore";
+import {Utility} from "../utility/utility";
 
 @Component({
   selector: 'dashboard-column-cmp',
-  templateUrl: 'app/app/dashboard/column.html'
+  templateUrl: 'app/app/dashboard/column.html',
+  animations: [ Utility.fadeInOutAnimation ]
 })
-export class DashboardColumnComponent {
+export class DashboardColumnComponent implements OnInit {
   @Input() items: Array<BacklogItem>;
   @Input() dashboard: Dashboard;
   @Input() backlogStatus: BacklogStatus;
@@ -26,11 +28,22 @@ export class DashboardColumnComponent {
   backlogItemType = BacklogItemType;
 
   orderSwitch: boolean;
+  backlogItems: Array<{isOpen: boolean, backlogItem: BacklogItem}>;
 
   constructor(sessionService: SessionService, private _router: Router) {
     this.sessionService = sessionService;
 
     this.orderSwitch = false;
+  }
+
+  ngOnInit(): void {
+    this.backlogItems = _.map(this.items, function (item: BacklogItem) {
+      return { isOpen: false, backlogItem: item };
+    });
+  }
+
+  toggleItemCheckList(item: {isOpen: boolean, backlogItem: BacklogItem}) {
+    item.isOpen = !item.isOpen;
   }
 
   goToCreateBacklogItem() {

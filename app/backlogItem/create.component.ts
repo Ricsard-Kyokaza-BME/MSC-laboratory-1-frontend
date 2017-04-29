@@ -48,6 +48,7 @@ export class CreateBacklogItemComponent implements OnInit {
   selectedSubTaskItems: Array<BacklogItem>;
   definitionOfDoneItems: Array<string>;
   acceptanceCriteriaItems: Array<string>;
+  checkList: Array<string>;
 
   steps = Array<Step>();
 
@@ -63,6 +64,7 @@ export class CreateBacklogItemComponent implements OnInit {
     this.steps = [];
     this.definitionOfDoneItems = [];
     this.acceptanceCriteriaItems = [];
+    this.checkList = [];
 
     if(sessionService.isProductOwnerSignedIn()) {
       this.backlogItem = new UserStory();
@@ -86,6 +88,8 @@ export class CreateBacklogItemComponent implements OnInit {
       CRUDEntity.findById(this._http, this.id, this.type).subscribe(
         res => {
           this.instantiateBacklogItem(res);
+
+          this.checkList = this.mapCheckItemsToKeywords(this.backlogItem.checkList);
 
           this._userRESTService.resolveUserIds(this.backlogItem.assignee).subscribe(
             res =>    this.selectedAssignees = plainToClass(User, res),
@@ -206,6 +210,8 @@ export class CreateBacklogItemComponent implements OnInit {
   saveBacklogItem(): boolean {
     this.backlogItem.assignee = Utility.mapToField(this.selectedAssignees, 'id');
     this.backlogItem.depending = Utility.mapToField(this.selectedDependingItems, 'id');
+    this.backlogItem.checkList = this.mapKeywordsToCheckItem(this.checkList);
+
 
     if(this.typeRadio == 'userStory') {
       (<UserStory>this.backlogItem).subtasks = Utility.mapToField(this.selectedSubTaskItems, 'id');

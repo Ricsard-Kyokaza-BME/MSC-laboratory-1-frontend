@@ -17,13 +17,54 @@
     Create a new item, or drag'n'drop one
   </li>
   <li class="dashboard-container-item"
-      *ngFor="let item of items"
-      dnd-draggable [dragEnabled]="item" [dragData]="item" [dropZones]="targetZones"
-      (onDragSuccess)="removeDnDItem($event)"
-      (click)="dashboardItemClicked(item)">
-    <div class="dashboard-container-item-type">{{backlogItemType[item.type].substring(0,4)}}</div>
-    {{item.title}}
-    <div class="dashboard-container-in-sprint" *ngIf="isInTheSprint(item.id)">Sprint</div>
+      *ngFor="let item of backlogItems"
+      dnd-draggable [dragEnabled]="item.backlogItem" [dragData]="item.backlogItem" [dropZones]="targetZones"
+      (onDragSuccess)="removeDnDItem($event)">
+    <div class="dashboard-container-item-type">{{backlogItemType[item.backlogItem.type].substring(0,4)}}</div>
+
+    <div class="row">
+      <div class="col-8" (click)="dashboardItemClicked(item.backlogItem)">
+        <span>{{item.backlogItem.title}}</span>
+      </div>
+      <div class="col-4 text-right" (click)="toggleItemCheckList(item)">
+        <span *ngIf="!item.isOpen"><i class="material-icons">keyboard_arrow_down</i></span>
+        <span *ngIf="item.isOpen"><i class="material-icons">keyboard_arrow_up</i></span>
+      </div>
+    </div>
+
+    <div *ngIf="item.isOpen" [@fadeInOut]>
+      <div *ngIf="item.backlogItem.checkList.length > 0">
+        <span><strong>Check list</strong></span>
+        <hr/>
+        <div class="input-field col-12" *ngFor="let checkItem of item.backlogItem.checkList; let i=index">
+          <input [id]="'check-item-' + i" type="checkbox" [(ngModel)]="checkItem.done"
+                 (change)="updateDashboard.emit({type: 'dnd', backlogItem: item.backlogItem})" />
+          <label [for]="'check-item-' + i">{{checkItem.content}}</label>
+        </div>
+      </div>
+
+      <div *ngIf="(item.backlogItem.type == backlogItemType.USER_STORY) && (item.backlogItem.definitionOfDone.length > 0)">
+        <span><strong>Definition of done</strong></span>
+        <hr/>
+        <div class="input-field col-12" *ngFor="let checkItem of item.backlogItem.definitionOfDone; let i=index">
+          <input [id]="'check-item-' + i" type="checkbox" [(ngModel)]="checkItem.done"
+                 (change)="updateDashboard.emit({type: 'dnd', backlogItem: item.backlogItem})" />
+          <label [for]="'check-item-' + i">{{checkItem.content}}</label>
+        </div>
+      </div>
+
+      <div *ngIf="(item.backlogItem.type == backlogItemType.USER_STORY) && (item.backlogItem.acceptanceCriteria.length > 0)">
+        <span><strong>Acceptance criteria</strong></span>
+        <hr/>
+        <div class="input-field col-12" *ngFor="let checkItem of item.backlogItem.acceptanceCriteria; let i=index">
+          <input [id]="'check-item-' + i" type="checkbox" [(ngModel)]="checkItem.done"
+                 (change)="updateDashboard.emit({type: 'dnd', backlogItem: item.backlogItem})" />
+          <label [for]="'check-item-' + i">{{checkItem.content}}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-container-in-sprint" *ngIf="isInTheSprint(item.backlogItem.id)">Sprint</div>
   </li>
 </ul>
 

@@ -44,10 +44,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col-12">
+          <div class="input-field col-12 col-md-6">
             <label for="description">Description</label>
             <textarea class="form-control" id="description" name="description"
                       [(ngModel)]="backlogItem.description" #description="ngModel"></textarea>
+          </div>
+          <div class="input-field col-12 col-md-6">
+            <label for="checkList">Check List</label>
+            <rl-tag-input id="checkList" name="checkList" [(ngModel)]="checkList" placeholder=""></rl-tag-input>
           </div>
         </div>
       </div>
