@@ -8,10 +8,14 @@ import {Router} from "@angular/router";
 import * as _ from "underscore";
 import {Utility} from "../utility/utility";
 
+type BacklogItemHelper = {
+  isOpen: boolean,
+}
+
 @Component({
   selector: 'dashboard-column-cmp',
   templateUrl: 'app/app/dashboard/column.html',
-  animations: [ Utility.fadeInOutAnimation ]
+  animations: [Utility.fadeInOutAnimation]
 })
 export class DashboardColumnComponent implements OnInit {
   @Input() items: Array<BacklogItem>;
@@ -28,22 +32,29 @@ export class DashboardColumnComponent implements OnInit {
   backlogItemType = BacklogItemType;
 
   orderSwitch: boolean;
-  backlogItems: Array<{isOpen: boolean, backlogItem: BacklogItem}>;
+  backlogItemHelpers: Map<string, BacklogItemHelper>;
 
   constructor(sessionService: SessionService, private _router: Router) {
     this.sessionService = sessionService;
 
     this.orderSwitch = false;
+    this.backlogItemHelpers = new Map<string, BacklogItemHelper>();
   }
 
   ngOnInit(): void {
-    this.backlogItems = _.map(this.items, function (item: BacklogItem) {
-      return { isOpen: false, backlogItem: item };
+    let that = this;
+    _.each(this.items, function (item: BacklogItem) {
+      that.backlogItemHelpers.set(item.id, {isOpen: false});
     });
   }
 
-  toggleItemCheckList(item: {isOpen: boolean, backlogItem: BacklogItem}) {
-    item.isOpen = !item.isOpen;
+  toggleItemCheckList(item: BacklogItem) {
+    this.backlogItemHelpers.get(item.id).isOpen = !this.backlogItemHelpers.get(item.id).isOpen;
+  }
+
+  isItemOpened(item: BacklogItem) {
+    let helper: BacklogItemHelper = this.backlogItemHelpers.get(item.id);
+    return helper ? helper.isOpen : false;
   }
 
   goToCreateBacklogItem() {
@@ -61,14 +72,14 @@ export class DashboardColumnComponent implements OnInit {
   }
 
   removeDnDItem($event: { dragData: any, mouseEvent: MouseEvent }): void {
-    let backlogItem: BacklogItem = <BacklogItem>$event.dragData;
-    this.removeItem(backlogItem, this.dashboard[this.type]);
-    this.updateDashboard.emit({type: 'dnd', backlogItem: backlogItem});
+    let item: BacklogItem = <BacklogItem>$event.dragData;
+    this.removeItem(item, this.dashboard[this.type]);
+    this.updateDashboard.emit({type: 'dnd', backlogItem: item});
   }
 
-  onSortSuccess($event: { dragData: any, mouseEvent: MouseEvent }): void {
-    let backlogItem: BacklogItem = <BacklogItem>$event.dragData;
-    this.updateDashboard.emit({type: 'sort', backlogItem: backlogItem});
+  onSortSuccess($event: any): void {
+    let item: BacklogItem = <BacklogItem>$event;
+    this.updateDashboard.emit({type: 'sort', backlogItem: item});
   }
 
   private removeItem(item: BacklogItem, array: Array<BacklogItem>): void {
