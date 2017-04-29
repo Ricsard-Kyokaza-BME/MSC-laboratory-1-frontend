@@ -19,6 +19,7 @@ import {LoadComponent} from "./load.component";
 import {UiSwitchModule} from "angular2-ui-switch";
 import {RlTagInputModule} from "angular2-tag-input";
 import {CreateSprintComponent} from "./sprint/create.component";
+import {DashboardColumnComponent} from "./dashboard/column.component";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginCmp,
+    DashboardColumnComponent,
     DashboardComponent,
     CreateBacklogItemComponent,
     CreateProjectComponent,
