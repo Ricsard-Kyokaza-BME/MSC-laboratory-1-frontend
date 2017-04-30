@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "anuglar2-test"
+    "name": "agile-tool"
   },
   "apps": [
     {

@@ -25,4 +25,4 @@ RUN set -uex ;\
 # The command to run our app when the container is run
 VOLUME ["/home/elenor/app"]
 #CMD gulp default
-CMD ["npm", "run-script", "start"]
+CMD ["npm", "run-script", "server-start"]
