@@ -18,7 +18,7 @@ RUN set -uex ;\
     npm install -g gulp-cli && \
     npm install -g gulp -D && \
     npm install -g typescript@2.3.2 && \
-    npm install -g --unsafe-perm angular-cli@1.0.0 && \
+    npm install -g --unsafe-perm angular-cli@1.0.0-beta.28.3 && \
     cd /home/elenor/app && \
     npm install
 
