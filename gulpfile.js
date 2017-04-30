@@ -34,7 +34,7 @@ gulp.task('stylus', function () {
 
 gulp.task('watch', function() {
   gulp.watch('styl/**/*.styl', ['stylus']);
-  gulp.watch('app/**/*.ts', ['compile']);
+  gulp.watch('src/**/*.ts', ['compile']);
 });
 
 gulp.task('compile', function(){

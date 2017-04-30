@@ -18,10 +18,11 @@ RUN \
     npm install -g gulp-cli && \
     npm install -g gulp -D && \
     npm install -g typescript@2.3.2 && \
+    npm install -g angular-cli@1.0.1 && \
     cd /home/elenor/app && \
     npm install
 
 # The command to run our app when the container is run
 VOLUME ["/home/elenor/app"]
-CMD gulp default
-#CMD ["npm", "run-script", "start"]
+#CMD gulp default
+CMD ["npm", "run-script", "start"]
