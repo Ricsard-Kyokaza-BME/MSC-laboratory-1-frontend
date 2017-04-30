@@ -20,6 +20,7 @@ import {UiSwitchModule} from "angular2-ui-switch";
 import {RlTagInputModule} from "angular2-tag-input";
 import {CreateSprintComponent} from "./sprint/create.component";
 import {DashboardColumnComponent} from "./dashboard/column.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginCmp },
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
 @NgModule({
   imports:      [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),

@@ -15,6 +15,9 @@
       app: 'app',
 
       // angular bundles
+      '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.min.js',
+      '@angular/animations/browser':'npm:@angular/animations/bundles/animations-browser.umd.js',
+      '@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
       '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
@@ -36,8 +39,6 @@
       'crossvent':                 'npm:crossvent/src',
       'custom-event':              'npm:custom-event',
       'jquery':                    'npm:jquery/dist/jquery.js',
-      'materialize-css':           'npm:materialize-css',
-      'angular2-materialize':      'npm:angular2-materialize',
       'class-transformer':         'npm:class-transformer',
       'stylus':                    'npm:systemjs-plugin-stylus/stylus.js',
       'angular2-ui-switch':        'npm:angular2-ui-switch',
