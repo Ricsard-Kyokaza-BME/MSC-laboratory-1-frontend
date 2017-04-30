@@ -49,7 +49,8 @@ export class DashboardColumnComponent implements OnInit {
   }
 
   toggleItemCheckList(item: BacklogItem) {
-    this.backlogItemHelpers.get(item.id).isOpen = !this.backlogItemHelpers.get(item.id).isOpen;
+    let helper: BacklogItemHelper = this.backlogItemHelpers.get(item.id);
+    helper ? helper.isOpen = !helper.isOpen : '';
   }
 
   isItemOpened(item: BacklogItem) {
