@@ -18,7 +18,7 @@ RUN \
     npm install -g gulp-cli && \
     npm install -g gulp -D && \
     npm install -g typescript@2.3.2 && \
-    npm install -g angular-cli@1.0.1 && \
+    npm install -g angular-cli@ && \
     cd /home/elenor/app && \
     npm install
 
