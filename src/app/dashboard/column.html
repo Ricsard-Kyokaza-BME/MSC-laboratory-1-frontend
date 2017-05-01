@@ -26,7 +26,7 @@
       <div class="col-8" (click)="dashboardItemClicked(item)">
         <span>{{item.title}}</span>
       </div>
-      <div class="col-4 text-right" (click)="toggleItemCheckList(item)"
+      <div class="col-4 text-right dashboard-container-item-opener" (click)="toggleItemCheckList(item)"
            *ngIf="(item.checkList.length > 0)
            || ((item.type == backlogItemType.USER_STORY) && (item.definitionOfDone.length > 0))
            || ((item.type == backlogItemType.USER_STORY) && (item.acceptanceCriteria.length > 0))">
