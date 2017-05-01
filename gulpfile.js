@@ -22,18 +22,18 @@ gulp.task('lite-server', function (cb) {
 });
 
 gulp.task('stylus', function () {
-  gulp.src('styl/**/*.styl')
+  gulp.src('src/**/*.styl')
     .pipe(stylus({
       'include css': true,
       use: [
         poststylus(['rucksack-css'])
       ]
     }))
-    .pipe(gulp.dest('styl/'))
+    .pipe(gulp.dest('src/'))
 });
 
 gulp.task('watch', function() {
-  gulp.watch('styl/**/*.styl', ['stylus']);
+  gulp.watch('src/**/*.styl', ['stylus']);
   gulp.watch('src/**/*.ts', ['compile']);
 });
 

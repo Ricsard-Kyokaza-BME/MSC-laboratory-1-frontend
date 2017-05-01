@@ -25,7 +25,7 @@ import {SessionService} from './auth/session.service';
 import * as $ from 'jquery';
 
 const appRoutes: Routes = [
-  // { path: 'login', component: LoginCmp },
+  { path: 'login', component: LoginCmp },
   { path: 'backlog-item/:dashboardId/create', component: CreateBacklogItemComponent },
   { path: 'project/create', component: CreateProjectComponent },
   { path: 'project/edit/:id', component: CreateProjectComponent },
@@ -38,7 +38,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    // LoginCmp,
+    LoginCmp,
     DashboardColumnComponent,
     DashboardComponent,
     CreateBacklogItemComponent,

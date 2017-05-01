@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
-import {Observable} from "rxjs";
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs';
 import {
   Validators,
   FormBuilder,
@@ -19,7 +19,7 @@ interface Login {
 
 @Component({
   selector: 'login-cmp',
-  templateUrl: 'app/app/login/login.html',
+  templateUrl: 'login.html',
 })
 export class LoginCmp {
   loginObject: Login;

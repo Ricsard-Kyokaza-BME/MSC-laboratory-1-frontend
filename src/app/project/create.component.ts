@@ -16,6 +16,7 @@ import * as _ from 'underscore';
 export class CreateProjectComponent implements OnInit {
   project: Project;
 
+  assigneeSearch: string;
   searchedUsers: Array<User>;
   selectedAssignees: Array<User>;
   isEditing: boolean;

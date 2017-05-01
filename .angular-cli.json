@@ -19,8 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styl/style.css",
         "styl/loader.css",
+        "styl/style.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ng2-dnd/style.css"
       ],
