@@ -23,6 +23,7 @@ import * as moment from 'moment';
 export class DashboardComponent {
   @Input() project: Project;
 
+  SessionService = SessionService;
   sessionService: SessionService;
   backlogItemType = BacklogItemType;
   backlogStatus = BacklogStatus;

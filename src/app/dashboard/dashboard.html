@@ -10,7 +10,7 @@
     <div class="item-create-button col-12 col-lg-4 text-center text-lg-right mt-3 mt-lg-0">
       <div class="btn-group" role="group">
         <button class="btn btn-outline-primary btn-sm" (click)="goToEditProject()"><i class="material-icons">mode_edit</i> <span>Edit</span></button>
-        <button class="btn btn-outline-primary btn-sm" (click)="goToCreateSprint()"><i class="material-icons">add</i> <span>Sprint</span></button>
+        <button class="btn btn-outline-primary btn-sm" (click)="goToCreateSprint()" *ngIf="SessionService.isProductOwnerSignedIn()"><i class="material-icons">add</i> <span>Sprint</span></button>
         <button class="btn btn-outline-primary btn-sm" (click)="goToCreateBacklogItem()"><i class="material-icons">add</i> <span>Backlog item</span></button>
       </div>
     </div>
